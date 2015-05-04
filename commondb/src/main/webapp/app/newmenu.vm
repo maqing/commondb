@@ -1,0 +1,5 @@
+
+	#foreach($menu in $session.getAttribute("currentMenuList"))
+		<a class="buttonl"  href="$menu.menuUrl">$!menu.menuName </a>
+	#end
+

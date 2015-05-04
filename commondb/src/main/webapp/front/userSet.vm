@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CommonDB</title>
+    <link rel="stylesheet" type="text/css" href="../lib/extjs3/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/extjs.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/ext-patch.css" />
+	<script type="text/javascript" src="../lib/extjs3/adapter/ext/ext-base.js"></script>
+ 	<script type="text/javascript" src="../lib/extjs3/ext-all.js"></script>
+ 	<script type="text/javascript" src="../lib/extjs3/ext-lang-zh_CN.js"></script>
+ 	
+	<script type="text/javascript" src="../js/newInfo.js"></script>
+	<script type="text/javascript">
+Ext.onReady(function() {	
+Ext.form.Field.prototype.msgTarget = 'side';
+
+var  cpForm=  new Ext.form.FormPanel({
+    id: 'cp-form',
+    url: 'front/changePassword.ac',
+    renderTo: 'cp_div',
+    title:'修改密码',
+    frame: true,
+    labelAlign: 'left',
+	buttonAlign: 'center',
+    bodyStyle:'padding:1px',
+    width: 250,
+    height:200,
+    defaultType: 'textfield',
+    labelWidth: 65,
+    items: [ {                    
+                fieldLabel: '旧密码',
+	            id:'pwdId1',
+			    name:'curPwd',
+			    inputType: 'password',
+			    allowBlank: false,
+	            blankText: '密码不能为空'
+    }, {                    
+                fieldLabel: '新密码',
+	            id:'pwdId2',
+			    name:'pwd',
+			    inputType: 'password',
+			    allowBlank: false,
+	            blankText: '密码不能为空'
+    },{
+            	fieldLabel: '确认新密码',
+                id:'pwdId3',
+			    name:'pwd3',
+			    inputType: 'password',
+			    allowBlank: false,
+                blankText: '密码不能为空'
+    }],
+    buttons: [{
+        text: '保存',
+        handler: saveChange,
+        style: 'margin: 0 0 0 10px'
+    	}/*,{
+        text: '关闭',
+        handler: function(){ 
+        	EditWindow.hide();
+        }
+    }*/]
+});
+
+function saveChange(){
+    if(Ext.getCmp('pwdId2').getValue()!=Ext.getCmp('pwdId3').getValue()){  
+	        Ext.Msg.alert('错误','两次输入的密码不一致');  
+	        return;  
+    } 	
+    if (Ext.getCmp('cp-form').form.isValid()){
+        Ext.getCmp('cp-form').getForm().submit({
+         success: function(f,a){
+         	Ext.Msg.alert('成功', '保存成功');
+            //CpWindow.hide();
+         },
+         failure: function(f,a){
+            Ext.Msg.alert('失败', '保存失败');
+         },
+         params : { action : 'submit'}  
+      });
+   }
+}
+////////////////////////////////////////////////////////////////////////////
+
+
+
+var  modifyForm=  new Ext.form.FormPanel({
+    id: 'modify-form',
+    url: 'front/modifyUserInfo.ac',
+    renderTo: 'modify_div',
+    title:'修改用户信息',
+    frame: true,
+    labelAlign: 'left',
+	buttonAlign: 'center',
+    bodyStyle:'padding:1px',
+    width: 250,
+    height:200,
+    defaultType: 'textfield',
+    labelWidth: 65,
+    items: [ {                    
+                fieldLabel: '用户名',
+	            id:'usernameid',
+			    name:'userName',
+			    allowBlank: false,
+	            blankText: '用户名不能为空'
+    }, {                    
+                fieldLabel: '描述',
+	            id:'userdescid',
+			    name:'userDesc',
+			    allowBlank: false,
+	            blankText: '描述不能为空'
+    }],
+    buttons: [{
+        text: '保存',
+        handler: saveModify,
+        style: 'margin: 0 0 0 10px'
+    	}/*,{
+        text: '关闭',
+        handler: function(){ 
+        	EditWindow.hide();
+        }
+    }*/]
+});
+
+function saveModify(){
+    	
+    if (Ext.getCmp('modify-form').form.isValid()){
+        Ext.getCmp('modify-form').getForm().submit({
+         success: function(f,a){
+         	Ext.Msg.alert('成功', '保存成功');
+            //ModifyWindow.hide();
+         },
+         failure: function(f,a){
+            Ext.Msg.alert('失败', '保存失败');
+         },
+         params : { action : 'submit'}  
+      });
+   }
+}
+
+Ext.getCmp('usernameid').setValue("${user.userName}");
+Ext.getCmp('userdescid').setValue("${user.userDesc}");
+Ext.get('l_user_info').addClass("active");
+})
+
+
+
+</script>
+</head>
+<body>
+
+<div id="viewport">
+
+<div id="hd">
+     	#parse("/front/top.vm")
+
+
+<table cellspacing="0" class="sub-nav">
+        <tr>
+        
+        
+
+        </tr>
+    </table>
+
+</div>
+
+<div id="bd">
+    <div class="left-column">
+       
+	   <div id="yy" style="width:465px;float:left;"><div id="modify_div"style="float:right;"> </div></div> 
+	   <div id="xx" style="width:465px;float:left;"><div id="cp_div" style="float:left;margin-left:20px;"> </div> </div> 
+  	</div>
+	
+    <div style="clear:both"></div>
+</div><!-- end bd -->
+
+<div id="ft">
+#parse("/front/bottom.vm")
+    <div class="copy">&copy; 2009-2010 CommonDB, Ltd</div>
+</div>
+
+</div><!-- end viewport -->
+
+
+
+</body>
+</html>

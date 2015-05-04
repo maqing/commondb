@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>自动更新客户库</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+<link type="text/css" href="/app/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script>
+
+	<script type="text/javascript" src='../_lib/jquery-ui-1.7.2.custom.min.js'></script>
+	<script type="text/javascript" src='../_lib/timepicker.js'></script>
+	
+	<script type='text/javascript' src='../_lib/jquery.bgiframe.min.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.ajaxQueue.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.autocomplete.js'></script>
+	<script type='text/javascript' src='../_lib/common.js'></script>
+	
+	
+	<link rel="stylesheet" type="text/css" href="../_lib/jquery.autocomplete.css" />
+	
+	<script type='text/javascript' >
+	$(document).ready(function(){
+	$("#市场").addClass("active");
+    });
+    
+	function datePicker(pickerName,locale) {
+		jQuery(pickerName).datepicker(jQuery.datepicker.regional[locale]);
+		$(pickerName).datepicker('option', 'changeMonth', true);//月份可调
+		$(pickerName).datepicker('option', 'changeYear', true);//年份可调
+	}
+	
+	$(function() {
+		datePicker('#remindDate','zh_CN');
+	});
+	function find()
+	{
+		$("#newEntity")[0].action="/app/customer/genForm.ac";
+		$("#newEntity")[0].submit();
+	};
+	</script>
+	
+		
+</head>
+
+<body>
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+		<div id="center-column">
+		<div id="top-bar" class="top-bar">
+			<!-- 菜单 -->
+			#parse("/app/newmenu.vm")
+		</div>
+			<div class="break-bar"></div>
+
+		<form name="newEntity" id="newEntity" action="/app/customer/initEntity.ac" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="metaId" value="${metaId}"/>
+		<div class="table">
+				<img width="8" height="7" class="left" alt="" src="img/bg-th-left.gif"/>
+				<img width="7" height="7" class="right" alt="" src="img/bg-th-right.gif"/>
+				<table cellspacing="0" cellpadding="0" class="listing form">
+					<tbody>
+					
+						
+					<tr>
+						<th colspan="2" class="full">自动更新客户</th>
+					</tr>
+					<tr class="bg">
+						<td class="first"><strong>提示</strong></td>
+						<td class="last">
+							<div class="box">确认后会将通讯录中所有与客户库名称不同的公司部门自动更新到客户库中，并与通讯录建立关联。</div>
+						</td>
+					</tr>
+					<tr class="bg">
+						<td class="first"><strong></strong></td>
+						<td class="last">
+							<input type="submit" value="确认"/>  
+							<input type="button" value="返回" onclick= "history.go(-1)" /> 
+						</td>
+					</tr>
+					
+				</tbody></table>
+				
+			</form>	
+	        <p>&nbsp;</p>
+		  </div>
+		  
+		</div>
+		<div id="right-column-tip">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面是用来自动更新客户库</div>
+			#parse("/app/tool/right.vm")
+	  </div>
+	</div>
+	<!-- 页脚 -->
+	<div id="footer">#parse("/app/footer.vm")</div>
+</div>
+
+</body>
+
+</html>

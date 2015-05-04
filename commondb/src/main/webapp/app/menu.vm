@@ -1,0 +1,14 @@
+			<h3>菜单</h3>
+			<ul class="nav">
+			
+			#foreach($menu in $session.getAttribute("currentMenuList"))
+				<li id="$!menu.menuName" class=""><span><span>
+					<a href="$menu.menuUrl" >$!menu.menuName</a>
+				</span></span></li>
+			#end
+
+				
+
+			</ul>
+			<a class="link" href="#">bbs链接</a>
+			<a class="link" href="#">mail链接</a>

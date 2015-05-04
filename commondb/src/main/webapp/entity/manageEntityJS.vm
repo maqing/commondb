@@ -1,0 +1,50 @@
+
+var conf = {
+	fields:[
+	#foreach(${attr} in ${picAttrDef})
+		{name:'p_${attr.attrId}', mapping:'p_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${descAttrDef})
+		{name:'d_${attr.attrId}', mapping:'d_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${hierAttrDef})
+		{name:'h_${attr.attrId}', mapping:'h_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${charaAttrDef})
+		{name:'c_${attr.attrId}', mapping:'c_${attr.attrId}'}
+		,
+	#end
+	{name: 'rList'},
+	{name: 'charaList'},
+	{name:'id', mapping:'id'}
+	],
+	columns:[
+	/*
+	#foreach(${attr} in ${picAttrDef})
+		{header: "${attr.attrName}", width: 100, sortable: true, locked:false, dataIndex: 'p_${attr.attrId}'}
+		,
+	#end
+	*/
+	#foreach(${attr} in ${descAttrDef})
+		{header: "${attr.attrName}", width: 100, renderer:Ext.util.Format.htmlEncode, sortable: true, locked:false, dataIndex: 'd_${attr.attrId}'}
+		,
+	#end
+	/*
+	#foreach(${attr} in ${hierAttrDef})
+		{header: "${attr.attrName}", width: 100, sortable: true, locked:false, dataIndex: 'h_${attr.attrId}'}
+		,
+	#end
+	*/
+	{ header: "id", width: 150, id: 'id', sortable: true, dataIndex:'id'}
+	],
+	 
+	metaId:${metaId},
+	entityName:'$!{entityName}'
+};
+
+
+createGrid(conf);
+

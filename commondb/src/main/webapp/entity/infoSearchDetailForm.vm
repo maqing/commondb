@@ -1,0 +1,48 @@
+//var loadMask = new Ext.LoadMask({msg:"页面加载中……"}); 
+//var picArray = [];
+var entityForm;
+function createForm(response)
+{   
+	
+    var res = Ext.util.JSON.decode(response.responseText); 
+       
+    if(res.success)
+    {
+       // picLoaded = true;
+       var eform = new MyDynForm({metaId:${metaId}, title:"",
+       		picArray:res.data.picAttr, 
+       		hierArray:res.data.hierAttr, 
+       		charaArray:res.data.charaAttr,
+       		descArray:res.data.descAttr,
+        buttons : [{
+            text: '关闭',
+            handler: function(){
+                eform.getForm().reset();
+                if(detailWindow) detailWindow.hide();
+            }
+        }
+       ]
+       		});
+
+    }
+	entityForm = eform;
+	//eform.hide();
+   //loadmask.hide();
+};
+
+//loadmask.show();
+
+function buildForm()
+{
+	new Ext.data.Connection().request({
+	    url: '../admin/fetchMetaAttrs.ac',
+	    params: { metaId: ${metaId} },
+	    //failure: requestFailed,
+	    //success: createForm
+		success:function(response, options){
+			newCharaGroupGrid(${metaId},response);
+		}
+	});
+}
+
+buildForm();

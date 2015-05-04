@@ -1,0 +1,41 @@
+			<strong class="h">全站搜索
+			</strong>
+			<div id="操作箱_search" class="box">
+				<input type="text" id="search_q" name="search_q" value=""/>
+				<a onclick="openNewWindowToBlank('/app/tool/search.ac?search_q='+$('#search_q').attr('value'))" href="#" > 搜索 </a>
+				<!--	
+				<input type="button" onclick="window.open('/app/tool/search.ac?search_q=' + $('#search_q').attr('value'),'搜索',
+					'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=650,height=600');" value="搜索" name="search"/>
+					-->
+			</div>
+			
+			<strong class="h">联系人
+				<a onclick="selectOperationRec('通讯录','操作箱_linkman_display')" href="#">添加</a> 
+				<a onclick="window.open('/app/customer/export.ac?export=1&entityIdExport=' + $('#oper').attr('value'),'导出',
+					'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=650,height=600');" href="#">邮件</a>
+			</strong>
+			
+			<div id="操作箱_linkman_display" class="box">
+				#foreach($operationRec in $operationRecList)
+					#if (${operationRec.operationType} == 1 )
+						<span id="oper_$operationRec.id" >
+						<a target="_blank_view_operationRec" href="/app/tool/viewEntity.ac?metaId=$operationRec.metaId&entityId=$operationRec.entityId" title="$operationRec.createTime">$operationRec.label 
+						</a> 
+						<a href="#" onclick="delOperationRec('$operationRec.id')" ><img src="/app/img/del-icon.png" /></a> <br/></span>
+					#end 
+				#end 
+			</div>
+
+			<strong class="h">文件
+				<a href="/app/file/genSearchPage.ac?entityName=文件库">添加</a>
+			</strong>
+			<div id="操作箱_file_display" class="box">
+				#foreach($operationRec in $operationRecList)
+					#if (${operationRec.operationType} == 2 )
+						<span id="oper_$operationRec.id" >
+						<a target="_blank_view_operationRec" href="$!{operationRec.attachmentPath}" title="$operationRec.createTime">$operationRec.label 
+						</a> 
+						<a href="#" onclick="delOperationRec('$operationRec.id')" ><img src="/app/img/del-icon.png" /></a> <br/></span>
+					#end 
+				#end 
+			</div>			

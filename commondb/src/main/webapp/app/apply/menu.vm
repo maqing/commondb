@@ -1,0 +1,9 @@
+			<h3>菜单</h3>
+			<ul class="nav">
+				<li><a href="#">首选项</a></li>
+				<li><a href="/app/sys_config/index.html">应用设置</a></li>
+				<li><a href="/app/sys_config/index.html">权限设置</a></li>
+				<li class="last"><a href="#">修改密码</a></li>
+			</ul>
+			<a class="link" href="#">bbs链接</a>
+			<a class="link" href="#">mail链接</a>

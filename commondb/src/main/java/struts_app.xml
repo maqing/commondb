@@ -1,0 +1,866 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<!-- 电话记录 -->
+	<package name="app" namespace="/app/phone" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/phone_record/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/phone_record/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/phone_record/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/phone_record/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/phone_record/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/phone_record/copy.html</result>
+		</action>
+
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/phone_record/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/phone_record/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/phone_record/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/phone_record/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/phone_record/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/phone_record/info.html</result>
+		</action>
+	</package>
+
+
+	<!-- 通讯录 -->
+	<package name="app1" namespace="/app/address" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/address/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/address/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="addressSaveEntityAction">
+			<result type="velocity">/app/address/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/address/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/address/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/address/copy.html</result>
+		</action>
+
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/address/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/address/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/address/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/address/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/address/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/address/info.html</result>
+		</action>
+	</package>
+
+
+	<!-- 备件库 -->
+	<package name="app2" namespace="/app/beijian" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/beijian/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/beijian/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/beijian/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/beijian/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/beijian/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/beijian/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/beijian/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/beijian/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/beijian/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/beijian/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/beijian/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/beijian/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/beijian/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/beijian/relationlist.html</result>
+		</action>
+	</package>
+
+
+	<!-- 合同库 -->
+	<package name="app4" namespace="/app/contracts" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contracts/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/contracts/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contracts/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contracts/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contracts/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/contracts/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/contracts/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/contracts/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/contracts/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/contracts/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/contracts/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contracts/copy.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contracts/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 项目库 -->
+	<package name="app5" namespace="/app/projects" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/projects/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/projects/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="projectSaveEntityAction">
+			<result type="velocity">/app/projects/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/projects/view.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/projects/track.html</result>
+		</action>
+		<action name="exportContractEntity" method="exportContractEntity" class="ProjectExportContractAction">
+		</action>
+		<action name="importContractEntity1" method="importContractEntity1" class="ProjectImportContractAction">
+			<result type="velocity">/app/projects/importContract.html</result>
+		</action>
+		<action name="importContractEntity2" method="importContractEntity2" class="ProjectImportContractAction">
+			<result type="velocity">/app/projects/info.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/projects/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/projects/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/projects/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/projects/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/projects/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/projects/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/projects/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/projects/copy.html</result>
+		</action>
+	</package>
+
+	<!-- 工作流水账 -->
+	<package name="app6" namespace="/app/workjournal" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/workjournal/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/workjournal/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/workjournal/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/workjournal/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/workjournal/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/workjournal/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/workjournal/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/workjournal/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/workjournal/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/workjournal/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/workjournal/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/workjournal/copy.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/workjournal/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 经验库 -->
+	<package name="app7" namespace="/app/experience" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/experience/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/experience/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/experience/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/experience/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/experience/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/experience/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/experience/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/experience/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/experience/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/experience/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/experience/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/experience/copy.html</result>
+		</action>
+	</package>
+
+	<!-- 文件库 -->
+	<package name="app8" namespace="/app/file" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/file/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/file/search.html</result>
+		</action>
+		<!--  maqing 2011-10-10 change saveEntityAction to fileSaveEntityAction -->
+		<action name="saveEntity" method="saveEntity" class="fileSaveEntityAction">
+			<result type="velocity">/app/file/info.html</result>
+		</action>
+		<!--  maqing 2011-10-10 change end -->
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/file/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/file/edit.html</result>
+		</action>
+		<action name="preMergeEntity" method="preMergeEntity" class="viewEntityAction">
+			<result type="velocity">/app/file/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/file/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/file/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/file/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/file/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/file/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/file/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/file/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/file/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/file/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 任务库 -->
+	<package name="app9" namespace="/app/task" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/task/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/task/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/task/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/task/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/task/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/task/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/task/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/task/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/task/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/task/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/task/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/task/copy.html</result>
+		</action>
+	</package>
+
+	<!-- 工作记录库 maqing 2011-02-26 add -->
+	<package name="app10" namespace="/app/workrecord" extends="struts-default">
+		<action name="genForm" method="genForm" class="workRecInputPageGenAction">
+			<result type="velocity">/app/workrecord/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/workrecord/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="workRecSaveEntityAction">
+			<result type="velocity">/app/workrecord/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/workrecord/view.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/workrecord/track.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/workrecord/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/workrecord/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/workrecord/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/task/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/workrecord/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/workrecord/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/workrecord/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/workrecord/copy.html</result>
+		</action>
+	</package>
+
+	<!-- 客户库 maqing 2011-07-13 add -->
+	<package name="app11" namespace="/app/customer" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/customer/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customer/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="customerSaveEntityAction">
+			<result type="velocity">/app/customer/info.html</result>
+		</action>
+		<action name="preInitEntity" method="preInitEntity" class="customerInputPageGenAction">
+			<result type="velocity">/app/customer/init.html</result>
+		</action>
+		<action name="initEntity" method="initEntity" class="customerSaveEntityAction">
+			<result type="velocity">/app/customer/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customer/view.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/customer/track.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customer/edit.html</result>
+		</action>
+		<action name="preMergeEntity" method="preMergeEntity" class="viewEntityAction">
+			<result type="velocity">/app/customer/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customer/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customer/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/task/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/customer/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/customer/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/customer/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customer/copy.html</result>
+		</action>
+	</package>
+
+	<!-- 合同审核表 -->
+	<package name="app12" namespace="/app/contractsAudit" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contractsAudit/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contractsAudit/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="ContractsAuditViewEntityAction">
+			<result type="velocity">/app/contractsAudit/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="ContractsAuditViewEntityAction">
+			<result type="velocity">/app/contractsAudit/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="ContractsAuditViewEntityAction">
+			<result type="velocity">/app/contractsAudit/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsAudit/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsAudit/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 合同财务计划表 -->
+	<package name="app13" namespace="/app/contractsFinancePlan" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contractsFinancePlan/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contractsFinancePlan/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsFinancePlan/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsFinancePlan/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsFinancePlan/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsFinancePlan/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsFinancePlan/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 合同供订货运输计划表 -->
+	<package name="app14" namespace="/app/contractsTransportPlan" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contractsTransportPlan/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contractsTransportPlan/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsTransportPlan/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsTransportPlan/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsTransportPlan/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsTransportPlan/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsTransportPlan/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 合同商务计划表 -->
+	<package name="app15" namespace="/app/contractsBussinessPlan" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contractsBussinessPlan/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contractsBussinessPlan/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsBussinessPlan/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsBussinessPlan/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsBussinessPlan/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsBussinessPlan/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsBussinessPlan/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 合同技术联络计划表 -->
+	<package name="app16" namespace="/app/contractsContactPlan" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contractsContactPlan/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contractsContactPlan/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsContactPlan/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsContactPlan/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsContactPlan/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsContactPlan/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsContactPlan/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 合同服务计划 -->
+	<package name="app17" namespace="/app/contractsServicePlan" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contractsServicePlan/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contractsServicePlan/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsServicePlan/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsServicePlan/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsServicePlan/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsServicePlan/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsServicePlan/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 合同备件库 -->
+	<package name="app18" namespace="/app/contractsBeijian" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/contractsBeijian/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/contractsBeijian/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/contractsBeijian/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsBeijian/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsBeijian/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/contractsBeijian/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/contractsBeijian/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/contractsBeijian/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/contractsBeijian/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/contractsBeijian/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/contractsBeijian/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/contractsBeijian/copy.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/contractsBeijian/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 客户询价单 -->
+	<package name="app19" namespace="/app/customerInquiry" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/customerInquiry/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerInquiry/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/customerInquiry/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerInquiry/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerInquiry/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerInquiry/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerInquiry/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/customerInquiry/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/customerInquiry/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/customerInquiry/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/customerInquiry/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerInquiry/copy.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/customerInquiry/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 客户询价单 明细-->
+	<package name="app20" namespace="/app/customerInquiryBeijian" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/customerInquiryBeijian/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerInquiryBeijian/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/customerInquiryBeijian/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerInquiryBeijian/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerInquiryBeijian/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerInquiryBeijian/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerInquiryBeijian/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/customerInquiryBeijian/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/customerInquiryBeijian/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/customerInquiryBeijian/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/customerInquiryBeijian/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerInquiryBeijian/copy.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/customerInquiryBeijian/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 客户询价单 -->
+	<package name="app21" namespace="/app/customerQuote" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/customerQuote/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerQuote/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/customerQuote/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerQuote/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerQuote/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerQuote/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerQuote/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/customerQuote/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/customerQuote/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/customerQuote/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/customerQuote/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerQuote/copy.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/customerQuote/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 客户报价单 明细-->
+	<package name="app22" namespace="/app/customerQuoteBeijian" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/customerQuoteBeijian/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerQuoteBeijian/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/customerQuoteBeijian/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerQuoteBeijian/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerQuoteBeijian/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerQuoteBeijian/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/customerQuoteBeijian/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/customerQuoteBeijian/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/customerQuoteBeijian/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/customerQuoteBeijian/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/customerQuoteBeijian/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/customerQuoteBeijian/copy.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="CusQuoteDetailTrackEntityAction">
+			<result type="velocity">/app/customerQuoteBeijian/relationlist.html</result>
+		</action>
+	</package>
+
+</struts>

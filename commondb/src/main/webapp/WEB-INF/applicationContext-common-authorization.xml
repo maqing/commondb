@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+
+<!--
+  - Application context containing authentication beans.
+  -
+  - Used by all artifacts.
+  -
+  - $Id: applicationContext-common-authorization.xml 3092 2008-05-25 20:57:07Z luke_t $
+  -->
+
+  <!-- ~~~~~~~~~~~~~~~~~~ "BEFORE INVOCATION" AUTHORIZATION DEFINITIONS ~~~~~~~~~~~~~~~~ -->
+
+  <!-- ACL permission masks used by this application -->
+  <bean id="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"
+        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField" value="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+  </bean>
+  <bean id="org.springframework.security.acls.domain.BasePermission.READ"
+        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField" value="org.springframework.security.acls.domain.BasePermission.READ"/>
+  </bean>
+  <bean id="org.springframework.security.acls.domain.BasePermission.DELETE"
+        class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+    <property name="staticField" value="org.springframework.security.acls.domain.BasePermission.DELETE"/>
+  </bean>
+
+  <!-- An access decision voter that reads ROLE_* configuration settings -->
+  <bean id="roleVoter" class="org.springframework.security.vote.RoleVoter">
+  <!--  	<property name="rolePrefix" value="AUTH_"/>-->
+  </bean>
+  <bean id="authenticatedVoter" class="org.springframework.security.vote.AuthenticatedVoter">
+  </bean>
+
+  <!-- An access decision voter that reads ACL_CONTACT_READ configuration settings -->
+  <bean id="aclMetaReadVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_META_READ"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.READ"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.Meta"/>
+  </bean>
+
+  <!-- An access decision voter that reads ACL_CONTACT_DELETE configuration settings -->
+  <bean id="aclMetaDeleteVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_META_DELETE"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.DELETE"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.Meta"/>
+  </bean>
+
+  <!-- An access decision voter that reads ACL_CONTACT_ADMIN configuration settings -->
+  <bean id="aclMetaAdminVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_META_ADMIN"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.Meta"/>
+  </bean>
+
+  <!-- An access decision manager used by the business objects -->
+  <bean id="businessAccessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+    <property name="allowIfAllAbstainDecisions" value="false"/>
+    <property name="decisionVoters">
+      <list>
+        <ref local="roleVoter"/>
+        <ref local="authenticatedVoter"/>
+        <ref local="aclMetaReadVoter"/>
+        <ref local="aclMetaDeleteVoter"/>
+        <ref local="aclMetaAdminVoter"/>
+        <ref local="aclCharaDefReadVoter"/>
+        <ref local="aclCharaDefDeleteVoter"/>
+        <ref local="aclCharaDefAdminVoter"/>
+        <ref local="aclCharaDataReadVoter"/>
+        <ref local="aclCharaDataDeleteVoter"/>
+        <ref local="aclCharaDataAdminVoter"/>
+       </list>
+    </property>
+  </bean>
+  
+  <!-- An access decision voter that reads ACL_CONTACT_READ configuration settings -->
+  <bean id="aclCharaDefReadVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_CharaDef_READ"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.READ"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.CharacterDef"/>
+  </bean>
+
+  <!-- An access decision voter that reads ACL_CONTACT_DELETE configuration settings -->
+  <bean id="aclCharaDefDeleteVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_CharaDef_DELETE"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.DELETE"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.CharacterDef"/>
+  </bean>
+
+  <!-- An access decision voter that reads ACL_CONTACT_ADMIN configuration settings -->
+  <bean id="aclCharaDefAdminVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_CharaDef_ADMIN"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.CharacterDef"/>
+  </bean>
+
+  <!-- An access decision manager used by the business objects -->
+  <bean id="businessAccessDecisionManagerCharaDef" class="org.springframework.security.vote.AffirmativeBased">
+    <property name="allowIfAllAbstainDecisions" value="false"/>
+    <property name="decisionVoters">
+      <list>
+        <ref local="roleVoter"/>
+        <ref local="authenticatedVoter"/>
+        <ref local="aclCharaDefReadVoter"/>
+        <ref local="aclCharaDefDeleteVoter"/>
+        <ref local="aclCharaDefAdminVoter"/>
+       </list>
+    </property>
+  </bean>
+  
+    <!-- An access decision voter that reads ACL_CONTACT_READ configuration settings -->
+  <bean id="aclCharaDataReadVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_CharaData_READ"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.READ"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.CharacterData"/>
+  </bean>
+
+  <!-- An access decision voter that reads ACL_CONTACT_DELETE configuration settings -->
+  <bean id="aclCharaDataDeleteVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_CharaData_DELETE"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.DELETE"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.CharacterData"/>
+  </bean>
+
+  <!-- An access decision voter that reads ACL_CONTACT_ADMIN configuration settings -->
+  <bean id="aclCharaDataAdminVoter" class="org.springframework.security.vote.AclEntryVoter">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg value="ACL_CharaData_ADMIN"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+      </list>
+    </constructor-arg>
+    <property name="processDomainObjectClass" value="com.commondb.db.bo.CharacterData"/>
+  </bean>
+
+  <!-- An access decision manager used by the business objects -->
+  <bean id="businessAccessDecisionManagerCharaData" class="org.springframework.security.vote.AffirmativeBased">
+    <property name="allowIfAllAbstainDecisions" value="false"/>
+    <property name="decisionVoters">
+      <list>
+        <ref local="roleVoter"/>
+        <ref local="authenticatedVoter"/>
+        <ref local="aclCharaDataReadVoter"/>
+        <ref local="aclCharaDataDeleteVoter"/>
+        <ref local="aclCharaDataAdminVoter"/>
+       </list>
+    </property>
+  </bean>
+ 
+<!--  
+    <bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+	    <property name="allowIfAllAbstainDecisions" value="false"/>
+	    <property name="decisionVoters">
+	        <list>
+	            <bean class="org.springframework.security.vote.RoleVoter"/>
+	            <bean class="org.springframework.security.vote.AuthenticatedVoter"/>
+	        </list>
+	    </property>
+	</bean>
+	
+	<bean id="resourceSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager"/>
+	    <property name="accessDecisionManager" ref="accessDecisionManager"/>
+	    <property name="objectDefinitionSource" ref="secureResourceFilterInvocationDefinitionSource" />
+	    <property name="observeOncePerRequest" value="false" />
+	    <custom-filter after="LAST" />
+	</bean>
+
+	<bean id="secureResourceFilterInvocationDefinitionSource" 
+		class="com.commondb.security.filter.SecureResourceFilterInvocationDefinitionSource" />
+-->	
+  <!-- ========= ACCESS CONTROL LIST LOOKUP MANAGER DEFINITIONS ========= -->
+
+  <bean id="aclCache" class="org.springframework.security.acls.jdbc.EhCacheBasedAclCache">
+    <constructor-arg>
+      <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager">
+          <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+        </property>
+        <property name="cacheName" value="aclCache"/>
+      </bean>
+    </constructor-arg>
+  </bean>
+
+  <bean id="lookupStrategy" class="org.springframework.security.acls.jdbc.BasicLookupStrategy">
+    <constructor-arg ref="dataSource"/>
+    <constructor-arg ref="aclCache"/>
+    <constructor-arg>
+        <bean class="org.springframework.security.acls.domain.AclAuthorizationStrategyImpl">
+            <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.GrantedAuthorityImpl">
+                    <constructor-arg value="ROLE_ADMINISTRATOR"/>
+                </bean>
+                <bean class="org.springframework.security.GrantedAuthorityImpl">
+                    <constructor-arg value="ROLE_ADMINISTRATOR"/>
+                </bean>
+                <bean class="org.springframework.security.GrantedAuthorityImpl">
+                    <constructor-arg value="ROLE_ADMINISTRATOR"/>
+                </bean>
+            </list>
+            </constructor-arg>
+        </bean>
+    </constructor-arg>
+    <constructor-arg>
+      <bean class="org.springframework.security.acls.domain.ConsoleAuditLogger"/>
+    </constructor-arg>
+  </bean>
+
+  <bean id="aclService" class="org.springframework.security.acls.jdbc.JdbcMutableAclService">
+    <constructor-arg ref="dataSource"/>
+    <constructor-arg ref="lookupStrategy"/>
+    <constructor-arg ref="aclCache"/>
+  </bean>
+
+  <!-- ============== "AFTER INTERCEPTION" AUTHORIZATION DEFINITIONS =========== -->
+
+  <bean id="afterInvocationManager" class="org.springframework.security.afterinvocation.AfterInvocationProviderManager">
+    <property name="providers">
+      <list>
+        <ref local="afterAclRead"/>
+        <ref local="afterAclCollectionRead"/>
+      </list>
+    </property>
+  </bean>
+
+  <!-- Processes AFTER_ACL_COLLECTION_READ configuration settings -->
+  <bean id="afterAclCollectionRead"
+        class="org.springframework.security.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.READ"/>
+      </list>
+    </constructor-arg>
+  </bean>
+
+  <!-- Processes AFTER_ACL_READ configuration settings -->
+  <bean id="afterAclRead" class="org.springframework.security.afterinvocation.AclEntryAfterInvocationProvider">
+    <constructor-arg ref="aclService"/>
+    <constructor-arg>
+      <list>
+        <ref local="org.springframework.security.acls.domain.BasePermission.ADMINISTRATION"/>
+        <ref local="org.springframework.security.acls.domain.BasePermission.READ"/>
+      </list>
+    </constructor-arg>
+  </bean>
+
+</beans>

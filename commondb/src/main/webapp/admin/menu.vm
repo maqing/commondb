@@ -1,0 +1,108 @@
+
+
+var menuData=new Array();
+
+if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1){
+
+	menuData.push({"id":"meta_operations","iconCls":"icon-docs","text":"元数据管理","singleClickExpand":true, "children":
+        [{"jsArray":[{js:'js/ux/newMeta2.js'}],"fn":"newMetaRefresh","link":"newMeta.html","text":"新建元数据","id":"new Meta","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true},
+         {"jsArray":[{js:'js/ux/manage_meta.js'}],"fn":'clearMetaInfo',"link":"manage_meta.html","text":"管理元数据","id":"Manage Meta","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}]}
+		 )
+}
+/*
+if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1||"${user.authoritiesString}".indexOf("ROLE_MADMIN")!=-1||"${user.authoritiesString}".indexOf("ROLE_MOPER")!=-1){
+    menuData.push({"id":"new_operations","iconCls":"icon-docs","text":"新建实体","singleClickExpand":true, "children":
+    	[
+    	#foreach(${meta} in ${metaList})
+			{"jsArray":[{js:'js/ux/DynForm.js'},{js:'js/ux/FileUploadField.js'},
+			{js:'admin/preCreateEntityJs.ac?metaId=${meta.metaId}'}],"link":"admin/preCreateEntity.ac?metaId=${meta.metaId}","text":"新建${meta.entityName}","id":"new Entity: ${meta.metaId}","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}
+			#if($velocityCount != $metaList.size()),#end
+		#end
+    	]
+    })
+}
+if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1||"${user.authoritiesString}".indexOf("ROLE_MADMIN")!=-1){
+    menuData.push({"id":"manage_entity_operations","iconCls":"icon-docs","text":"管理实体","singleClickExpand":true, "children":
+    	[
+    	#foreach(${meta} in ${metaList})
+			{"jsArray":[{js:'js/ux/DynGrid.js'},{js:'admin/preManageEntityJS.ac?metaId=${meta.metaId}'}
+			],"link":"admin/preManageEntity.ac?metaId=${meta.metaId}","text":"管理${meta.entityName}","id":"manage Entity: ${meta.metaId}","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}
+			#if($velocityCount != $metaList.size()),#end
+		#end
+    	]
+    })
+}
+if("${user.authoritiesString}".indexOf("ROLE_USER")!=-1||"${user.authoritiesString}".indexOf("ROLE_MOPER")!=-1){
+
+	menuData.push({"id":"manage_entity_operations2","iconCls":"icon-docs","text":"查看实体","singleClickExpand":true, "children":
+    	[
+    	#foreach(${meta} in ${metaList})
+			{"jsArray":[{js:'js/ux/DynGrid.js'},{js:'admin/preManageEntityJS.ac?metaId=${meta.metaId}'}
+			],"link":"admin/preManageEntity.ac?metaId=${meta.metaId}","text":"查看${meta.entityName}","id":"manage Entity2: ${meta.metaId}","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}
+			#if($velocityCount != $metaList.size()),#end
+		#end
+    	]
+    })
+}
+if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1||"${user.authoritiesString}".indexOf("ROLE_MADMIN")!=-1){
+    menuData.push({"id":"manage_relation_operations","iconCls":"icon-docs","text":"关联属性","singleClickExpand":true, "children":
+    	[
+
+    	{"jsArray":[{js:'js/ux/DynGrid2.js'},{js:'admin/preManageRelationJS.ac?metaId=2'} ],
+    		 "link":"admin/preNewRelation.ac",
+    		 "text":"新建关联",
+    		 "id":"new realtion",
+    		 "isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true},
+		{"jsArray":[{js:'admin/preManageRelationJS.ac'}],
+    		 "link":"admin/preManageRelation.ac",
+    		 "text":"管理关联",
+    		 "id":"manage relation",
+    		 "isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}
+    	]
+
+    })
+}*/
+if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1){
+    menuData.push({"id":"manage_sys","iconCls":"icon-docs","text":"系统设置","singleClickExpand":true,"children":
+    	 [
+    		 {"jsArray":[{js:'js/newRole.js'}],
+    		 "link":"security/newRole.html",
+    		 "text":"新建角色",
+    		 "id":"newRole",
+    		 "isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true},
+
+			 {"jsArray":[{js:'js/manageRole.js'}],
+    		 "link":"security/manageRole.html",
+    		 "text":"管理角色",
+    		 "fn":"roleRefresh",
+    		 "id":"manageRole",
+    		 "isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true},
+
+			 {"jsArray":[{js:'js/newUser.js'}],
+    		 "link":"security/newUser.html",
+    		 "text":"新建用户",
+    		 "id":"new User",
+    		 "isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true},
+
+			 {"jsArray":[{js:'js/manageUser.js'}],
+    		 "link":"security/manageUser.html",
+    		 "text":"管理用户",
+    		 "fn":"userRefresh",
+    		 "id":"manageUser",
+    		 "isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}
+
+    	 ]
+	 })
+}
+
+if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1){
+
+	menuData.push({"id":"charadef_operations","iconCls":"icon-docs","text":"特征属性","singleClickExpand":true, "children":
+        [{"jsArray":[{js:'js/manageChara.js'}],"fn":'newMetaRefresh',"link":"manage_chara.html","text":"管理特征属性","id":"Manage Chara","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}]
+	});
+	menuData.push({"id":"property_operations","iconCls":"icon-docs","text":"数据类型","singleClickExpand":true, "children":
+        [{"jsArray":[{js:'js/manageProperty.js'}],"fn":'newMetaRefresh',"link":"manage_property.html","text":"数据类型管理","id":"Manage property","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}]
+	});
+
+}
+

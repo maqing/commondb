@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<!-- 前台的系统管理 -->
+	<package name="appsys" namespace="/app/sys" extends="struts-default">
+		<action name="index" method="index" class="sysConfigAction">
+			<result type="velocity">/app/sys_config/index.html</result>
+		</action>
+		
+<!-- 应用 -->	
+		<action name="switchApp" method="switchApp" class="appSwitchAction">
+			<result >/app/sys_config/switch.jsp</result>
+		</action>
+		
+		<action name="headerTop" method="headerTop" class="applyAction">
+			<result type="velocity">/app/header.vm</result>
+		</action>
+		
+		<action name="applyR" method="applyR" class="applyAction">
+			<result type="velocity">/app/apply/applyManage.html</result>
+		</action>
+		<action name="preAddApplyR" method="preAddApplyR" class="applyAction">
+			<result type="velocity">/app/apply/addApply.html</result>
+		</action>
+		<action name="addApplyR" method="addApplyR" class="applyAction">
+			<result type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">applyR</param>
+				<param name="page.currentPage">${page.currentPage}</param>
+			</result>
+		</action>
+		<action name="deleteApplyR" method="deleteApplyR" class="applyAction">
+			<result type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">applyR</param>
+				<param name="page.currentPage">${page.currentPage}</param>
+			</result>
+		</action>
+<!-- 应用 -->
+
+<!-- 应用菜单  -->	
+		<action name="applyMenu" method="applyMenu" class="applyAction">
+			<result type="velocity">/app/apply/applyMenuManage.html</result>
+		</action>
+		<action name="preAddApplyMenu" method="preAddApplyMenu" class="applyAction">
+			<result type="velocity">/app/apply/addApplyMenu.html</result>
+		</action>
+		<action name="addApplyMenu" method="addApplyMenu" class="applyAction">
+			<result type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">applyMenu</param>
+				<param name="page.currentPage">${page.currentPage}</param>
+			</result>
+		</action>
+		<action name="deleteApplyMenu" method="deleteApplyMenu" class="applyAction">
+			<result type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">applyMenu</param>
+				<param name="page.currentPage">${page.currentPage}</param>
+			</result>
+		</action>
+		
+<!-- 应用菜单-->	
+
+<!-- 设置人员可查看的应用菜单  -->	
+		<action name="searchUserList" method="searchUserList" class="applyAction">
+			<result type="velocity">/app/apply/searchUserList.html</result>
+		</action>
+		<action name="preUserJueSe" method="preUserJueSe" class="applyAction">
+			<result type="velocity">/app/apply/setUserJuse.html</result>
+		</action>
+		<action name="setUserApplyMenu" method="setUserApplyMenu" class="applyAction">
+			<result name="set" type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">searchUserList</param>
+				<param name="message">${message}</param>
+			</result>
+			<result name="noSet" type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">searchUserList</param>
+				<param name="message">${message}</param>
+			</result>
+		</action>
+<!-- 设置人员可查看的应用菜单  -->
+
+<!-- 首选项 菜单   -->	
+		<action name="searchUserMetaList" method="searchUserMetaList" class="applyAction">
+			<result type="velocity">/app/apply/setUserIndex.html</result>
+		</action>
+		<action name="setUserMeta" method="setUserMeta" class="applyAction">
+			<result name="set" type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">searchUserMetaList</param>
+				<param name="message">${message}</param>
+			</result>
+			<result name="noSet" type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">searchUserMetaList</param>
+				<param name="message">${message}</param>
+			</result>
+		</action>
+<!-- 首选项 菜单  -->
+
+<!--密码  -->		
+		<action name="preEditPassword" method="preEditPassword" class="applyAction">
+			<result type="velocity">/app/apply/EditPassword.html</result>
+		</action>
+		<action name="editPassword" method="editPassword" class="applyAction">
+			<result name="error" type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">preEditPassword</param>
+				<param name="message">${message}</param>
+			</result>	
+			<result name="suc" type="redirectAction">
+				<param name="namespace">/app/sys</param>
+				<param name="actionName">preEditPassword</param>
+				<param name="message">${message}</param>
+			</result>		
+		</action>
+<!--密码  -->		
+
+<!-- 导入导出 -->
+		<action name="preMetaFromExcel" method="preMetaFromExcel" class="applyAction">
+			<result type="velocity">/app/apply/metaFromExcel.html</result>
+		</action>		
+		<action name="addMetaFromExcel" method="addMetaFromExcel" class="applyAction">
+		<!--
+			<result type="redirectAction">
+				<param name="namespace">/certificate</param>
+				<param name="actionName">listCertificate</param>
+			</result>
+			-->
+			<result type="velocity">/app/apply/message.html</result>
+		</action>
+
+		<action name="exMetaFromExcel" method="exMetaFromExcel" class="applyAction">
+			<result type="velocity">/app/apply/metaFromExcel.html</result>
+		</action>
+<!-- 导入导出 -->
+
+	</package>
+	
+	<package name="tool" namespace="/app/tool" extends="json-default">
+		<action name="selectHier" method="selectHier" class="hierSelectAction">
+			<result >/app/tool/hier.jsp</result>
+		</action>
+		<action name="getHierData" method="getHierData" class="hierSelectAction">
+			<result type="json">
+				<param name="root">treeValue</param>
+			</result>
+		</action>
+		<action name="manageHier" method="manageHier" class="hierSelectAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		
+		<action name="autoTip" method="autoTip" class="autoTipAction">
+			<result type="json">
+				<param name="root">tipList</param>
+			</result>
+		</action>
+		
+		<action name="selectEntity" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/tool/selectEntity.html</result>
+		</action>
+		
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/tool/view.html</result>
+		</action>
+
+		<action name="reminder" method="reminder" class="reminderAction">
+			<result type="velocity">/app/tool/view.html</result>
+		</action>
+		
+	</package>
+	
+	
+</struts>

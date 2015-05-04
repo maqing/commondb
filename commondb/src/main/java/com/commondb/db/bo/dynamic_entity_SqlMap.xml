@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="dyn_entity" >
+
+
+  <statement id="dynamicCreateTable"  parameterClass="java.util.Map"  >
+	CREATE TABLE `$tableName$` (
+  	`id` char(36) NOT NULL,
+	$columns$
+	`create_time` datetime,
+	`create_user` varchar(100),
+	`update_time` datetime,
+	`update_user` varchar(100),
+  PRIMARY KEY (`id`)
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+  </statement>
+
+  <statement id="dynamicCreateHisTable"  parameterClass="java.util.Map"  >
+	CREATE TABLE `$tableName$` (
+  	`hisid` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	$columns$
+  PRIMARY KEY (`hisid`)
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+  </statement>
+
+  <statement id="dynamicCreateInsertTrigger"  parameterClass="java.util.Map"  >
+  	CREATE TRIGGER trace_$tableName$_insert
+	after
+	INSERT
+	ON  $tableName$
+	FOR EACH ROW
+     insert into t_oper_log values(null,NEW.id,'new_entity_$tableName$',now());
+  </statement>
+
+
+
+  <statement id="dynamicCreateUpdateTrigger"  parameterClass="java.util.Map"  >
+  	CREATE TRIGGER trace_$tableName$_update
+	after
+	UPDATE
+	ON  $tableName$
+	FOR EACH ROW
+     insert into t_oper_log values(null,NEW.id,'update_entity_$tableName$',now());
+  </statement>
+
+  <statement id="dynamicCreateDelTrigger"  parameterClass="java.util.Map"  >
+  	CREATE TRIGGER trace_$tableName$_del
+	after
+	delete
+	ON  $tableName$
+	FOR EACH ROW
+     insert into t_oper_log values(null,OLD.id,'del_entity_$tableName$',now());
+  </statement>
+
+  <!-- maqing 2011-08-02 add 增加删除其它相关联表记录 关联属性、特征属性、层级属性 -->
+  <statement id="dynamicCreateDelTriggerNew"  parameterClass="java.util.Map"  >
+  	CREATE TRIGGER trace_$tableName$_del
+	after
+	delete
+	ON  $tableName$
+	FOR EACH ROW
+	begin
+     insert into t_oper_log values(null,OLD.id,'del_entity_$tableName$',now());
+ 	 delete from r_entity  where meta1_id = $metaId$ and entity1_id = OLD.id;
+	 delete from r_entity  where meta2_id = $metaId$ and entity2_id = OLD.id;
+	 delete from r_entity_chara_data  where meta_id = $metaId$ and entity_id = OLD.id;
+	 delete from r_entity_hierarchy_data  where meta_id = $metaId$ and entity_id = OLD.id;
+    end
+  </statement>
+
+  <statement id="dynamicDML"  parameterClass="java.util.Map"  >
+	 $sql$
+  </statement>
+
+  <statement id="dynamicDrop"  parameterClass="java.util.Map"  >
+	drop table $tableName$
+  </statement>
+
+  <statement id="dynamicDropColumn"  parameterClass="java.util.Map"  >
+	alter table $tableName$ drop column $columnName$
+  </statement>
+
+  <statement id="dynamicAddColumn"  parameterClass="java.util.Map"  >
+	alter table $tableName$ add $columnName$ varchar(500)
+  </statement>
+
+
+  <select id="dynamicSelectSql"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+	$sql$
+  </select>
+
+
+
+
+  <select id="dynamicSelectAll"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+	select * from $tableName$
+  </select>
+  <select id="dynamicSelectREntity"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+	   select meta2_id,entity2_id from r_entity
+	   where
+	   meta1_id=#metaId# and entity1_id=#entityId:CHAR#
+  </select>
+  <select id="dynamicSelectREntityCharaData"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+	   select chara_id,data_id from r_entity_chara_data
+	   where
+	   meta_id=#metaId# and entity_id=#entityId:CHAR#
+  </select>
+
+  <select id="dynamicSelect"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+	select * from $tableName$ where $whereclause$
+  </select>
+
+  <select id="dynamicSelectByPK"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+	select * from $tableName$ where id='$id$'
+  </select>
+
+  <delete id="dynamicDeleteByPK"  parameterClass="java.util.Map" >
+	delete from $tableName$ where id='$id$'
+  </delete>
+
+  <select id="dynamicSelectColumns"  parameterClass="java.util.Map"  remapResults="true" resultClass="java.util.HashMap" >
+	select $columns$ from $tableName$ where $whereclause$
+  </select>
+
+  <select id="dynamicSelectSingleColumn" remapResults="true" parameterClass="java.util.Map" resultClass="java.util.HashMap" >
+	select $column$ from $tableName$ where $whereclause$
+  </select>
+
+  <select id="dynamicMaxId" remapResults="true" parameterClass="java.util.Map" resultClass="java.lang.Integer" >
+	select max(id) from $tableName$
+  </select>
+
+  <insert id="dynamicInsert"  parameterClass="java.util.Map" >
+   <!-- <selectKey  type="post" resultClass="int" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS value
+	</selectKey> -->
+    insert into $tableName$ ($columns$)
+    values ( $values$ )
+  </insert>
+
+  <update id="dynamicUpdate"  parameterClass="java.util.Map" >
+	update $tableName$ set $columns$ where id='$id$'
+  </update>
+
+  <delete id="dynamicDelete"   parameterClass="java.util.Map" >
+	select * from $tableName$
+  </delete>
+
+  <select id="selectByChara"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+		select * from $tableName$ where id in (select entity_id from r_entity_chara_data where meta_id=$metaId$ and ($chara$))
+  </select>
+  <select id="selectByHierarchy"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+		select * from $tableName$ where id in (select entity_id from r_entity_hierarchy_data where meta_id=$metaId$ and ($hierarchy$))
+  </select>
+  <select id="selectHierarchyByEntity"  parameterClass="java.util.Map" remapResults="true" resultClass="java.util.HashMap" >
+		select * from r_entity_hierarchy_data where meta_id=$metaId$ and entity_id='$entityId$'
+  </select>
+
+</sqlMap>

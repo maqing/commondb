@@ -1,0 +1,22 @@
+{
+	word-wrap: break-word;
+}
+
+html,body {
+	margin: 0;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+}
+
+body,th,td,input,select,textarea,button {
+	-x-system-font: none;
+	font-family: Verdana, "Lucida Grande", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1.5em;
+}

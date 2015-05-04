@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CommonDB</title>
+    <link rel="stylesheet" type="text/css" href="../lib/extjs3/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/extjs.css" />
+    	<link rel="stylesheet" type="text/css" href="../css/fileuploadfield.css"/>
+
+    	<link rel="stylesheet" type="text/css" href="../css/chooser.css" />
+
+	<script type="text/javascript" src="../lib/extjs3/adapter/ext/ext-base.js"></script>
+ 	<script type="text/javascript" src="../lib/extjs3/ext-all-debug.js"></script>
+	<script type="text/javascript" src="../lib/extjs3/ext-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/applySortOverload.js"></script>
+<script type="text/javascript" >
+var configMap = {
+#foreach(${meta} in ${metaList})
+meta_${meta.metaId}: {
+	fields:[
+	#foreach(${attr} in ${meta.picAttrDefList})
+		{name:'p_${attr.attrId}', mapping:'p_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.descAttrDefList})
+		{name:'d_${attr.attrId}', mapping:'d_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.hierarchyAttrDefList})
+		{name:'h_${attr.attrId}', mapping:'h_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.characterAttrDefList})
+		{name:'c_${attr.attrId}', mapping:'c_${attr.attrId}'}
+		,
+	#end
+	{name:'id', mapping:'id'},
+	{name: 'rList'}
+	],
+	columns:[
+	//rnm,smdyn,
+	/*
+	#foreach(${attr} in ${meta.picAttrDefList})
+		{header: "${attr.attrName}", width: 100, sortable: true, locked:false, dataIndex: 'p_${attr.attrId}'}
+		,
+	#end */
+	#foreach(${attr} in ${meta.descAttrDefList})
+		{header: "${attr.attrName}", width: 100, renderer:Ext.util.Format.htmlEncode, sortable: true, locked:false, dataIndex: 'd_${attr.attrId}'}
+		,
+	#end
+
+	{ header: "id", width: 150, dataIndex:'id', id: 'id'}
+	],
+
+	metaId:${meta.metaId},
+	mName:'${meta.entityName}'
+}
+#if($velocityCount != $metaList.size()),#end
+
+#end
+};
+Ext.onReady(function() {
+
+Ext.get('l_info_search').addClass("active");
+Ext.get('sub_nav_${metaId}').addClass("active");
+});
+</script>
+</head>
+<body>
+<div id="viewport">
+
+<div id="hd" >
+     	#parse("/front/top.vm")
+
+
+    <table cellspacing="0" class="sub-nav">
+        <tr>
+        #foreach(${meta} in ${metaList})
+        <td id="sub_nav_${meta.metaId}" ><a href="../admin/preInfoSearch.ac?metaId=${meta.metaId}"><span>${meta.entityName}</span></a></td>
+        <td class="spacer"><img src="../shared/extjs/images/grid-blue-split.gif"></td>
+	   	#end
+        </tr>
+    </table>
+
+
+</div>
+
+
+
+<div id="bd">
+    <div class="left-column">
+    <div id="manage_entity_${metaId}"></div>
+    </div>
+
+    <div style="clear:both"></div>
+</div><!-- end bd -->
+<div id="manage_def" style="padding:25px;" ></div>
+<div id="manage_def_win" class="x-hidden"> <div id="manage_def_form" style="padding:0px;"> </div></div>
+<div id="new_def_win" class="x-hidden"> <div id="new_def_form" style="padding:0px;"> </div> </div>
+<div id="edit_def_win" class="x-hidden"> <div id="edit_def_form" style="padding:0px;"> </div></div>
+
+<div id="manage_data_win" class="x-hidden"> <div id="manage_data_form" style="padding:0px;"> </div></div>
+<div id="new_data_win" class="x-hidden"> <div id="new_data_form" style="padding:0px;"> </div></div>
+<div id="edit_data_win" class="x-hidden"> <div id="edit_data_form" style="padding:0px;"> </div></div>
+
+<div id="ft">
+#parse("/front/bottom.vm")
+    <div class="copy">&copy; 2009-2010 CommonDB, Ltd</div>
+</div>
+
+</div><!-- end viewport -->
+	<script type="text/javascript" src="../js/ux/menu/EditableItem.js"></script>
+	<script type="text/javascript" src="../js/ux/menu/RangeMenu.js"></script>
+
+	<script type="text/javascript" src="../js/ux/grid/GridFilters028.js"></script>
+	<script type="text/javascript" src="../js/ux/grid/filter/Filter.js"></script>
+	<script type="text/javascript" src="../js/ux/grid/filter/StringFilter.js"></script>
+	<script type="text/javascript" src="../js/ux/grid/filter/DateFilter.js"></script>
+	<script type="text/javascript" src="../js/ux/grid/filter/ListFilter.js"></script>
+	<script type="text/javascript" src="../js/ux/grid/filter/NumericFilter.js"></script>
+	<script type="text/javascript" src="../js/ux/grid/filter/BooleanFilter.js"></script>
+
+
+	<script type="text/javascript" src="../js/ux/chooser.js"></script>
+	<script type="text/javascript" src="../js/ux/DynReadonlyForm.js"></script>
+	<script type="text/javascript" src="../js/ux/FileUploadField.js"></script>
+
+
+	<script type="text/javascript" src="../js/ux/DynGridAndFilter.js"></script>
+	<script type="text/javascript" src="../admin/preInfoSearchJs.ac?metaId=${metaId}"></script>
+	<script type="text/javascript" src="../admin/preSearchEntityJS.ac?metaId=${metaId}"></script>
+	<script type="text/javascript" src="../js/manageCharaEntitySimple.js"></script>
+	<script type="text/javascript" src="../js/preManageRelationSimple.js"></script>
+	<script type="text/javascript" src="../js/SearchEntityByChara.js"></script>
+	<script type="text/javascript" src="../js/SearchEntityByHier.js"></script>
+	<script type="text/javascript" >
+	createMetaGrid();
+	</script>
+</body>
+</html>

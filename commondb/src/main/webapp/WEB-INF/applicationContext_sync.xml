@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+    <bean id="dataSourceRemote" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/commondb2?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="" />
+
+	</bean>
+	
+	
+	<!-- iBatis的SqlMap配置-->
+	<bean id="sqlMapClientRemote" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+	    <property name="configLocation" value="WEB-INF\sql-map-config.xml" />
+		<property name="dataSource" ref="dataSourceRemote" />
+	</bean>
+	
+	<bean id="remoteDynEntityDAO" class="com.commondb.db.dao.impl.DynamicEntityDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="operLogDAO" class="com.commondb.db.dao.impl.OperLogDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+    <bean id="remotePicAttrDefDAO" class="com.commondb.db.dao.impl.PicAttrDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteDescAttrDefDAO" class="com.commondb.db.dao.impl.DescAttrDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteCharacterDefDAO" class="com.commondb.db.dao.impl.CharacterDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteCharacterDataDAO" class="com.commondb.db.dao.impl.CharacterDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    
+    <bean id="remoteHierarchyAttrDefDAO" class="com.commondb.db.dao.impl.HierarchyAttrDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteHierarchyAttrValueDAO" class="com.commondb.db.dao.impl.HierarchyAttrValueDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteRentityCharaDataDAO" class="com.commondb.db.dao.impl.REntityCharaDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteRentityHierarchyDataDAO" class="com.commondb.db.dao.impl.REntityHierarchyDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remotePicDAO" class="com.commondb.db.dao.impl.PicDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteRentityDAO" class="com.commondb.db.dao.impl.REntityDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteMetaDAO" class="com.commondb.db.dao.impl.MetaDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteRmetaCharaDAO" class="com.commondb.db.dao.impl.RMetaCharaDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="remoteReminderDAO" class="com.commondb.db.dao.impl.ReminderDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemote" />
+    </bean>
+    
+    <bean id="syncService" scope="prototype" class="com.commondb.db.service.impl.SyncServiceImpl">
+    	
+    	<property name="ftpServer" value="localhost" />
+    	<property name="ftpUser" value="test" />
+    	<property name="ftpPassword" value="test" />
+    	
+    	<property name="localDynamicEntityDAO" ref="dynEntityDAO" />
+    	<property name="remoteDynamicEntityDAO" ref="remoteDynEntityDAO" />
+    	<property name="operLogDAO" ref="operLogDAO" />
+    	<property name="picAttrDefDAO" ref="remotePicAttrDefDAO" />
+    	<property name="descAttrDefDAO" ref="remoteDescAttrDefDAO" />
+    	<property name="localPicAttrDefDAO" ref="picAttrDefDAO" />
+    	<property name="localDescAttrDefDAO" ref="descAttrDefDAO" />
+    	<property name="characterDefDAO" ref="remoteCharacterDefDAO" />
+    	<property name="characterDataDAO" ref="remoteCharacterDataDAO" />
+    	<property name="localCharacterDefDAO" ref="characterDefDAO" />
+    	<property name="localCharacterDataDAO" ref="characterDataDAO" />
+    	<property name="localRmetaCharaDAO" ref="rmetaCharaDAO" />
+    	<property name="hierarchyAttrDefDAO" ref="remoteHierarchyAttrDefDAO" />
+    	<property name="localHierarchyAttrDefDAO" ref="hierarchyAttrDefDAO" />
+    	<property name="hierarchyAttrValueDAO" ref="remoteHierarchyAttrValueDAO" />
+    	<property name="localHierarchyAttrValueDAO" ref="hierarchyAttrValueDAO" />
+    	<property name="rentityCharaDataDAO" ref="remoteRentityCharaDataDAO" />
+    	<property name="rentityHierarchyDataDAO" ref="remoteRentityHierarchyDataDAO" />
+    	<property name="rentityDAO" ref="remoteRentityDAO" />
+    	<property name="picDAO" ref="remotePicDAO" />
+    	<property name="localRentityCharaDataDAO" ref="rentityCharaDataDAO" />
+    	<property name="localRentityHierarchyDataDAO" ref="rentityHierarchyDataDAO" />
+    	<property name="localRentityDAO" ref="rentityDAO" />
+    	<property name="localPicDAO" ref="picDAO" />
+    	<property name="localMetaDAO" ref="metaDAO" />
+    	<property name="metaDAO" ref="remoteMetaDAO" />
+    	<property name="rmetaCharaDAO" ref="remoteRmetaCharaDAO" />
+    	<property name="reminderDAO" ref="remoteReminderDAO" />
+    	<property name="localReminderDAO" ref="reminderDAO" />
+  	</bean>
+
+	<bean id="syncAction" scope="prototype" class="com.commondb.apply.web.SyncAction">
+    	<property name="syncService" ref="syncService" />
+	</bean>
+	    
+</beans>

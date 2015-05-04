@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>应用设置-添加</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script>
+	
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+<script>
+	function checkForm(form){
+	
+		if(form.applyName.value == "" || form.applyName.value ==null){
+			alert("应用名称不能为空!");
+			form.applyName.focus();
+			return false;
+		}
+	
+		if(form.applyUrl.value == "" || form.applyUrl.value ==null){
+			alert("链接的地址不能为空!");
+			form.applyUrl.focus();
+			return false;
+		}		
+		
+		if(form.num.value==""||form.num.value==null){			
+			if(confirm("还没有填写用于排序的编号，确定提交吗")){
+					
+			}else{
+				form.num.focus();
+				return false;
+			}
+		}
+		
+		return true;		
+	}
+
+</script>
+<script type='text/javascript' >
+	$(document).ready(function(){
+	$("#设置").addClass("active");
+
+    });
+	</script>
+</head>
+
+<body>
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+		<div id="left-column">
+			<!-- 菜单 -->
+			#parse("/app/sys_config/menu.vm")
+		</div>
+		<div id="center-column">
+			<div class="top-bar">
+				<a class="button" href="#">应用设置 </a>
+				<h1>应用设置</h1>
+				<div class="breadcrumbs">应用设置 \ #if($apply.applyId)编辑#else添加#end </div>
+			</div><br>
+			<div class="break-bar"></div>
+			<form action="addApplyR.ac" method="post" onsubmit="return checkForm(this)">
+			#if($apply.applyId)
+			<input type="hidden" name="apply.applyId" value="$apply.applyId" />
+			<input type="hidden" name="page.currentPage" value="$page.currentPage" />
+			#end			
+				<img width="8" height="7" class="left" alt="" src="img/bg-th-left.gif">
+				<img width="7" height="7" class="right" alt="" src="img/bg-th-right.gif">
+				<table cellspacing="0" cellpadding="0" class="listing form">
+					<tbody>
+					<tr>
+						<th colspan="2" class="full">添加应用</th>
+					</tr>
+
+					<tr>
+						<td width="100" class="first"><strong>应用名称</strong></td>
+						<td class="last"><input type="text" maxlength="15" id="applyName" name="apply.applyName" value="$!apply.applyName" style="width:80%;" /></td>
+					</tr>
+					<tr>
+						<td width="100" class="first"><strong>链接URL</strong></td>
+						<td class="last"><input type="text" id="applyUrl" name="apply.applyUrl" #if($apply.applyUrl)value="$!apply.applyUrl"#else value="http://" #end  style="width:80%;" /></td>
+					</tr>
+					<tr>
+						<td width="100" class="first"><strong>编号(排序)</strong></td>
+						<td class="last"><input type="text" maxlength="5" id="num" name="apply.num" value="$!apply.num" style="width:30%;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/></td>
+					</tr>
+					
+					<tr class="bg">
+						<td class="first"><strong></strong></td>
+					  <td class="last"><input type="submit" value="提 交"/>&nbsp;&nbsp;
+					  <input type="button" onclick="window.location.href='applyR.ac?appName=返回&page.currentPage=$!page.currentPage'" value="返 回"/>
+					  </td>
+					</tr>
+					
+				</tbody>
+				</table>			
+			</form>	
+		</div>
+		<div id="right-column">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面是用来查询电话记录的，请在表格内输入查询条件，并选择是所有条件与，或者所有条件或，并点击“查找”按钮来查找。</div>
+	  </div>
+	</div>
+	<div id="footer">#parse("/app/footer.vm")</div>
+</div>
+
+
+</body>
+
+</html>

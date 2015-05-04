@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.5.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/commondb5?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+
+	</bean>
+
+ 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+ 
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<props>
+				<!--  <prop key="*">PROPAGATION_REQUIRED</prop>-->
+				
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="create*">PROPAGATION_REQUIRED</prop>
+				<prop key="del*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="deletePermission">PROPAGATION_REQUIRED</prop>
+				<prop key="addPermission">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+ 
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<value>*Service</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean
+		class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+		<property name="transactionInterceptor"
+			ref="transactionInterceptor" />
+	</bean>
+	
+	<!-- iBatis的SqlMap配置-->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<!--<property name="configLocation" value="E:\Workspaces\commondb (1)\WebRoot\WEB-INF\sql-map-config.xml" />-->
+	    <property name="configLocation" value="WEB-INF\sql-map-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<import resource="applicationContext_meta.xml"/>
+	<import resource="applicationContext_entity.xml"/>
+	<import resource="applicationContext_app.xml"/> 
+	<import resource="applicationContext_sync.xml"/> 
+	<import resource="applicationContext_solr.xml"/> 
+	
+</beans>

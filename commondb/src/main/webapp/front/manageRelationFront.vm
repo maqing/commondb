@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CommonDB</title>
+    <link rel="stylesheet" type="text/css" href="../lib/extjs3/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/extjs.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/ext-patch.css" />
+	<script type="text/javascript" src="../lib/extjs3/adapter/ext/ext-base-debug.js"></script>
+ 	<script type="text/javascript" src="../lib/extjs3/ext-all.js"></script>
+ 	<script type="text/javascript" src="../lib/extjs3/ext-lang-zh_CN.js"></script>
+ 	<script type="text/javascript" src="../js/preManageRelation.js"></script>
+	<script type="text/javascript" >
+
+var configMap = {
+#foreach(${meta} in ${metaList})
+meta_${meta.metaId}: {
+	fields:[
+	#foreach(${attr} in ${meta.picAttrDefList})
+		{name:'p_${attr.attrId}', mapping:'p_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.descAttrDefList})
+		{name:'d_${attr.attrId}', mapping:'d_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.hierarchyAttrDefList})
+		{name:'h_${attr.attrId}', mapping:'h_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.characterAttrDefList})
+		{name:'c_${attr.attrId}', mapping:'c_${attr.attrId}'}
+		,
+	#end
+	{name:'id', mapping:'id'},
+	{name: 'rList'}
+	],
+	columns:[
+	//rnm,smdyn,
+	/*
+	#foreach(${attr} in ${meta.picAttrDefList})
+		{header: "${attr.attrName}", width: 100, sortable: true, locked:false, dataIndex: 'p_${attr.attrId}'}
+		,
+	#end */
+	#foreach(${attr} in ${meta.descAttrDefList})
+		{header: "${attr.attrName}", width: 100, renderer:Ext.util.Format.htmlEncode, sortable: true, locked:false, dataIndex: 'd_${attr.attrId}'}
+		,
+	#end
+
+	{ header: "id", width: 150, dataIndex:'id', id: 'id'}
+	],
+	
+	metaId:${meta.metaId},
+	mName:'${meta.entityName}'
+}
+#if($velocityCount != $metaList.size()),#end 
+
+#end
+}
+Ext.onReady(function() {
+
+    createGrid(configMap.meta_${sourceMetaId});
+    
+    Ext.get('l_manage_relation').addClass("active");
+    Ext.get('sub_nav_${sourceMetaId}').addClass("active");
+});
+</script>
+</head>
+<body>
+
+<div id="viewport">
+
+<div id="hd">
+     
+	#parse("/front/top.vm")
+
+
+    <table cellspacing="0" class="sub-nav">
+        <tr>
+        #foreach(${meta} in ${metaList})
+        <td id="sub_nav_${meta.metaId}" ><a href="/commondb/admin/preManageRelationFront.ac?sourceMetaId=${meta.metaId}"><span>${meta.entityName}</span></a></td>
+        <td class="spacer"><img src="../shared/extjs/images/grid-blue-split.gif"></td>
+	   	#end
+        </tr>
+    </table>
+</div>
+
+  
+
+  
+  
+<div id="bd">
+  <div id="meta_win"> </div>
+  <div id="entity_win"> </div>
+    <div class="left-column" id="hoho">
+     
+       
+       <div class="mtd">
+        <div id="manage_entity_${sourceMetaId}"></div>
+        </div>
+	  
+  	</div>
+ 
+   	
+</div><!-- end bd -->
+
+
+<div id="ft">
+#parse("/front/bottom.vm")
+    <div class="copy">&copy; 2009-2010 CommonDB, Ltd</div>
+</div>
+
+</div><!-- end viewport -->
+<script type="text/javascript" src="../js/ux/DynReadonlyForm.js"></script>
+<script type="text/javascript" src="../js/SearchEntityByChara.js"></script>
+<script type="text/javascript" src="../js/SearchEntityByHier.js"></script>
+
+</body>
+</html>

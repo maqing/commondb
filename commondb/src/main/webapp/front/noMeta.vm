@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CommonDB</title>
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/extjs2.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/ext-patch.css" />
+
+ 	
+</head>
+<body>
+
+<div id="viewport">
+
+<div id="hd">
+     
+
+    <table cellspacing="0" class="nav main-nav">
+        <tr>
+        <td class="active" id="home"><a id="products-link" href="../front/findMetaPerm.ac"><span>莱弗信息</span></a></td>
+    	
+		
+
+		</tr>
+    </table>
+<div style="float:right; font-size:13px; padding-top:44px; padding-right:15px;">${user.userDesc}您好！您的权限为${user.authoritiesDescString}&nbsp;&nbsp;&nbsp;&nbsp;<a style="color:#FFFFFF" href="../j_spring_security_logout">注销 </a> 
+        <script type="text/javascript"> 
+        	if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1){
+        	 	document.write('<a style="color:#FFFFFF" href="../login.ac" target="about_blank"><span>管理 </span></a>');
+        	}
+    	</script>
+    	
+        	
+
+</div>
+	
+
+
+<table cellspacing="0" class="sub-nav">
+        <tr>
+        
+        <td></td>
+        </tr>
+    </table>
+
+</div>
+
+<div id="bd">
+
+    <div class="left-column">
+
+<div class="content-box">
+		<h5 style="font-size:12px" >您目前无权对任何元数据进行操作</h5>
+		<div class="box">
+			<p>请从以下几方面来增加您的权限:</p>
+		    <ul class="features">
+		    	<li>请系统管理员为您添加新的角色</li>
+		    	<li>请系统管理员编辑您的现有的角色，为角色关联更多的的元数据</li>
+		    	<li>“系统管理员”可以操作所有的元数据，请系统管理员升级您的权限</li>
+			</ul>
+		</div>
+	</div>
+	   
+  	</div>
+
+    <div style="clear:both"></div>
+</div><!-- end bd -->
+
+<div id="ft">
+     	#parse("/front/bottom.vm")
+    <div class="copy">&copy; 2009-2010 CommonDB, Ltd</div>
+</div>
+
+</div><!-- end viewport -->
+
+
+
+</body>
+</html>

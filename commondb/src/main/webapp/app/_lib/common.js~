@@ -1,0 +1,112 @@
+
+
+function reminder(metaId, entityId)
+{
+    window.open("/app/tool/preRemind.ac?metaId=" + metaId +"&entityId=" + initSelect+"&displayDiv=" + displayDiv + "&inputFieldId=" + inputFieldId,'选择',
+    'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=800,height=500');    
+}
+
+
+function selectHier(attrId, displayDiv, inputFieldId)
+{
+    var initSelect = $("#" + inputFieldId).attr("value");
+    
+    window.open("/app/tool/selectHier.ac?attrId=" + attrId +"&initSelect=" + initSelect+"&displayDiv=" + displayDiv + "&inputFieldId=" + inputFieldId,'选择',
+    'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=800,height=500');    
+}
+
+function selectEntity(defaultEntity, displayDiv, inputFieldId)
+{
+    url = "/app/tool/selectEntity.ac?entityName=" + defaultEntity + "&displayDiv=" + displayDiv + "&inputFieldId=" + inputFieldId;
+    url = encodeURI(url);
+    window.open(url,'选择','toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=650,height=600');    
+}
+function removeEntity(metaId, entityId, displayDiv, inputFieldId)
+{
+    var entity = $("#" + inputFieldId).attr("value");
+    var entityArr = entity.split(",");
+    var newEntityStr = "";
+    
+    for( i = 0 ; i < entityArr.length ; i ++)
+    {
+        //alert(metaId + "_" + entityId + "_");
+        //alert(entityArr[i].search(metaId + "_" + entityId + "_"));
+        `
+        if(entityArr[i].search(metaId + "_" + entityId + "_") < 0)
+        {
+            newEntityStr += "," + entityArr[i];
+        }    
+    }
+    newEntityStr = newEntityStr.substring(1);
+    $("#link_"+metaId+"_" + entityId).remove();
+    $("#del_icon_"+metaId+"_" + entityId).remove();
+    var entity = $("#" + inputFieldId)[0].value=newEntityStr;
+    
+}
+function refreshCField(fieldId)
+{
+    var valueStr = "";
+    $("input[name=checkbox_"+fieldId+"]:checked").each(function(i,n){
+        valueStr += "," + n.value;
+    });
+    valueStr = valueStr.substring(1);
+    $("#" + fieldId)[0].value=valueStr;
+}
+
+function initAutoComplete(fieldId,json,url)
+{
+    $("#" + fieldId).autocomplete(json);
+    
+    $("#" + fieldId).result(function(event, data, formatted) {
+        //$("#info_" + fieldId).html("<a href='"+ url +"' >新建</a>"); 
+    });
+    
+    $("#" + fieldId).blur(function(){
+       $("#" + fieldId).search();
+    });
+}
+
+function autoCmpltFieldLocalCache(fieldId, entityName, descFieldName, newEntityUrl)
+{
+    url = "/app/tool/autoTip.ac?entityName=" + entityName + "&descFieldName="+descFieldName;
+    url = encodeURI(url);
+
+    $.getJSON(url , {}, function(json) {
+           initAutoComplete(fieldId,json,newEntityUrl);
+    });
+}
+
+function autoCmpltField(fieldId, entityName, descFieldName, newEntityUrl)
+{
+    $("#" + fieldId).autocomplete("/app/tool/autoTip.ac?entityName=" + entityName + "&descFieldName="+descFieldName, {
+	 selectFirst: false,
+     multiple: true, 
+     width:150, 
+     max:50,  
+     max:50, 
+     multipleSeparator: '',
+     dataType: 'json',  
+     parse: function(data) {
+       var rows = [];
+       for(var i=0; i<data.length; i++){
+        rows[rows.length] = {
+          data:data[i],
+          value:data[i],
+          result:data[i]
+          };
+        }
+        return rows;
+       },
+     formatItem: function(row, i, n) {
+        return row;     
+    }
+  });
+  
+    $("#" + fieldId).result(function(event, data, formatted) {
+        if (data)
+            alert(data);
+        else
+            alert('gg');
+    });
+
+}

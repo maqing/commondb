@@ -1,0 +1,14 @@
+    <table cellspacing="0" class="nav">
+        <tr>
+        <td><a id="home-foot-link" href="#">主页</a></td>
+        <td class="active"><a id="products-foot-link" href="#">产品</a></td>
+        <td><a id="support-foot-link" href="#">支持</a></td>
+        <td><a id="company-foot-link" href="#">公司简介</a></td>
+        <td><a id="blog-foot-link" href="#">联系方式</a></td>
+        <td><a id="store-foot-link" href="#">关于</a></td>		
+        </tr>
+
+    </table>
+	
+	
+	

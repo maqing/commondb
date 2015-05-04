@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+<settings useStatementNamespaces="true" />
+<sqlMap resource="com/commondb/db/bo/t_desc_attr_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_character_attr_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_entity_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_hierarchy_attr_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_hierarchy_attr_value_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_link_attr_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_character_attr_def_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_character_attr_value_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_desc_attr_def_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_desc_attr_stat_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_hierarchy_attr_def_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_pic_attr_def_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_pic_attr_data_SqlMap.xml"/>
+
+<sqlMap resource="com/commondb/db/bo/dynamic_entity_SqlMap.xml"/>
+
+<sqlMap resource="com/commondb/db/bo/t_pics_SqlMap.xml"/>
+
+<sqlMap resource="com/commondb/db/bo/t_role_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_user_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_role_meta_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_role_user_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_resc_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_role_resc_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_menu_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_role_menu_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_entity_SqlMap.xml"/>
+
+<sqlMap resource="com/commondb/db/bo/t_character_def_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_character_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_entity_chara_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_meta_chara_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_entity_hierarchy_data_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_meta_property_SqlMap.xml"/>
+
+
+<sqlMap resource="com/commondb/apply/bo/t_apply_SqlMap.xml"/>
+<sqlMap resource="com/commondb/apply/bo/t_apply_menu_SqlMap.xml"/>
+<sqlMap resource="com/commondb/apply/bo/r_apply_user_SqlMap.xml"/>
+<sqlMap resource="com/commondb/apply/bo/r_meta_user_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_reminder_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_oper_log_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/t_operation_box_SqlMap.xml"/>
+<sqlMap resource="com/commondb/db/bo/r_entity_attachment_SqlMap.xml"/>
+
+
+</sqlMapConfig>

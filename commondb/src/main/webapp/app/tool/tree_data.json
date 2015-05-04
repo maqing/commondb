@@ -1,0 +1,25 @@
+[
+
+                {
+
+                    "data" : "A node",
+
+                    "children" : [ "Child 1", "Child 2" ]
+
+                },
+
+                {
+
+                    "attr" : { "id" : "li.node.id" },
+
+                    "data" : {
+
+                        "title" : "Long format demo",
+
+                        "attr" : { "href" : "#" }
+
+                    }
+
+                }
+
+            ]

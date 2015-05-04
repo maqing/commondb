@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+
+<!--
+	<http access-denied-page="/403.jsp" >
+		<intercept-url pattern="/lib/**" filters="none" />
+		<intercept-url pattern="/css/**" filters="none" />
+		<intercept-url pattern="/images/**" filters="none" />
+		<intercept-url pattern="/js/**" filters="none" />
+		<intercept-url pattern="/shared/**" filters="none" />
+		<intercept-url pattern="/" filters="none" />
+		<intercept-url pattern="/login.jsp" filters="none" />
+	    <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" default-target-url="/login.ac" />
+	    <logout logout-success-url="/login.jsp"/>
+	    <http-basic />
+	</http>
+
+	<authentication-manager alias="authenticationManager"/>
+ -->
+
+    <http auto-config="true" realm="Contacts Realm">
+        <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/index.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/lib/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/shared/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/login.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <!-- maqing 2011-07-12 试图解决登录跳转 待验证 -->
+        <intercept-url pattern="/favicon.ico" access="IS_AUTHENTICATED_ANONYMOUSLY"/> 
+         
+       
+		<intercept-url pattern="/app/tool/uploadFile.ac" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        
+        
+        <intercept-url pattern="/switchuser.jsp" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/j_spring_security_switch_user" access="ROLE_ADMIN"/>
+        <!--
+        <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_MOPER,ROLE_MADMIN,ROLE_USER"/>
+        <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" default-target-url="/login.ac" />
+        -->
+        <intercept-url pattern="/**" access="IS_AUTHENTICATED_REMEMBERED"/>
+        <!--
+        <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" default-target-url="/front/findMetaPerm.ac" />
+        -->
+        <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" default-target-url="/app/sys/home.ac" />
+        <logout logout-success-url="/login.jsp"/>
+    </http>
+
+
+	<authentication-provider user-service-ref="securityManager">
+		<password-encoder hash="md5"/>
+	</authentication-provider>
+
+   <!-- Automatically receives AuthenticationEvent messages -->
+   <beans:bean id="loggerListener" class="org.springframework.security.event.authentication.LoggerListener"/>
+
+   <!-- Filter used to switch the user context. Note: the switch and exit url must be secured
+        based on the role granted the ability to 'switch' to another user -->
+   <!-- In this example 'rod' has ROLE_SUPERVISOR that can switch to regular ROLE_USER(s) -->
+   <beans:bean id="switchUserProcessingFilter" class="org.springframework.security.ui.switchuser.SwitchUserProcessingFilter" autowire="byType">
+       <custom-filter position="SWITCH_USER_FILTER"/>
+       <beans:property name="targetUrl" value="/secure/index.htm"/>
+   </beans:bean>
+<!--
+   <beans:bean id="resourceSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager"/>
+	    <beans:property name="accessDecisionManager" ref="businessAccessDecisionManager"/>
+	    <beans:property name="objectDefinitionSource" ref="secureResourceFilterInvocationDefinitionSource" />
+	    <beans:property name="observeOncePerRequest" value="false" />
+	    <custom-filter after="LAST" />
+	</beans:bean>
+
+	<beans:bean id="secureResourceFilterInvocationDefinitionSource"
+		class="com.commondb.security.filter.SecureResourceFilterInvocationDefinitionSource" />
+-->
+
+
+
+
+</beans:beans>

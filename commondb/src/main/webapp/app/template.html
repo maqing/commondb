@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>新建电话记录</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "/css/all.css";</style>
+</head>
+
+<body>
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+		<div id="left-column">
+			<!-- 菜单 -->
+			#parse("/app/menu.vm")
+		</div>
+		<div id="center-column">
+			<div class="top-bar">
+				<a class="button" href="#">电话记录 </a>
+				<h1>电话记录</h1>
+				<div class="breadcrumbs"><a href="#">电话记录</a> \ <a href="#">新建</a></div>
+			</div><br>
+
+			<div class="break-bar"></div>
+
+
+		<div class="table">
+				<img width="8" height="7" class="left" alt="" src="img/bg-th-left.gif">
+				<img width="7" height="7" class="right" alt="" src="img/bg-th-right.gif">
+				<table cellspacing="0" cellpadding="0" class="listing form">
+					<tbody>
+					
+						
+					<tr>
+						<th colspan="2" class="full">新建电话记录</th>
+					</tr>
+					<tr>
+						<td width="172" class="first"><strong>文件属性一</strong></td>
+						<td class="last"><input type="file" class="text" style='height:100%;'/></td>
+					</tr>
+					<tr>
+						<td width="172" class="first"><strong>文件属性二</strong></td>
+						<td class="last"><input type="file" class="text" style='height:100%;'/></td>
+					</tr>
+					<tr>
+						<td width="172" class="first"><strong>属性一</strong></td>
+						<td class="last"><input type="text" class="text"></td>
+					</tr>
+					
+					
+					<tr class="bg">
+						<td class="first"><strong>属性二</strong></td>
+						<td class="last"><input type="text" class="text"></td>
+					</tr>
+					<tr>
+						<td class="first"><strong>属性三</strong></td>
+						<td class="last"><input type="text" class="text"></td>
+					</tr>
+					<tr class="bg">
+						<td class="first"><strong>属性四</strong></td>
+						<td class="last"><input type="text" class="text"></td>
+					</tr>
+					<tr>
+						<td class="first"><strong>层级属性一</strong></td>
+						<td class="last">中国\北京\海淀\A公司<img width="16" height="16" alt="edit" src="img/edit-icon.gif"></td>
+					</tr>
+					<tr class="bg">
+						<td class="first"><strong>层级属性二</strong></td>
+						<td class="last">中国\北京\海淀\A公司<img width="16" height="16" alt="edit" src="img/edit-icon.gif"></td>
+					</tr>
+					<tr>
+						<td class="first"><strong>特征属性一</strong></td>
+						<td class="last"><input type="checkbox" name="aaa"/> 计算机 <input type="checkbox" name="aaa"/> 计算机 <input type="checkbox" name="aaa"/> 计算机 <input type="checkbox" name="aaa"/> 计算机</td>
+					</tr>
+					<tr class="bg">
+						<td class="first"><strong>特征属性二</strong></td>
+					  <td class="last"><input type="checkbox" name="aaa"/> 计算机 <input type="checkbox" name="aaa"/> 计算机 <input type="checkbox" name="aaa"/> 计算机 <input type="checkbox" name="aaa"/> 计算机</td>
+					</tr>
+					
+					<tr>
+						<td class="first"><strong>关联属性一</strong></td>
+						<td class="last">张三 深圳发发发公司 <img width="16" height="16" alt="edit" src="img/edit-icon.gif"></td>
+					</tr>
+					<tr class="bg">
+						<td class="first"><strong>关联属性二</strong></td>
+					  <td class="last">001合同 003订单 <img width="16" height="16" alt="edit" src="img/edit-icon.gif"></td>
+					</tr>
+					<tr >
+						<td class="first"><strong>关联属性二</strong></td>
+					  <td class="last">001合同 003订单 <img width="16" height="16" alt="edit" src="img/edit-icon.gif"></td>
+					</tr>
+					<tr class="bg">
+						<td class="first"><strong></strong></td>
+					  <td class="last"><input type="submit" value="提交"/>  <input type="submit" value="返回"/></td>
+					</tr>
+					
+				</tbody></table>
+	        <p>&nbsp;</p>
+		  </div>
+		  
+		</div>
+		<div id="right-column">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面是用来新建电话记录的，请在表格内输入各个字段的值，并点击“提交”按钮完成新建。层级属性和关联属性请点击图标来选择</div>
+	  </div>
+	</div>
+	<!-- 页脚 -->
+	<div id="footer">#parse("/app/footer.vm")</div>
+</div>
+
+
+</body>
+
+</html>

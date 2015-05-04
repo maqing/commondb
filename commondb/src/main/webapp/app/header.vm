@@ -1,0 +1,24 @@
+<a class="logo" href="#">
+	<img width="101" height="29" alt="" src="../img/logo.gif">
+		#set($myuser = ${applyService.headerUser()})
+		$myuser.userDesc 您好！您的权限为  $myuser.userRole
+
+</a>
+
+<a class="logout" href="j_spring_security_logout">注销</a>
+
+		<ul id="top-navigation">
+			<li id="home"><span><span><a href="/app/sys/home.ac" >Home</a></span></span></li>
+##			<li id="电话记录" class=""><span><span><a href="/app/phone/genForm.ac?appName=电话记录">电话记录</a></span></span></li>
+
+			#set($tList = ${applyService.headerTop()})
+			#foreach($apply in $tList)
+				<li id="$apply.applyName" class=""><span><span><a href="$apply.applyUrl&applyId=$apply.applyId">$apply.applyName</a></span></span></li>
+			#end
+			<li id="设置" class=""><span><span><a href="/app/sys/searchUserMetaList.ac">设置</a></span></span></li>
+
+		</ul>
+
+<script type="text/javascript">
+    //
+</script>

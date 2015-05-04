@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CommonDB</title>
+    <link rel="stylesheet" type="text/css" href="../lib/extjs3/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/extjs.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/extjs/css/ext-patch.css" />
+	<script type="text/javascript" src="../lib/extjs3/adapter/ext/ext-base.js"></script>
+ 	<script type="text/javascript" src="../lib/extjs3/ext-all.js"></script>
+ 	<script type="text/javascript" src="../lib/extjs3/ext-lang-zh_CN.js"></script>
+ 	<script type="text/javascript" src="../js/applySortOverload.js"></script>
+	<script type="text/javascript" src="../js/newInfo.js"></script>
+
+<script type="text/javascript">
+Ext.onReady(function() {
+#foreach(${meta} in ${metaList})
+var conf = {
+	fields:[
+
+	#foreach(${attr} in ${meta.picAttrDefList})
+		{name:'p_${attr.attrId}', mapping:'p_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.descAttrDefList})
+		{name:'d_${attr.attrId}', mapping:'d_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.hierarchyAttrDefList})
+		{name:'h_${attr.attrId}', mapping:'h_${attr.attrId}'}
+		,
+	#end
+	#foreach(${attr} in ${meta.characterAttrDefList})
+		{name:'c_${attr.attrId}', mapping:'c_${attr.attrId}'}
+		,
+	#end
+	{name:'id', mapping:'id'}
+	],
+	columns:[
+	/*
+	#foreach(${attr} in ${meta.picAttrDefList})
+		{header: "${attr.attrName}", width: 100, sortable: true, locked:false, dataIndex: 'p_${attr.attrId}'}
+		,
+	#end*/
+	#foreach(${attr} in ${meta.descAttrDefList})
+		{header: "${attr.attrName}", width: 100, sortable: true, locked:false, dataIndex: 'd_${attr.attrId}'}
+		,
+	#end
+
+
+	{ header: "id", width: 150, id: 'id', dataIndex:'id'}
+	],
+
+	metaId:${meta.metaId},
+	mName:'${meta.entityName}'
+};
+
+createGrid(conf);
+#end
+
+Ext.get('home').addClass("active");
+});
+</script>
+</head>
+<body>
+
+<div id="viewport">
+
+<div id="hd">
+     	#parse("/front/top.vm")
+
+<!--
+    <table cellspacing="0" class="sub-nav">
+        <tr>
+        #foreach(${meta} in ${metaList})
+        <td><a href="#">${meta.entityName}</a></td>
+        <td class="spacer"><img src="../shared/extjs/images/grid-blue-split.gif"></td>
+	   	#end
+        </tr>
+    </table>
+
+    -->
+<table cellspacing="0" class="sub-nav">
+        <tr>
+
+        <td></td>
+        </tr>
+    </table>
+
+</div>
+
+<div id="bd">
+    <div class="left-column">
+       #foreach(${meta} in ${metaList})
+       <div class="mtd">
+        <div id="manage_entity_${meta.metaId}"></div>
+        </div>
+	   #end
+
+  	</div>
+	<!--
+    <div class="right-column" style="padding-top:45px;">
+        <div class="side-box"><div class="side-box-inner">
+            <ul id="sample-menu" class="features">
+			<li><a href="#">连接</a></li>
+			<li><a href="#">连接</a></li>
+			<li><a href="#">连接</a></li>
+			<li><a href="#">连接</a></li>
+			</ul>
+        </div></div>
+    </div>
+	-->
+    <div style="clear:both"></div>
+</div><!-- end bd -->
+
+<div id="ft">
+     	#parse("/front/bottom.vm")
+    <div class="copy">&copy; 2009-2010 CommonDB, Ltd</div>
+</div>
+
+</div><!-- end viewport -->
+
+
+
+</body>
+</html>

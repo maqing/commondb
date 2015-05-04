@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+    <bean id="httpSolrService" class="com.commondb.search.service.impl.HttpSolrServiceImpl"
+		init-method="init"> 
+		<property name="url" value="http://localhost:8080/solr/" />
+		<property name="soTimeOut" value="1000" />
+		<property name="connectionTimeOut" value="100" />
+		<property name="maxConnectionsPerHost" value="100" />
+		<property name="maxTotalConnections" value="100" />
+		<property name="maxRetries" value="1" />
+	</bean>
+
+    <bean id="solrSearchAction" scope="prototype" class="com.commondb.search.web.SolrSearchAction">
+    	<property name="httpSolrService" ref="httpSolrService" />
+    </bean>	    
+</beans>

@@ -1,0 +1,99 @@
+﻿//var loadMask = new Ext.LoadMask({msg:"页面加载中……"}); 
+//var picArray = [];
+
+function createForm(response)
+{   
+
+    var res = Ext.util.JSON.decode(response.responseText); 
+	
+     
+    if(res.success)
+    {
+
+       // picLoaded = true;
+        var eform = new MyDynForm({metaId:${metaId}, title:res.data.entityName,
+       		renderTo: 'new_entity_${metaId}',
+       		picArray:res.data.picAttr, 
+       		hierArray:res.data.hierAttr, 
+       		charaArray:res.data.charaAttr,
+       		descArray:res.data.descAttr,
+        	buttons : [{
+            text: '保存',
+            handler: function(){
+    			var sm = charaGroupGrid.getSelectionModel();
+                var sel = sm.getSelections();
+				/*
+                var charaArr=[];
+				for(var i=0;i<sel.length;i++){
+					var rowArr=[];
+					rowArr[0]=sel[i].get('charaId');
+					rowArr[1]=sel[i].get('dataId');
+					charaArr[i]=rowArr;
+					//alert(charaArr[i][0]+"和"+charaArr[i][1]);
+    		    }
+				*/
+				var charaArr='';
+				for(var i=0;i<sel.length;i++){
+					
+					charaArr=charaArr+'&charaArr='+sel[i].get('charaId')+','+sel[i].get('dataId');
+					//alert(charaArr);
+    		    }
+    		    var myHier=res.data.hierAttr;
+    		    var hierarchyArr = '';
+            	for(var j = 0; j < myHier.length ; j++) {
+            		selNodes1 = Ext.getCmp('my_treepanel_' + myHier[j].attrId).getChecked();
+            		Ext.each(selNodes1, function(node){
+	                    if(hierarchyArr.length > 0){
+	                        hierarchyArr += '&';
+	                    }
+	                    hierarchyArr += 'hierarchyArr='+myHier[j].attrId+','+node.id;
+               		 });
+            	}
+				//alert(entityArr);
+                if(eform.getForm().isValid()){
+	                eform.getForm().submit({
+	                    url: '../admin/createEntity.ac?metaId=${metaId}'+charaArr+'&'+hierarchyArr+'&'+entityArr,
+					    waitMsg: '正在提交中...',
+						waitTitle: '信息',
+	                    success: function(fp, o){
+	                        msg('成功', '保存成功');
+	                        entityArr='';
+	                        groupSm.clearSelections();
+	                        eform.myResetForm();
+                			eform.getForm().reset();
+	                    },
+	                    failure: function(fp, o)
+	                    {
+	                       msg('失败', '保存失败');
+	                       //entityArr='';
+	                    }
+						//params : { metaId:${metaId},charaArr:charaArr } 
+	                });
+                }
+            }
+        },{
+            text: '重置',
+            handler: function(){
+            	eform.myResetForm();
+                eform.getForm().reset();
+            }
+        }]
+       		});
+       		//eform.myNewFunction();
+    }
+
+   //loadmask.hide();
+};
+
+//loadmask.show();
+
+new Ext.data.Connection().request({
+    url: 'admin/fetchMetaAttrs.ac',
+    params: { metaId: ${metaId} },
+    //failure: requestFailed,
+    success: function(response, options){
+		newCharaGroupGrid(${metaId},response);
+		
+	}
+});
+

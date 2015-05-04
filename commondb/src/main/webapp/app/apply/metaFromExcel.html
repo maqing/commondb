@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>导入</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+<script type="text/javascript">
+	   function submitform2(){	
+			if(validateFile()){
+	     		document.getElementById("form2").submit();
+	     	}
+	   }
+
+    	 function validateFile(){
+			var flag=true;
+			var fileObject=document.getElementById("excelPath");
+			var filepath=fileObject.value;
+	      if(filepath==undefined||filepath==""){
+	       fileObject.focus();
+	       alert("请选择要导入的Excel！");
+	       flag=false;
+	      }else{
+		       var fileArr=filepath.split("\\");
+		       var fileTArr=fileArr[fileArr.length-1].toLowerCase().split(".");
+		       var filetype=fileTArr[fileTArr.length-1];	       
+		       if(filetype!="xls"&&filetype!="XLS"){
+		          fileObject.focus();
+		          alert("上传格式为 xls、XLS ！");
+		          flag=false;
+		       }
+	      }
+      return flag;
+     }
+     
+</script>
+
+</head>
+
+<body>
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+		<div id="left-column">
+			<!-- 菜单 -->
+			#parse("/app/sys_config/menu.vm")
+		</div>
+		<div id="center-column">
+			<div class="top-bar">
+				<a class="button" href="#">导入 </a>
+				<h1>导入</h1>
+				<div class="breadcrumbs">导入  </div>
+			</div><br>
+			<div class="break-bar"></div>
+			<form action="addMetaFromExcel.ac" method="post" name="form2" >
+			
+				<img width="8" height="7" class="left" alt="" src="img/bg-th-left.gif">
+				<img width="7" height="7" class="right" alt="" src="img/bg-th-right.gif">
+				<table cellspacing="0" cellpadding="0" class="listing form">
+					<tbody>
+					<tr>
+						<th colspan="2" class="full">导入</th>
+					</tr>
+					
+					<tr>
+						<td width="100" class="first"><strong>请选择导入文件</strong></td>
+						<td class="last"><input id="excelPath" type="file" name="excelPath" size="40" />&nbsp;&nbsp;</td>
+					</tr>
+					
+					<tr class="bg">
+						<td class="first"><strong></strong></td>
+					  <td class="last"><input onclick="submitform2();" type="button" value="确 定" />
+						
+					  </td>
+					</tr>
+					
+				</tbody>
+				</table>			
+			</form>	
+		</div>
+		<div id="right-column">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面是用来查询电话记录的，请在表格内输入查询条件，并选择是所有条件与，或者所有条件或，并点击“查找”按钮来查找。</div>
+	  </div>
+	</div>
+	<div id="footer">#parse("/app/footer.vm")</div>
+</div>
+		
+			#if(${message})
+				<script>
+					alert("${message}!");
+				</script>	
+			#end
+
+
+</body>
+
+</html>

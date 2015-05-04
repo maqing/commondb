@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Application context containing business beans.
+  -
+  - Used by all artifacts.
+  -
+  - $Id: applicationContext-common-business.xml 3092 2008-05-25 20:57:07Z luke_t $
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+
+   	<bean id="roleDAO" class="com.commondb.db.dao.impl.RoleDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="userDAO" class="com.commondb.db.dao.impl.UserDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="menuDAO" class="com.commondb.db.dao.impl.MenuDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="rescDAO" class="com.commondb.db.dao.impl.RescDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="roleUserDAO" class="com.commondb.db.dao.impl.RoleUserDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="roleMetaDAO" class="com.commondb.db.dao.impl.RoleMetaDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="roleMenuDAO" class="com.commondb.db.dao.impl.RoleMenuDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="roleRescDAO" class="com.commondb.db.dao.impl.RoleRescDAOImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"/>
+	</bean>
+	<bean id="securityManager" class="com.commondb.security.service.impl.SecurityManagerSupport">
+		<property name="roleDAO" ref="roleDAO"/>
+		<property name="userDAO" ref="userDAO"/>
+		<property name="metaDAO" ref="metaDAO"/>
+		<property name="menuDAO" ref="menuDAO"/>
+		<property name="rescDAO" ref="rescDAO"/>
+		<property name="roleUserDAO" ref="roleUserDAO"/>
+		<property name="roleMetaDAO" ref="roleMetaDAO"/>
+		<property name="roleMenuDAO" ref="roleMenuDAO"/>
+		<property name="roleRescDAO" ref="roleRescDAO"/>
+	</bean>
+	<bean id="roleService" scope="prototype" class="com.commondb.security.service.impl.RoleServiceImpl">
+     	<property name="roleDAO" ref="roleDAO" />
+     	<property name="roleMetaDAO" ref="roleMetaDAO" />
+     	<property name="metaService" ref="metaService" />
+     	<property name="roleUserDAO" ref="roleUserDAO" />
+    </bean>
+    <bean id="userService" scope="prototype" class="com.commondb.security.service.impl.UserServiceImpl">
+     	<property name="userDAO" ref="userDAO" />
+     	<property name="roleUserDAO" ref="roleUserDAO" />
+    </bean>
+	<bean id="roleAction" scope="prototype" class="com.commondb.security.web.RoleAction">
+    	<property name="roleService" ref="roleService" />
+    </bean>
+    <bean id="userAction" scope="prototype" class="com.commondb.security.web.UserAction">
+    	<property name="userService" ref="userService" />
+    </bean>
+    <bean id="loginAction" scope="prototype" class="com.commondb.security.web.LoginAction"/>
+
+
+</beans>

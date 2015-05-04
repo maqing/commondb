@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+		<constant name="struts.objectFactory" value="spring" />
+		<!-- <constant name="struts.devMode" value="true" />  -->
+		<constant name="struts.configuration.xml.reload" value="false" />
+		<constant name="struts.multipart.maxSize" value="20000000" />
+		<!-- 
+		<constant name="struts.velocity.toolboxlocation" value="WEB-INF/toolbox.xml" />
+        <constant name="struts.velocity.configfile" value="WEB-INF/velocity.properties" />
+         --> 		
+		<include file="struts_sys.xml" />
+		<include file="struts_app.xml" />
+		<include file="struts_app_sys.xml" />
+		
+		
+</struts>

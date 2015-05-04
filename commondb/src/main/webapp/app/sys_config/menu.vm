@@ -1,0 +1,15 @@
+﻿			<h3>菜单</h3>
+			<ul class="nav">
+				<li><a href="/app/sys/searchUserMetaList.ac?appName=首选项">首选项</a></li>
+
+
+				<li><a href="/app/sys/applyR.ac?appName=应用设置">应用设置</a></li>
+				<li><a href="/app/sys/applyMenu.ac?appName=菜单管理">菜单管理</a></li>
+				<li><a href="/app/sys/searchUserList.ac?appName=权限设置">权限设置</a></li>
+				<li><a href="/app/sys/sync.ac">单机同步</a></li>
+				<li class="last"><a href="/app/sys/preEditPassword.ac?appName=修改密码">修改密码</a></li>
+			</ul>
+			<a class="link" href="../../login.ac" target="blank">后台管理</a>
+			<a class="link" href="../../admin/preInfoManage.ac" target="blank">数据维护</a>
+			<a class="link" href="#">bbs链接</a>
+			<a class="link" href="#">mail链接</a>

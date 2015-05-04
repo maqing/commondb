@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+
+    <bean id="sysConfigAction" scope="prototype" class="com.commondb.app.web.SysConfigAction">
+
+    </bean>
+
+
+
+<!-- 应用 -->
+	<bean id="applyMenuDAO" class="com.commondb.apply.dao.impl.ApplyMenuDAOImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="applyDAO" class="com.commondb.apply.dao.impl.ApplyDAOImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="applyUserDAO" class="com.commondb.apply.dao.impl.ApplyUserDAOImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="metaUserDAO" class="com.commondb.apply.dao.impl.MetaUserDAOImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient" />
+		</property>
+	</bean>
+	<bean id="applyService" class="com.commondb.apply.service.impl.ApplyServiceImpl">
+		<property name="applyDAO" ref="applyDAO" />
+		<property name="applyMenuDAO" ref="applyMenuDAO" />
+		<property name="applyUserDAO" ref="applyUserDAO" />
+		<property name="applyService" ref="applyService" />
+		<property name="metaDAO" ref="metaDAO" />
+		<property name="metaUserDAO" ref="metaUserDAO" />
+	</bean>
+    <bean id="applyAction" scope="prototype" class="com.commondb.apply.web.ApplyAction">
+		<property name="applyService" ref="applyService" />
+		<property name="userService" ref="userService" />
+    </bean>
+
+<!-- 应用 -->
+
+    <bean id="inputPageGenAction" scope="prototype" class="com.commondb.app.web.InputPageGenAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    	<!-- <property name="applyService" ref="applyService" />  -->
+    </bean>
+    <bean id="searchPageGenAction" scope="prototype" class="com.commondb.app.web.SearchPageGenAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <bean id="hierSelectAction" scope="prototype" class="com.commondb.app.web.HierSelectAction">
+    	<property name="metaService" ref="metaService" />
+    </bean>
+    <bean id="saveEntityAction" scope="prototype" class="com.commondb.app.web.SaveEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <bean id="autoTipAction" scope="prototype" class="com.commondb.app.web.AutoTipAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <bean id="viewEntityAction" scope="prototype" class="com.commondb.app.web.ViewEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <!-- maqing 2010-11-29 add -->
+    <bean id="trackEntityAction" scope="prototype" class="com.commondb.app.web.TrackEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <!-- maqing 2010-11-29 add end -->
+
+    <bean id="appSwitchAction" scope="prototype" class="com.commondb.apply.web.AppSwitchAction">
+    	<property name="applyService" ref="applyService" />
+	</bean>
+
+    <bean id="importAction" scope="prototype" class="com.commondb.app.web.ImportAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+	<bean id="reminderAction" scope="prototype" class="com.commondb.apply.web.ReminderAction">
+    	<property name="userService" ref="userService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+	<bean id="homeAction" scope="prototype" class="com.commondb.apply.web.HomeAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    	<property name="applyService" ref="applyService" />
+	</bean>
+
+    <bean id="viewHisAction" scope="prototype" class="com.commondb.app.web.ViewHisAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <!-- maqing 2010-02-27 add -->
+    <bean id="workRecSaveEntityAction" scope="prototype" class="com.commondb.app.web.workrecord.WorkRecSaveEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <bean id="workRecInputPageGenAction" scope="prototype" class="com.commondb.app.web.workrecord.WorkRecInputPageGenAction">
+    	<property name="metaService" ref="metaService" />
+   		<property name="userService" ref="userService" />
+    </bean>    <!-- maqing 2010-02-27 add end -->
+
+    <!-- maqing 2011-07-16 add -->
+    <bean id="customerSaveEntityAction" scope="prototype" class="com.commondb.app.web.customer.CustomerSaveEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <bean id="customerInputPageGenAction" scope="prototype" class="com.commondb.app.web.customer.CustomerInputPageGenAction">
+    	<property name="metaService" ref="metaService" />
+     	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <bean id="addressSaveEntityAction" scope="prototype" class="com.commondb.app.web.address.AddressSaveEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <!-- maqing 2011-07-16 add end -->
+
+   	<!-- maqing 2011-07-19 add -->
+   	<bean id="operationAction" scope="prototype" class="com.commondb.apply.web.OperationAction">
+    	<property name="entityService" ref="entityService" />
+	</bean>
+    <!-- maqing 2011-07-19 add end -->
+
+	<!-- maqing 2011-08-04 add -->
+   	<bean id="fileUploadAction" scope="prototype" class="com.commondb.app.web.FileUploadAction">
+ 	</bean>
+    <!-- maqing 2011-08-04 add end -->
+
+    <!-- maqing 2011-10-10 add -->
+    <bean id="fileSaveEntityAction" scope="prototype" class="com.commondb.app.web.file.FileSaveEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <!-- maqing 2011-10-10 add end -->
+
+
+    <!-- maqing 2012-08-12 add -->
+    <bean id="projectSaveEntityAction" scope="prototype" class="com.commondb.app.web.project.ProjectSaveEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    	<property name="characterDataDAO" ref="characterDataDAO" />
+    </bean>
+    <bean id="ProjectExportContractAction" scope="prototype" class="com.commondb.app.web.project.ProjectExportContractAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <bean id="ProjectImportContractAction" scope="prototype" class="com.commondb.app.web.project.ProjectImportContractAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <bean id="ContractsAuditViewEntityAction" scope="prototype" class="com.commondb.app.web.contractsAudit.ContractsAuditViewEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <!-- maqing 2012-08-12 add end -->
+
+    <!-- maqing 2014-06-17 add -->
+    <bean id="CusQuoteDetailTrackEntityAction" scope="prototype" class="com.commondb.app.web.customerQuoteDetail.CusQuoteDetailTrackEntityAction">
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    <!-- maqing 2014-06-17 add end -->
+
+</beans>

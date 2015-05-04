@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>跟踪客户询价明细</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style media="all" type="text/css">@import "../css/all.css";</style>
+		<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script>
+		<script type='text/javascript' src='../_lib/jquery.bgiframe.min.js'></script>
+		<script type='text/javascript' src='../_lib/jquery.ajaxQueue.js'></script>
+		<script type='text/javascript' src='../_lib/jquery.autocomplete.js'></script>
+		<script type='text/javascript' src='../_lib/common.js'></script>
+		<link rel="stylesheet" type="text/css" href="../_lib/jquery.autocomplete.css" />
+		
+		<script type='text/javascript' >
+			$(document).ready(function() { 
+				}
+			);
+			
+			
+		</script>
+	</head>
+
+	<body>
+		<div id="main">
+			#foreach(${rr} in ${favorMetaList})	
+				<div style="overflow: auto; width: 700px;" class="table">
+					<div style="width: 1200px;">
+						<table cellspacing="0" cellpadding="0" class="listing" style="table-layout:fixed; border:1px solid #9097A9;">
+							<tbody>
+								#if($updateFlag == 1) 
+									<tr class="bg">
+									  <td class="first"><strong></strong></td>
+									  <td class="last">
+									  	<!--  <input type="submit" value="新增"/>  -->
+									  	<a href="#" onclick= "window.open('/app/customerInquiryBeijian/genForm.ac?entityName=客户询价明细&toRMetaId=${metaId}&toRMetaName=客户询价单&toREntityId=${entityId}&toRLabel=${toRLabel}' ,'remind',
+    'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=744,height=700'); "
+									  	>新增</a>
+									  </td>
+									</tr>		
+								#end					
+								<tr>
+									<th class="first" style="width:20px"></th>
+									<th style="width:80px">操作</th>
+									<th style="width:90px" ><strong>备件</strong> </th>
+								#foreach(${f} in ${rr.fieldsList})	
+								
+									<th style="
+									#if($f.fieldId=='备件ID')width:0px
+									#elseif($f.fieldId=='e-mail')width:200px
+									#elseif($f.fieldId=='地址')width:200px
+									#elseif($f.fieldId!='地址')width:90px
+									#end" 
+									><strong>$f.fieldId</strong></th>
+								
+								#end
+								
+									<th style="width:90px" onclick="reOrder('update_time')"><strong>更新时间</strong> </th>
+									<th style="width:90px" class="last" onclick="reOrder('update_user')"><strong>更新人</strong> </th>
+								</tr>
+				
+								<!--  数据行 -->
+								<tr>
+									#foreach($row in $rr.resList)
+									<tr id="trentity_$row.get(3).getValue()">
+										<td>
+										<input type="checkbox" name="checkentity_$row.get(3).getValue()" id="checkentity_$row.get(3).getValue()"/>
+										</td>
+										<td>
+					<a href="#" onclick= "window.open('/app/customerInquiryBeijian/viewEntity.ac?entityName=客户询价明细&toRMetaId=${metaId}&toRMetaName=客户询价单&toREntityId=${entityId}&entityId=$row.get(3).getValue()&toRLabel=$toRLabel' ,'remind',
+    'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=744,height=700'); " >查看</a> 
+					#if($updateFlag == 1) 
+						<a href="#" onclick= "window.open('/app/customerInquiryBeijian/preEditEntity.ac?entityName=客户询价明细&entityId=$row.get(3).getValue()&toRMetaId=${metaId}&toRMetaName=客户询价单&toREntityId=${entityId}&toRLabel=$toRLabel' ,'remind',
+    'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=744,height=700'); "
+												> 编辑</a>
+						<a href="#" onclick= "window.open('/app/customerInquiryBeijian/preCopyEntity.ac?entityName=客户询价明细&entityId=$row.get(3).getValue()&toRMetaId=${metaId}&toRMetaName=客户询价单&toREntityId=${entityId}&toRLabel=$toRLabel' ,'remind',
+    'toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=744,height=700'); "
+												> 复制</a>
+					#end
+					<a href="/app/tool/viewHis.ac?entityName=客户询价明细&entityId=$row.get(3).getValue()" target="_blank_his"> 历史</a>
+					#if($updateFlag == 1) 
+						<a href="#" onclick="delRec(49,'$row.get(3).getValue()')" >删除</a>
+					#end
+										</td>
+										
+					          			<td>
+											#foreach(${f} in $row.get(2))
+												#if($f.meta2Id == 10) 
+													<a href="/app/tool/viewEntity.ac?metaId=$f.meta2Id&entityId=$f.entity2Id" > !$f.label </a> 	
+												#end
+											#end
+					          				
+					          			</td>
+					          			
+					          			#foreach($cell in $row)
+											#if($velocityCount > 4) 
+							              	<td>$cell.value</td>
+											#end
+					          			#end
+					          			<td>$row.get(0)</td>
+					          			<td>$row.get(1)</td>
+				          			</tr>
+								    #end
+								</tr>
+								<!--  数据行 -->
+
+								<!--  合计行 -->
+								<tr>
+									<tr >
+										<td>合计 </td>
+										<td></td>
+					          			<td></td>
+
+								#foreach(${f1} in ${rr.fieldsList})	
+									<td> 
+									 #if ($f1.fieldId=='数量')
+									    #set ($sumamount = 0)
+										#foreach($row in $rr.resList)
+						          			#foreach($cell in $row)
+												#if($cell.fieldId == $f1.fieldId) 
+											    ## $cell.dataType =='NUMBER'
+												 #set ($Integer = 0)
+												 #set ($sumamount = $sumamount + $Integer.parseInt(${cell.value}) )
+												#end
+						          			#end
+									    #end
+						              	$sumamount 
+									 #end
+									 </td>
+								
+								#end
+
+					          			<td></td>
+					          			<td></td>
+				          			</tr>
+								</tr>
+								<!--  合计行 -->
+
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<br/>
+			#end
+		</div>
+
+	</body>
+
+</html>

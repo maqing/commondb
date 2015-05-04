@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"> 
+    
+
+    
+        
+    <bean id="entityService" scope="prototype" class="com.commondb.db.service.impl.EntityServiceImpl">
+    	<property name="metaDAO" ref="metaDAO" />
+    	<property name="characterAttrDefDAO" ref="characterAttrDefDAO" />
+    	<property name="hierarchyAttrDefDAO" ref="hierarchyAttrDefDAO" />
+    	<property name="picAttrDefDAO" ref="picAttrDefDAO" />
+    	<property name="descAttrDefDAO" ref="descAttrDefDAO" />
+    	<property name="entityDAO" ref="entityDAO" />
+    	<property name="descAttrDataDAO" ref="descAttrDataDAO" />
+    	<property name="picAttrDataDAO" ref="picAttrDataDAO" />
+    	<property name="hierarchyAttrDataDAO" ref="hierarchyAttrDataDAO" />
+    	<property name="characterAttrDataDAO" ref="characterAttrDataDAO" />
+    	<property name="characterAttrValueDAO" ref="characterAttrValueDAO" />
+    	<property name="dynEntityDAO" ref="dynEntityDAO" />
+    	<property name="picDAO" ref="picDAO" />
+    	<property name="rentityDAO" ref="rentityDAO" />
+    	
+    	<property name="characterDefDAO" ref="characterDefDAO" />
+    	<property name="characterDataDAO" ref="characterDataDAO" />
+    	<property name="rentityCharaDataDAO" ref="rentityCharaDataDAO" />
+    	<property name="rmetaCharaDAO" ref="rmetaCharaDAO" />
+    	<property name="rentityHierarchyDataDAO" ref="rentityHierarchyDataDAO" />
+    	<property name="reminderDAO" ref="reminderDAO" />
+    	<property name="hierarchyAttrValueDAO" ref="hierarchyAttrValueDAO" />
+    	<property name="operationBoxDAO" ref="operationBoxDAO" />
+    	<property name="rentityAttachmentDAO" ref="rentityAttachmentDAO" />
+    	
+    	<!-- maqing 2013-01-15 add -->
+    	<property name="httpSolrService" ref="httpSolrService" />
+    	
+    </bean>
+    
+    
+    
+    <bean id="adminEntityAction" scope="prototype" class="com.commondb.db.web.AdminEntityAction">
+    	<property name="entityService" ref="entityService" />
+    	<property name="metaService" ref="metaService" />
+    </bean>
+    
+    
+    <bean id="picManageAction" scope="prototype" class="com.commondb.entity.web.PicManageAction">
+    	<property name="entityService" ref="entityService" />
+    	<property name="metaService" ref="metaService" />
+    </bean>
+    
+ 	<bean id="rentityDAO" class="com.commondb.db.dao.impl.REntityDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+</beans>

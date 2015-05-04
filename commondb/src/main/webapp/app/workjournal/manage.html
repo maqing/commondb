@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>查找工作流水账</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+	<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script>
+	<script type="text/javascript"> 
+		function reOrder(orderField)
+		{
+		
+			if($("#orderBy")[0].value==orderField)
+			{
+				
+				if($("#desc")[0].value == 1) 
+					$("#desc")[0].value = 0;
+				else
+					$("#desc")[0].value = 1;
+		
+			}
+			else
+			{
+				$("#orderBy")[0].value=orderField;
+				$("#desc")[0].value = 1;
+			}
+			
+			$("#searchForm").submit();
+			
+		}
+		
+		$(document).ready(function() { 
+			
+				var orderField = $("#orderBy")[0].value;
+				if(orderField != null && orderField != "")
+				{
+					if($("#desc")[0].value == 1)
+					{
+						$("#order_" + orderField)[0].innerHTML="↓";
+					}else
+					{
+						$("#order_" + orderField)[0].innerHTML="↑";
+					}
+					
+				}
+			}
+		);
+		
+	</script>
+		
+</head>
+
+<body>
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+	<form name="searchForm" id="searchForm" action="/app/workjournal/genManagePage.ac" method="post">
+	<input name="entityName" type="hidden" value="工作流水账" />
+	<input id="orderBy" name="orderBy" type="hidden" value="$!orderBy" />
+	<input id="desc" name="desc" type="hidden" value="$!desc" />
+		<div id="left-column">
+			<!-- 菜单 -->
+			#parse("/app/menu.vm")
+		</div>
+		<div id="center-column">
+			<div class="top-bar">
+				<a class="button" href="#">工作流水账 </a>
+				<h1>工作流水账</h1>
+				<div class="breadcrumbs"><a href="#">工作流水账</a> \ <a href="#">查询</a></div>
+			</div><br>
+		  <div class="select-bar">
+		    <label>
+		    <table cellspacing="0" cellpadding="0" class="listing form" >
+		    <tr><th class="full" colspan="2">查询条件</th>
+		    </tr>
+		    #foreach(${f} in ${hierConditions})	
+					<tr>
+						$f.searchString
+					</tr>
+			#end
+			
+			#foreach(${f} in ${charaConditions})	
+					<tr>
+						$f.searchString
+					</tr>
+			#end
+			
+
+			</table>
+			<options>
+		    与条件<input type="radio" name="conditionConnector" checked value="and"> 或条件<input type="radio" name="conditionConnector" value='or'>
+			</options>
+		    
+		    
+			<input type="submit" value="查找" name="Submit">
+			</label>
+		  </div>
+			<div style="overflow: auto; width: 744px;" class="table">
+			<div style="width: 1200px;">
+
+				<table cellspacing="0" cellpadding="0" class="listing" style="table-layout:fixed; border:1px solid #9097A9;">
+					<tbody><tr>
+					<th class="first" style="width:20px"></th>
+					<th style="width:50px">操作</th>
+				#foreach(${f} in ${fieldsList})	
+				
+					<th style="
+					#if($f.fieldId=='MSN号码')width:200px
+					#elseif($f.fieldId=='e-mail')width:200px
+					#elseif($f.fieldId=='地址')width:200px
+					#elseif($f.fieldId!='地址')width:90px
+					#else
+						width:90px
+					#end" 
+					class="" onclick="reOrder('$!f.columnName')"><strong>$f.fieldId <font id="order_$!f.columnName"></font></strong> </th>
+				
+				#end
+					<th style="width:90px" onclick="reOrder('update_time')"><strong>更新时间</strong> </th>
+					<th style="width:90px" class="last" onclick="reOrder('update_user')"><strong>更新人</strong> </th>
+					</tr>
+					<tr>
+					<td></td><td></td>
+				#foreach(${f} in ${fieldsList})	
+				
+					<td>$f.searchHtml</td>
+				
+				#end
+				<td></td>
+				<td></td>
+					</tr>
+
+					<tr>
+					#foreach($row in $resList)
+										<tr>
+					<td>
+					<input type="checkbox" name="checkentity_$row.get(2).getValue()" id="checkentity_$row.get(2).getValue()"/>
+					</td>
+					<td>
+					<a href="/app/workjournal/viewEntity.ac?entityName=工作流水账&entityId=$row.get(2).getValue()" >查看</a> 
+					<a href="/app/workjournal/preEditEntity.ac?entityName=工作流水账&entityId=$row.get(2).getValue()"> 编辑</a>
+					<a href="/app/workjournal/preCopyEntity.ac?entityName=工作流水账&entityId=$row.get(2).getValue()"> 复制</a>
+					<a href="/app/tool/viewHis.ac?entityName=工作流水账&entityId=$row.get(2).getValue()" target="_blank_his"> 历史</a>
+					</td>
+
+          			#foreach($cell in $row)
+						#if($velocityCount > 3) 
+		              	<td>$cell.value</td>
+						#end
+          			#end
+          			<td>$row.get(0)</td>
+          			<td>$row.get(1)</td>
+					
+          			</tr>
+				    #end
+			
+						
+					</tr>
+					
+
+				</tbody></table>
+				</div>
+					
+			</div>
+			<div class="table">
+	
+			<div class="select">
+					<strong>选择第几页:</strong>
+					<select name="pageInfo.currentPage" onchange="$('#searchForm').submit(); ">
+					#foreach($i in [1 .. $pageInfo.totalPages])
+						<option value="$i" #if($i==$pageInfo.currentPage) selected #end >$i</option>
+					#end
+					</select>
+			  </div>
+			</div>		  
+		</div>
+		<div id="right-column">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面是用来查询工作流水账的，请在表格内输入查询条件，并选择是所有条件与，或者所有条件或，并点击“查找”按钮来查找。</div>
+	  </div>
+	</div>
+	<div id="footer">#parse("/app/footer.vm")</div>
+	</form>
+</div>
+
+<script src="../_lib/common.js" type="text/javascript"> </script>
+<script type="text/javascript">
+$("#工作流水账").addClass("active");
+</script>
+
+</body>
+
+</html>

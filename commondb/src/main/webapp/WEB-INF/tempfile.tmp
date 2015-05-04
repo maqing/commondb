@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+    <bean id="picDAO" class="com.commondb.db.dao.impl.PicDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="characterDefDAO" class="com.commondb.db.dao.impl.CharacterDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="characterDataDAO" class="com.commondb.db.dao.impl.CharacterDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="rentityCharaDataDAO" class="com.commondb.db.dao.impl.REntityCharaDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="rmetaCharaDAO" class="com.commondb.db.dao.impl.RMetaCharaDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+ 
+    <bean id="metaDAO" class="com.commondb.db.dao.impl.MetaDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    <bean id="characterAttrDefDAO" class="com.commondb.db.dao.impl.CharacterAttrDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="hierarchyAttrDefDAO" class="com.commondb.db.dao.impl.HierarchyAttrDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="picAttrDefDAO" class="com.commondb.db.dao.impl.PicAttrDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="descAttrDefDAO" class="com.commondb.db.dao.impl.DescAttrDefDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="entityDAO" class="com.commondb.db.dao.impl.EntityDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="characterAttrValueDAO" class="com.commondb.db.dao.impl.CharacterAttrValueDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="descAttrDataDAO" class="com.commondb.db.dao.impl.DescAttrDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="characterAttrDataDAO" class="com.commondb.db.dao.impl.CharacterAttrDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="hierarchyAttrDataDAO" class="com.commondb.db.dao.impl.HierarchyAttrDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="hierarchyAttrValueDAO" class="com.commondb.db.dao.impl.HierarchyAttrValueDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="linkAttrDataDAO" class="com.commondb.db.dao.impl.LinkAttrDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+	<bean id="metaDescAttrStatDAO" class="com.commondb.db.dao.impl.MetaDescAttrStatDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+    <bean id="picAttrDataDAO" class="com.commondb.db.dao.impl.PicAttrDataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+    <bean id="dynEntityDAO" class="com.commondb.db.dao.impl.DynamicEntityDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    <!-- 
+    <bean id="metaManager" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces" value="com.commondb.db.service.MetaService"/>
+        <property name="interceptorNames">
+            <list>
+                <idref local="metaService"/>
+            </list>
+        </property>
+    </bean> 
+    <bean id="metaService" scope="prototype" class="com.commondb.db.service.impl.MetaServiceImpl">
+	    <sec:intercept-methods access-decision-manager-ref="businessAccessDecisionManager">
+           <sec:protect method="com.commondb.db.service.MetaService.createMeta" access="ROLE_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findAllDb" access="ROLE_ADMIN,ROLE_MOPER,ROLE_MADMIN,ROLE_USER,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findDb" access="ROLE_ADMIN,ROLE_MOPER,ROLE_MADMIN,ROLE_USER,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findMetaPerm" access="ROLE_ADMIN,ROLE_MOPER,ROLE_MADMIN,ROLE_USER,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findMeta" access="ROLE_ADMIN,ROLE_MOPER,ROLE_MADMIN,ROLE_USER,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.updateMeta" access="ACL_META_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.delMeta" access="ACL_META_DELETE"/>
+           <sec:protect method="com.commondb.db.service.MetaService.deletePermission" access="ACL_META_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.addPermission" access="ACL_META_ADMIN"/>
+	    </sec:intercept-methods>
+	    <property name="mutableAclService" ref="aclService"/>
+    	<property name="metaDAO" ref="metaDAO" />
+    	<property name="characterAttrDefDAO" ref="characterAttrDefDAO" />
+    	<property name="hierarchyAttrDefDAO" ref="hierarchyAttrDefDAO" />
+    	<property name="picAttrDefDAO" ref="picAttrDefDAO" />
+    	<property name="descAttrDefDAO" ref="descAttrDefDAO" />
+    	<property name="dynEntityDAO" ref="dynEntityDAO" />
+    	<property name="hierarchyAttrValueDAO" ref="hierarchyAttrValueDAO" />
+    </bean>
+     -->   
+    <bean id="metaManager" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces" value="com.commondb.db.service.MetaService"/>
+        <property name="interceptorNames">
+            <list>
+                <idref local="metaService"/>
+            </list>
+        </property>
+    </bean>
+     <!-- 
+     <bean id="metaService" scope="prototype" class="com.commondb.db.service.impl.MetaServiceImpl">
+	    <sec:intercept-methods access-decision-manager-ref="businessAccessDecisionManager">
+           <sec:protect method="com.commondb.db.service.MetaService.createMeta" access="ROLE_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findAllDb" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findDb" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findMetaPerm" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findMeta" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.updateMeta" access="ACL_META_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.delMeta" access="ACL_META_DELETE"/>
+           <sec:protect method="com.commondb.db.service.MetaService.deletePermission" access="ACL_META_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.addPermission" access="ACL_META_ADMIN"/>
+        </sec:intercept-methods>
+        <sec:intercept-methods access-decision-manager-ref="businessAccessDecisionManagerCharaDef">   
+           	<sec:protect method="com.commondb.db.service.MetaService.createCharaDef" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.createCharaDefWithMeta" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.delCharaDef" access="ACL_CharaDef_DELETE"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateShareCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateEnableCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateCheckMultipleCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.listCharaDef" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+			<sec:protect method="com.commondb.db.service.MetaService.deletePermissionCharacterDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.addPermissionCharacterDef" access="ACL_CharaDef_ADMIN"/>
+		</sec:intercept-methods>
+        <sec:intercept-methods access-decision-manager-ref="businessAccessDecisionManagerCharaData">   	
+			<sec:protect method="com.commondb.db.service.MetaService.createCharaData" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.createCharaDataWithEntity" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.delCharaData" access="ACL_CharaData_DELETE"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateCharaData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateShareCharaData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateEnableCharaData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.listCharaData" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+			<sec:protect method="com.commondb.db.service.MetaService.deletePermissionCharacterData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.addPermissionCharacterData" access="ACL_CharaData_ADMIN"/>
+		</sec:intercept-methods>
+	    <property name="mutableAclService" ref="aclService"/>
+    	<property name="metaDAO" ref="metaDAO" />
+    	<property name="characterAttrDefDAO" ref="characterAttrDefDAO" />
+    	<property name="hierarchyAttrDefDAO" ref="hierarchyAttrDefDAO" />
+    	<property name="picAttrDefDAO" ref="picAttrDefDAO" />
+    	<property name="descAttrDefDAO" ref="descAttrDefDAO" />
+    	<property name="dynEntityDAO" ref="dynEntityDAO" />
+    	<property name="hierarchyAttrValueDAO" ref="hierarchyAttrValueDAO" />
+    	<property name="roleMetaDAO" ref="roleMetaDAO" />
+    	
+    	<property name="characterDefDAO" ref="characterDefDAO" />
+    	<property name="characterDataDAO" ref="characterDataDAO" />
+    	<property name="rentityCharaDataDAO" ref="rentityCharaDataDAO" />
+    	<property name="rmetaCharaDAO" ref="rmetaCharaDAO" />
+    	
+    	<property name="userDAO" ref="userDAO" />
+    	    	
+    </bean> 
+     -->   
+    <bean id="metaService" scope="prototype" class="com.commondb.db.service.impl.MetaServiceImpl">
+	    <sec:intercept-methods access-decision-manager-ref="businessAccessDecisionManager">
+           <sec:protect method="com.commondb.db.service.MetaService.createMeta" access="ROLE_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findAllDb" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findDb" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findMetaPerm" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.findMeta" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+           <sec:protect method="com.commondb.db.service.MetaService.updateMeta" access="ACL_META_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.delMeta" access="ACL_META_DELETE"/>
+           <sec:protect method="com.commondb.db.service.MetaService.deletePermission" access="ACL_META_ADMIN"/>
+           <sec:protect method="com.commondb.db.service.MetaService.addPermission" access="ACL_META_ADMIN"/>
+           
+           	<sec:protect method="com.commondb.db.service.MetaService.createCharaDef" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.createCharaDefWithMeta" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.delCharaDef" access="ACL_CharaDef_DELETE"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateShareCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateEnableCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateCheckMultipleCharaDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.listCharaDef" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+			<sec:protect method="com.commondb.db.service.MetaService.deletePermissionCharacterDef" access="ACL_CharaDef_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.addPermissionCharacterDef" access="ACL_CharaDef_ADMIN"/>
+		 	
+			<sec:protect method="com.commondb.db.service.MetaService.createCharaData" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.createCharaDataWithEntity" access="IS_AUTHENTICATED_REMEMBERED"/>
+			<sec:protect method="com.commondb.db.service.MetaService.delCharaData" access="ACL_CharaData_DELETE"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateCharaData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateShareCharaData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.updateEnableCharaData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.listCharaData" access="IS_AUTHENTICATED_REMEMBERED,AFTER_ACL_COLLECTION_READ"/>
+			<sec:protect method="com.commondb.db.service.MetaService.deletePermissionCharacterData" access="ACL_CharaData_ADMIN"/>
+			<sec:protect method="com.commondb.db.service.MetaService.addPermissionCharacterData" access="ACL_CharaData_ADMIN"/>
+		</sec:intercept-methods>
+	    <property name="mutableAclService" ref="aclService"/>
+    	<property name="metaDAO" ref="metaDAO" />
+    	<property name="characterAttrDefDAO" ref="characterAttrDefDAO" />
+    	<property name="hierarchyAttrDefDAO" ref="hierarchyAttrDefDAO" />
+    	<property name="picAttrDefDAO" ref="picAttrDefDAO" />
+    	<property name="descAttrDefDAO" ref="descAttrDefDAO" />
+    	<property name="dynEntityDAO" ref="dynEntityDAO" />
+    	<property name="hierarchyAttrValueDAO" ref="hierarchyAttrValueDAO" />
+    	<property name="roleMetaDAO" ref="roleMetaDAO" />
+    	
+    	<property name="characterDefDAO" ref="characterDefDAO" />
+    	<property name="characterDataDAO" ref="characterDataDAO" />
+    	<property name="rentityCharaDataDAO" ref="rentityCharaDataDAO" />
+    	<property name="rmetaCharaDAO" ref="rmetaCharaDAO" />
+    	
+    	<property name="userDAO" ref="userDAO" />
+    	    	
+    </bean>
+
+	<bean id="adminAction" scope="prototype" class="com.commondb.db.web.AdminAction">
+    	<property name="metaService" ref="metaService" />
+    </bean>
+  
+    <bean id="preCreateEntityAction" scope="prototype" class="com.commondb.db.web.PreCreateEntityAction">
+    	<property name="metaService" ref="metaService" />
+    </bean>
+
+    <bean id="picAttrAction" scope="prototype" class="com.commondb.db.web.PicAttrAction">
+    	<property name="metaService" ref="metaService" />
+    </bean>
+    
+    <bean id="descAttrAction" scope="prototype" class="com.commondb.db.web.DescAttrAction">
+    	<property name="metaService" ref="metaService" />
+    </bean>
+    
+        <bean id="hieraAttrAction" scope="prototype" class="com.commondb.db.web.HieraAttrAction">
+    	<property name="metaService" ref="metaService" />
+    </bean>
+    
+    <bean id="characterAttrAction" scope="prototype" class="com.commondb.db.web.CharacterAttrAction">
+    	<property name="metaService" ref="metaService" />
+    </bean>
+
+</beans>
