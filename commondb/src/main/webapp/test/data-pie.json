@@ -1,0 +1,126 @@
+{
+	"JSChart" : {
+		"datasets" : [
+			{
+				"type" : "pie",
+				"id" : "blue",
+				"data" : [
+					{
+						"unit" : "'A'",
+						"value" : "40"
+					},
+					{
+						"unit" : "'B'",
+						"value" : "16"
+					},
+					{
+						"unit" : "'C'",
+						"value" : "20"
+					},
+					{
+						"unit" : "'D'",
+						"value" : "10"
+					},
+					{
+						"unit" : "'E'",
+						"value" : "10"
+					},
+					{
+						"unit" : "'F'",
+						"value" : "4"
+					}
+				]
+			}
+		],
+		"colorset" : [
+			"#99CDFB",
+			"#3366FB",
+			"#0000FA",
+			"#F8CC00",
+			"#F89900",
+			"#F76600"
+		],
+		"optionset" : [
+			{
+				"set" : "setSize",
+				"value" : "600, 300"
+			},
+			{
+				"set" : "setTitle",
+				"value" : "'夹杂物成分分析'"
+			},
+			{
+				"set" : "setTitleColor",
+				"value" : "'#0F0F0F'"
+			},
+			{
+				"set" : "setPieRadius",
+				"value" : "95"
+			},
+			{
+				"set" : "setPieValuesColor",
+				"value" : "'#FFFFFF'"
+			},
+			{
+				"set" : "setPieValuesFontSize",
+				"value" : "9"
+			},
+			{
+				"set" : "setPiePosition",
+				"value" : "180, 165"
+			},
+			{
+				"set" : "setShowXValues",
+				"value" : "false"
+			},
+			{
+				"set" : "setLegend",
+				"value" : "'#99CDFB', 'Al2O3'"
+			},
+			{
+				"set" : "setLegend",
+				"value" : "'#3366FB', 'Al(OH)3'"
+			},
+			{
+				"set" : "setLegend",
+				"value" : "'#0000FA', '氧化镁'"
+			},
+			{
+				"set" : "setLegend",
+				"value" : "'#F8CC00', 'AlN'"
+			},
+			{
+				"set" : "setLegend",
+				"value" : "'#F89900', 'Mg3N2'"
+			},
+			{
+				"set" : "setLegend",
+				"value" : "'#F76600', '非金属夹杂物'"
+			},
+			{
+				"set" : "setLegendShow",
+				"value" : "true"
+			},
+			{
+				"set" : "setLegendFontFamily",
+				"value" : "'Times New Roman'"
+			},
+			{
+				"set" : "setLegendFontSize",
+				"value" : "10"
+			},
+			{
+				"set" : "setLegendPosition",
+				"value" : "350, 120"
+			},
+			{
+				"set" : "setPieAngle",
+				"value" : "30"
+			},
+			{
+				"set" : "set3D",
+				"value" : "true"
+			}
+		]
+	}
+}

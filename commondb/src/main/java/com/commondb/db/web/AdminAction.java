@@ -8,13 +8,21 @@ import com.commondb.db.service.MetaService;
 import com.commondb.security.service.SecurityUserHolder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
+
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 public class AdminAction
   extends ActionSupport
-  implements Preparable
+  implements Preparable,ServletRequestAware
 {
   private Integer userId;
   private Integer metaId;
@@ -27,6 +35,11 @@ public class AdminAction
   private Integer[] metaProperty;
   private Integer sourceMetaId;
   private List metaList;
+
+
+  private File uploadMeta;
+  private String uploadMetaFileName;
+  private boolean success;
   
   public Integer[] getMetaProperty()
   {
@@ -253,6 +266,41 @@ public class AdminAction
     }
     return "success";
   }
+
+  
+  public void importMeta()
+  {
+    this.result = new JsonResult();
+    HttpServletResponse response = ServletActionContext.getResponse();
+    response.setCharacterEncoding("utf-8");
+    response.setContentType("text/html");        
+    try
+    {
+      //this.metaService.createMeta(this.entityName, this.entityDesc, this.picAttr, this.descAttr, this.hierarchyAttr, this.characterAttr, this.metaProperty);
+      this.result.success = true;
+      this.success = true;
+    }
+    catch (NameExistException e)
+    {
+      this.result.success = false;
+      this.result.errormsg = (this.entityName + "已经存在");
+    }
+    catch (Throwable t)
+    {
+      this.result.success = false;
+      this.result.errormsg = t.getMessage();
+      t.printStackTrace();
+    }
+    String content = this.result.toString();
+    try {
+    	response.getWriter().write(content);
+    	//response.getWriter().write("{\"success\":true}");
+    	response.getWriter().flush();}
+    catch(Exception e) {}
+
+   // return "success";
+  }
+  
   
   public String updateMeta()
   {
@@ -504,4 +552,35 @@ public class AdminAction
   {
     this.result = result;
   }
+
+@Override
+public void setServletRequest(HttpServletRequest arg0) {
+	// TODO Auto-generated method stub
+	
+}
+
+public File getUploadMeta() {
+	return uploadMeta;
+}
+
+public void setUploadMeta(File upload) {
+	this.uploadMeta = upload;
+}
+
+public String getUploadMetaFileName() {
+	return uploadMetaFileName;
+}
+
+public void setUploadMetaFileName(String uploadFileName) {
+	this.uploadMetaFileName = uploadFileName;
+}
+
+public boolean isSuccess() {
+	return success;
+}
+
+public void setSuccess(boolean success) {
+	this.success = success;
+}
+
 }

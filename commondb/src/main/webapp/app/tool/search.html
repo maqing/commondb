@@ -86,16 +86,49 @@
 			<input type="submit" id="su" value="搜索" class="s_btn" onmousedown="this.className='s_btn s_btn_h'" onmouseout="this.className='s_btn'"/>
 		</span>
 		-->
+		
+		<p>
+			#if($curPage>1)
+				#set($prevPage=$curPage - 1)
+				<a href="/app/tool/search.ac?curPage=$prevPage&search_q=$!search_q"><span>&lt;上一页</span></a>
+			
+			#end
+		
+			#if($totalPages>=1)
+				#set($allPage=$startPage+$realPages)
+			
+				#foreach ($iPage in [$startPage .. $allPage])
+					#if($iPage<=$totalPages)
+						#if ($iPage==$curPage)
+							&nbsp;<Strong>$iPage</STRONG>
+						#else
+							&nbsp;<a href="/app/tool/search.ac?curPage=$iPage&search_q=$!search_q"><span>$iPage</span></a>
+						#end 
+					#end
+				#end
+				
+			#end
+			
+			<!--  
+			<a href="/app/tool/search.ac?curPage=1&search_q=$!search_q"><span>1</span></a>
+			<a href="/app/tool/search.ac?curPage=2&search_q=$!search_q" style='text-decoration:none;'><span>2</span></a>
+			<a href="/app/tool/search.ac?curPage=3&search_q=$!search_q"><span>3</span></a>
+			-->
+			
+			#if($curPage<$totalPages)
+				#set($nextPage=$curPage + 1)
+				&nbsp;<a href="/app/tool/search.ac?curPage=$nextPage&search_q=$!search_q"><span>下一页&gt;</span></a>
+			#end
+		</p>
 				
 		</form>	
 	    <p>&nbsp;</p>
 		</div>
 		  
-		</div>
 		<div id="right-column">
 			<strong class="h">帮助</strong>
 			<div class="box">该页面是用来查看提醒信息</div>
-	  </div>
+	  	</div>
 	</div>
 	<!-- 页脚 -->
 	<div id="footer">#parse("/app/footer.vm")</div>

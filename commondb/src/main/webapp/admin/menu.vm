@@ -6,7 +6,9 @@ if("${user.authoritiesString}".indexOf("ROLE_ADMIN")!=-1){
 
 	menuData.push({"id":"meta_operations","iconCls":"icon-docs","text":"元数据管理","singleClickExpand":true, "children":
         [{"jsArray":[{js:'js/ux/newMeta2.js'}],"fn":"newMetaRefresh","link":"newMeta.html","text":"新建元数据","id":"new Meta","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true},
-         {"jsArray":[{js:'js/ux/manage_meta.js'}],"fn":'clearMetaInfo',"link":"manage_meta.html","text":"管理元数据","id":"Manage Meta","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}]}
+         {"jsArray":[{js:'js/ux/manage_meta.js'}],"fn":'clearMetaInfo',"link":"manage_meta.html","text":"管理元数据","id":"Manage Meta","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true},
+         {"jsArray":[{js:'js/ux/importMeta.js'}],"fn":'importMetaInfo',"link":"importMeta.html","text":"导入元数据","id":"Import Meta","isClass":true,"iconCls":"icon-static","cls":"cls","leaf":true}
+         ]}
 		 )
 }
 /*

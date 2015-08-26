@@ -164,6 +164,11 @@
 				<param name="root">result</param>
 			</result>
 		</action>
+		<action name="importMeta" method="importMeta" class="adminAction">
+<!-- 			<result type="json">
+				<param name="root">result</param>
+			</result>
+ -->		</action>
 		<action name="fetchMetaAttrs" method="fetchMetaAttrs" class="adminAction">
 			<result type="json">
 				<param name="root">result</param>
