@@ -66,7 +66,10 @@ Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <security:authentication property="principal.userDesc"/>您好！您的权限为<security:authentication property="principal.authoritiesDescString"/>
 &nbsp;&nbsp;&nbsp;&nbsp;<a href="j_spring_security_logout">注销</a>
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="front/findMetaPerm.ac" target="about_blank">前台 </a>
+<!-- &nbsp;&nbsp;&nbsp;&nbsp;<a href="front/findMetaPerm.ac" target="about_blank">前台 </a> -->
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="app/sys/home.ac" target="about_blank">前台 </a>
+
+
 </h1></div>
 </div>
 

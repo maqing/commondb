@@ -5,5 +5,7 @@
 				<li><a href="/app/sys_config/index.html">权限设置</a></li>
 				<li class="last"><a href="#">修改密码</a></li>
 			</ul>
-			<a class="link" href="#">bbs链接</a>
-			<a class="link" href="#">mail链接</a>
+			<!--
+				<a class="link" href="#">bbs链接</a>
+				<a class="link" href="#">mail链接</a>
+			-->
