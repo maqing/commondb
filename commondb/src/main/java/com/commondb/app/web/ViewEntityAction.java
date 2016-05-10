@@ -213,7 +213,7 @@ public class ViewEntityAction
         for (int m = 0; m < this.charaFields.size(); m++)
         {
           CharacterField cField = (CharacterField)this.charaFields.get(m);
-          if (cData.getCharaId().equals(cField.getColumnName().replaceFirst("c_", "")))
+          if (cData.getCharaId().toString().equals(cField.getColumnName().replaceFirst("c_", "")))
           {
             if ((cField.getValue() == null) || (cField.getValue().equals("")))
             {

@@ -581,6 +581,7 @@ public class EntityServiceImpl
         record.setMeta2Id(new Integer(entity[0]));
         record.setEntity2Id(entity[1]);
         record.setId(UUID.randomUUID().toString());
+        record.setLabel("");
         if (entityLabel != null) {
           record.setLabel(entityLabel[i]);
         }
@@ -608,6 +609,22 @@ public class EntityServiceImpl
 
     this.httpSolrService.addDoc(entityId, solrValuesMap);
 
+    //maqing 2015-11-09 把属性恢复
+    if (charaArr != null) {
+    	valuesMap.put("charaArr",charaArr);
+    }
+    if (hierarchyArr != null) {
+    	valuesMap.put("hierarchyArr",hierarchyArr);
+    }
+    if (entityArr != null) {
+    	valuesMap.put("entityArr",entityArr);
+    }
+    if (entityLabel != null) {
+    	valuesMap.put("entityLabel",entityLabel);
+    }
+    if (attachNameList != null) {
+    	valuesMap.put("attachNameList",attachNameList);
+    }
 
     return entityId;
   }
@@ -958,6 +975,7 @@ public class EntityServiceImpl
         rerecord.setMeta2Id(new Integer(entity[0]));
         rerecord.setEntity2Id(entity[1]);
         rerecord.setId(UUID.randomUUID().toString());
+        rerecord.setLabel("");
         if (entityLabel != null) {
         	rerecord.setLabel(entityLabel[i]);
         }
@@ -990,6 +1008,22 @@ public class EntityServiceImpl
 
     this.httpSolrService.addDoc(entityId, solrValuesMap);
 
+    //maqing 2015-11-09 把属性恢复
+    if (charaArr != null) {
+    	valuesMap.put("charaArr",charaArr);
+    }
+    if (hierarchyArr != null) {
+    	valuesMap.put("hierarchyArr",hierarchyArr);
+    }
+    if (entityArr != null) {
+    	valuesMap.put("entityArr",entityArr);
+    }
+    if (entityLabel != null) {
+    	valuesMap.put("entityLabel",entityLabel);
+    }
+    if (attachNameList != null) {
+    	valuesMap.put("attachNameList",attachNameList);
+    }
 
     return entityId;
   }
@@ -1301,4 +1335,6 @@ public class EntityServiceImpl
   {
     this.httpSolrService = httpSolrService;
   }
+  
+
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+	default-lazy-init="false">
+	
+	<!-- 从plc接口库同步数据 30s一次-->
+	<bean id="syncPlcTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	   <property name="targetObject">
+	      <ref bean="plcSyncService"/>
+	   </property>
+	   <property name="targetMethod">
+	      <value>syncData</value>
+	   </property>
+	   <property name="concurrent" value="false" />
+	</bean>
+<!-- 	<bean id="syncPlcTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="syncPlcTask"/>
+    	</property>
+    	<property name="cronExpression">
+    		<value>0/30 * * * * ?</value>
+    	</property>
+    </bean>
+ -->	
+ 	<bean id="syncPlcTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="syncPlcTask"/>
+    	</property>
+		<property name="startDelay" value="30000" />
+		<property name="repeatInterval" value="30000" />
+    </bean>
+	
+	<!-- 处理接口数据定时任务 30秒一次-->
+	<bean id="processPlcDataTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <property name="targetObject">
+	      <ref bean="plcSyncService"/>
+	   </property>
+	   <property name="targetMethod">
+	      <value>processPlcData</value>
+	   </property>
+	   <property name="concurrent" value="false" />
+	</bean>
+<!--     <bean id="processPlcDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="processPlcDataTask"/>
+    	</property>
+    	<property name="cronExpression">
+    		<value>0/30 * * * * ?</value>
+    	</property>
+    </bean> -->
+    <bean id="processPlcDataTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="processPlcDataTask"/>
+    	</property>
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+    </bean>
+    
+    <!-- 定时任务列表 -->
+    <bean id="triggersStarter" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    	<property name="triggers">
+    		<list>
+    		    <ref bean="syncPlcTrigger"/>
+    			<ref bean="processPlcDataTrigger"/>
+    		</list>
+    	</property>
+    	<property name="autoStartup">
+    		<value>true</value>
+    	</property>
+    </bean>   
+</beans>

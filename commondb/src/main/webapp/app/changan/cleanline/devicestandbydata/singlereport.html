@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+	<script src="../_lib/jquery-1.7.1.js" type="text/javascript"> </script>
+
+	<link rel="stylesheet" type="text/css" href="../css/ui-lightness/jquery-ui-1.7.2.custom.css" />
+	<script src="../_lib/jquery-ui-1.8.16.custom.min.js" type="text/javascript"> </script> 
+
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/jqgrid4.5/ui.jqgrid.css" />
+	<script src="../_lib/jqgrid4.5/grid.locale-cn.js" type="text/javascript"></script>
+	<script src="../_lib/jqgrid4.5/jquery.jqGrid.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/timepicker/jquery-ui-timepicker-addon.css" />
+	<script src="../_lib/timepicker/jquery-ui.js" type="text/javascript"> </script> 
+	<script src="../_lib/timepicker/jquery-ui-slide.min.js" type="text/javascript"></script>
+ 	<script src='../_lib/timepicker/jquery-ui-timepicker-addon.js' type="text/javascript" ></script> 
+    <title>待机时间统计</title>
+</head>
+<body>
+	<div id="standbySingleReport">
+		<input type="hidden" name="entityName" id="entityName" value="${entityName}"/>
+		<input type="hidden" name="entityId" id="entityId" value="${entityId}"/>
+		<strong>日期从:</strong> <input type="text" name="timeStandbyReportBegin" id="timeStandbyReportBegin" value="$!timeStandbyReportBegin" >
+		<strong>到：</strong> <input type="text" name="timeStandbyReportEnd" id="timeStandbyReportEnd" value="$!timeStandbyReportEnd" > 
+		<input type="button" onclick="queryDeviceStandbyReport();" value="查询"/>
+		<input type="button" onclick="clearQueryCondition();" value="重置"/>
+		<input type="button" onclick="exportToExcel();" disabled="disabled" value="导出" id="btnStandbyExport"/>
+	
+		<table id="standbyGridTable"></table> 
+		<div id="standbyGridPager"></div>
+	</form>
+</body>
+<script type="text/javascript">
+	var appUrl = "";
+	if ($("#entityName", "#standbySingleReport").val()=="取件机器人") {
+		appUrl = '/app/robotReport';
+	} else if ($("#entityName", "#standbySingleReport").val()=="加工中心") {
+		appUrl = '/app/machineReport';
+	} else if ($("#entityName", "#standbySingleReport").val()=="震动落砂机") {
+		appUrl = '/app/shockSandReport';
+	} else if ($("#entityName", "#standbySingleReport").val()=="CGC单元") {
+		appUrl = '/app/cgcReport';
+	} else if ($("#entityName", "#standbySingleReport").val()=="中央物流") {
+		appUrl = '/app/transferReport';
+	}
+
+	function queryDeviceStandbyReport() {
+		var sdata = {   // 构建查询需要的参数  
+				timeStandbyReportBegin: $("#timeStandbyReportBegin", "#standbySingleReport").val(),  
+				timeStandbyReportEnd: $("#timeStandbyReportEnd", "#standbySingleReport").val(), 
+				entityName: $("#entityName", "#standbySingleReport").val(),
+				entityId: $("#entityId", "#standbySingleReport").val()
+		    };  
+		      
+	    // 获得当前postData选项的值  
+	    var postData = $("#standbyGridTable").jqGrid("getGridParam", "postData");  
+	      
+	    // 将查询参数融入postData选项对象  
+	    $.extend(postData, sdata);  
+	      
+	    $("#standbyGridTable").jqGrid("setGridParam", {  
+	        search: true,    // 将jqGrid的search选项设为true
+	        datatype: "json"
+	    }).trigger("reloadGrid", [{page:1}]);   // 重新载入Grid表格，以使上述设置生效  
+	    
+	    $("#btnStandbyExport").attr("disabled",false); 
+	}
+
+	function clearQueryCondition() {
+		$("#timeStandbyReportBegin", "#standbySingleReport").val("");
+		$("#timeStandbyReportEnd", "#standbySingleReport").val("");
+	}
+	
+	function exportToExcel() {
+		window.location.href = appUrl + '/standbyExportToExcel.ac';
+	}
+	
+	$(document).ready(function() { 
+		$('#timeStandbyReportBegin').datepicker();	
+		$('#timeStandbyReportEnd').datepicker();	
+	
+		$("#standbyGridTable").jqGrid({  
+		    url: appUrl + "/robotReport/standbyReport.ac",  
+		    datatype: "local",  
+		    mtype: "GET",  
+		    height: "auto",  
+		    autowidth: true,  
+		    colModel: [  
+		          {name:"s_date",index:"s_date",label:"日期",width:40,sortable:false,align: "center",
+		        	  formatter:'date',formatoptions:{srcformat: 'Y-m-d'}
+		         	},    
+		          {name:"standbySecond",index:"standbySecond",label:"待机时长",width:80,sortable:false,align: "center"}
+		    ],  
+		    viewrecords: true,  
+		    rowNum: 15,  
+		    rowList: [15,50,100],  
+		    prmNames: {search: "search"},   //(1)  
+		    jsonReader: {  
+		    	userdata: "userdata",
+		    	root:"gridModel",       // (2)  
+		        records: "record",      // (3)  
+		        repeatitems : false     // (4)  
+		    },  
+			footerrow:true,
+			userDataOnFooter : true,
+		    pager: "#standbyGridPager",  
+		    caption: "",  
+		    hidegrid: false  
+		});  
+		var beginTime = $("#timeStandbyReportBegin", "#standbySingleReport").val();
+		var endTime = $("#timeStandbyReportEnd", "#standbySingleReport").val();
+		if ((beginTime !== null && beginTime !== '') || (endTime !== null && endTime !== '') ) {
+			//查询条件日期有值,自动查询一次
+			queryDeviceStandbyReport();
+		}
+	});
+	
+</script>

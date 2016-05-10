@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>导出中央物流</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+	<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script>
+
+	<script type="text/javascript">
+	
+	function exportEntity()
+	{
+		var idString = "";
+				$("input[name*=checkentity]").each(function(){
+                if($(this).attr('checked'))
+                {
+                	idString += "," + this.id.replace('checkentity_','') + "_dummy";
+                }
+        });
+        idString = idString.substring(1);
+        if(idString == "")
+        {
+        	alert("请选择记录！");
+        }else
+        {
+        	url = '/app/transferDevice/export.ac?entityName=$!{entityName}&export=1&entityIdExport=' + idString;
+        	url = encodeURI(url);
+        	window.open(url,'导出','toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=650,height=600');
+        }
+		
+		
+	}
+		
+	$(document).ready(function(){
+		$('#checkAll').toggle(function(){
+            $("input[name*=checkentity]").each(function(){
+                $(this).attr('checked',true);
+            });
+            $(this).html('<a href="#">取消</a>');
+        },function(){
+            $("input[name*=checkentity]").each(function(){
+                $(this).attr('checked',false);
+            });
+            $(this).html('<a href="#">全选</a>');
+        });
+	})
+    </script> 
+</head>
+
+<body>
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+	<form name="searchForm" id="searchForm" action="/app/transferDevice/preExport.ac" method="post">
+	<input name="entityName" type="hidden" value="$!{entityName}" />
+	<input id="export" name="export" type="hidden" value="0" />
+		<div id="center-column">
+			<div id="top-bar" class="top-bar">
+				<!-- 菜单 -->
+				#parse("/app/newmenu.vm")
+			</div>
+		  <div class="select-bar">
+		    <label>
+		    <table cellspacing="0" cellpadding="0" class="listing form" >
+		    <tr><th class="full" colspan="2">查询条件</th>
+		    </tr>
+		    #foreach(${f} in ${hierConditions})	
+					<tr>
+						$f.searchString
+					</tr>
+			#end
+			
+			#foreach(${f} in ${charaConditions})	
+					<tr>
+						$f.searchString
+					</tr>
+			#end
+			
+
+			</table>
+			<options>
+		    与条件<input type="radio" name="conditionConnector" checked value="and"> 或条件<input type="radio" name="conditionConnector" value='or'>
+			</options>
+		    
+		    
+			<input type="submit" value="查找" name="Submit">
+			</label>
+		  </div>
+			<div style="overflow: auto; width: 744px;" class="table">
+			<div style="width: 1200px;">
+
+				<table cellspacing="0" cellpadding="0" class="listing" style="table-layout:fixed; border:1px solid #9097A9;">
+					<tbody><tr>
+					<th class="first" style="width:20px"></th>
+					<th style="width:50px">操作</th>
+				#foreach(${f} in ${fieldsList})	
+				
+					<th style="
+					#if($f.fieldId=='MSN号码')width:200px
+					#elseif($f.fieldId=='e-mail')width:200px
+					#elseif($f.fieldId=='地址')width:200px
+					#elseif($f.fieldId!='地址')width:90px
+					#else with:90px
+					#end" 
+					class=""><strong>$f.fieldId</strong></th>
+				
+				#end
+					<th style="width:90px" ><strong>更新时间</strong> </th>
+					<th class="last" style="width:90px" ><strong>更新人</strong> </th>
+				
+					</tr>
+					<tr>
+					<td></td><td></td>
+				#foreach(${f} in ${fieldsList})	
+				
+					<td>$f.searchHtml</td>
+				
+				#end
+					<td></td>
+					<td></td>
+					</tr>
+					
+					<tr>
+					#foreach($row in $resList)
+										<tr>
+					<td>
+					<input type="checkbox" name="checkentity_$row.get(2).getValue()" id="checkentity_${metaId}_$row.get(2).getValue()"/>
+					</td>
+					<td>
+					<a href="/app/transferDevice/viewEntity.ac?entityName=${entityName}&entityId=$row.get(2).getValue()" >查看</a> 
+					</td>
+
+          			#foreach($cell in $row)
+						#if($velocityCount > 3) 
+		              	<td>$cell.value</td>
+						#end
+          			#end
+          			<td>$row.get(0)</td>
+          			<td>$row.get(1)</td>
+					
+					</tr>
+				    #end
+		
+						
+					</tr>
+					
+
+				</tbody></table>
+				</div>
+					
+			</div>
+			<div class="table">
+			<div class="select" style="float:left">
+				<strong id="checkAll"><a href="#" >全选</a></strong>  <strong>
+				
+				<a href="#" onclick='exportEntity();' >导出</a>
+				<!-- <a href="#" onclick='$("#searchForm").attr("action","/app/transferDevice/export.ac");$("#searchForm").attr("target","_blank");$("#export").attr("value","1");$("#searchForm").submit();'>导出</a> --></strong>  
+			</div>
+			
+			<div class="select">
+					<strong>选择第几页:</strong>
+					<select name="pageInfo.currentPage" onchange="$('#searchForm').submit(); ">
+					#foreach($i in [1 .. $pageInfo.totalPages])
+						<option value="$i" #if($i==$pageInfo.currentPage) selected #end >$i</option>
+					#end
+					</select>
+			  </div>
+			</div>		  
+		</div>
+		<div id="right-column-tip">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面是用来导出中央物流的，请在表格内输入查询条件，并选择是所有条件与，或者所有条件或，并点击“查找”按钮来查找。</div>
+			
+			<strong class="h">操作箱  <a onclick="operBox('通讯录','操作箱_display','oper')">添加</a> <a onclick="window.open('/app/transferDevice/export.ac?&export=1&entityIdExport=' + $('#oper').attr('value'),'导出','toolbar=no,scrollbars=yes,resizable=yes,top=100,left=100,width=650,height=600');" href="#">导出</a></strong>
+			<input type="hidden" value="" name="oper" id="oper" />
+			<div id="操作箱_display" class="box"></div>
+	  </div>
+	</div>
+	<div id="footer">#parse("/app/footer.vm")</div>
+	</form>
+</div>
+
+<script src="../_lib/common.js" type="text/javascript"> </script>
+<script type="text/javascript">
+$("#中央物流").addClass("active");
+</script>
+
+</body>
+
+</html>

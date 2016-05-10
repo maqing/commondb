@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>查看工件清理信息</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+	<script src="../_lib/jquery.js" type="text/javascript"> </script>
+	<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script>
+	<script src="/app/_lib/common.js" type="text/javascript"> </script>
+	<script type="text/javascript">
+    
+	function btclose_onclick() {
+	  if (window.opener != null && !window.opener.closed) {
+	  	window.opener.location.reload();
+	  	window.close();
+	  }
+	}
+ 	
+ 	function closeit()   {
+		setTimeout( "btclose_onclick() ",1000)   //毫秒
+	} 
+	
+	</script>	
+</head>
+
+<body  onload= "closeit()">
+<div id="main">
+	<div id="middle">
+		<div id="center-column">
+
+		<div class="break-bar"></div>
+
+		
+		<form name="infoForm" id="infoForm" action="" method="post" enctype="multipart/form-data" >
+		<div class="table">
+				
+				<strong> $info </strong>
+		
+	        <p>&nbsp;</p>
+		  </div>
+		 </form>
+		</div>
+
+	</div>
+</div>
+
+
+</body>
+
+</html>

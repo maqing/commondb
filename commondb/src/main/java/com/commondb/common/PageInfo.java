@@ -15,7 +15,11 @@ public class PageInfo
   
   public int getCurrentPage()
   {
-    return this.currentPage;
+	if (this.currentPage<=0) {
+		return this.totalPages>=1?1:this.totalPages;
+	} else {
+		return this.currentPage;
+	}
   }
   
   public void setCurrentPage(int currentPage)

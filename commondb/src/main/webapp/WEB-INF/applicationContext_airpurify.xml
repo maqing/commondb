@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+    <bean id="iCCardService" class="com.commondb.app.DataCollect.ICCard.service.impl.ICCardServiceImpl"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="plcDataService" class="com.commondb.app.DataCollect.AirPurify.service.impl.PLCDataServiceImpl"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="iCCardService" ref="iCCardService" />
+	</bean>
+
+    <bean id="temperatureImportAction" scope="prototype" class="com.commondb.app.DataCollect.temperature.TemperatureImportAction">
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    
+    <bean id="echartsDataAction" scope="prototype" class="com.commondb.app.echarts.EchartsDataAction">
+    	<property name="plcDataService" ref="plcDataService" />
+    </bean>
+
+</beans>

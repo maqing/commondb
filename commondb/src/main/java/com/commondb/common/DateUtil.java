@@ -58,8 +58,59 @@ public class DateUtil
     return formatDate(calendar.getTime(), "yyyy-MM-dd");
   }
   
+  public static String toDHMS(String secStr) {
+	  long sec = Long.parseLong(secStr);
+	  int ss = 1;
+	  int mi = ss * 60;
+	  int hh = mi * 60;
+	  int dd = hh * 24;
+
+	  long day = sec / dd;
+	  long hour = (sec - day * dd) / hh;
+	  long minute = (sec - day * dd - hour * hh) / mi;
+	  long second = (sec - day * dd - hour * hh - minute * mi) / ss;
+	 // long milliSecond = sec - day * dd - hour * hh - minute * mi - second * ss;
+
+	  //String strDay = day < 10 ? "0" + day : "" + day;
+	  String strDay = "" + day;
+	  String strHour = hour < 10 ? "0" + hour : "" + hour;
+	  String strMinute = minute < 10 ? "0" + minute : "" + minute;
+	  String strSecond = second < 10 ? "0" + second : "" + second;
+	 // String strMilliSecond = milliSecond < 10 ? "0" + milliSecond : "" + milliSecond;
+	 // strMilliSecond = milliSecond < 100 ? "0" + strMilliSecond : "" + strMilliSecond;
+	  return strDay + "天" + strHour + "时" + strMinute + "分" + strSecond + "秒";	  
+  }
+
+  public static String toHMS(String secStr) {
+	  long sec = Long.parseLong(secStr);
+	  int ss = 1;
+	  int mi = ss * 60;
+	  int hh = mi * 60;
+	  int dd = hh * 24;
+
+	  long day = sec / dd;
+	  day = 0;
+	  long hour = (sec - day * dd) / hh;
+	  long minute = (sec - day * dd - hour * hh) / mi;
+	  long second = (sec - day * dd - hour * hh - minute * mi) / ss;
+	 // long milliSecond = sec - day * dd - hour * hh - minute * mi - second * ss;
+
+	  //String strDay = day < 10 ? "0" + day : "" + day;
+	  //String strHour = hour < 10 ? "0" + hour : "" + hour;
+	  String strHour = "" + hour;
+	  String strMinute = minute < 10 ? "0" + minute : "" + minute;
+	  String strSecond = second < 10 ? "0" + second : "" + second;
+	 // String strMilliSecond = milliSecond < 10 ? "0" + milliSecond : "" + milliSecond;
+	 // strMilliSecond = milliSecond < 100 ? "0" + strMilliSecond : "" + strMilliSecond;
+	  return strHour + "时" + strMinute + "分" + strSecond + "秒";	  
+  }
+  
+  
   public static void main(String[] args)
   {
     System.out.println(firstDayOfMonth(new Date()));
   }
+  
+  
+  
 }

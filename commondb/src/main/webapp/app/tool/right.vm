@@ -9,6 +9,7 @@
 					-->
 			</div>
 			
+			<!--
 			<strong class="h">联系人
 				<a onclick="selectOperationRec('通讯录','操作箱_linkman_display')" href="#">添加</a> 
 				<a onclick="window.open('/app/customer/export.ac?export=1&entityIdExport=' + $('#oper').attr('value'),'导出',
@@ -39,3 +40,4 @@
 					#end 
 				#end 
 			</div>			
+			-->

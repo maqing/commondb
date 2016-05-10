@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+    <bean id="dataSourceRemotePLC" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3307/changan_plc_interface?useUnicode=true&amp;characterEncoding=UTF-8" />
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3307/changana?useUnicode=true&amp;characterEncoding=UTF-8" /> -->
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+		
+<!-- 		<property name="url" value="jdbc:mysql://192.168.100.56:3306/changana?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="changanuser" />
+		<property name="password" value="changanroot" />
+ -->
+	</bean>
+	
+	
+	<!-- iBatis的SqlMap配置-->
+	<bean id="sqlMapClientRemotePLC" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+	    <property name="configLocation" value="WEB-INF\sql-map-config-changanplc.xml" />
+		<property name="dataSource" ref="dataSourceRemotePLC" />
+	</bean>
+	
+	<bean id="localMachinedeviceDAO" class="com.changan.plcinterface.dao.MachinedeviceDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="localMachinedevice102DAO" class="com.changan.plcinterface.dao.Machinedevice102DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+	<bean id="remoteMachinedevice102DAO" class="com.changan.plcinterface.dao.Machinedevice102DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localMachinedevice103DAO" class="com.changan.plcinterface.dao.Machinedevice103DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+
+	<bean id="remoteMachinedevice103DAO" class="com.changan.plcinterface.dao.Machinedevice103DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localRobotdeviceDAO" class="com.changan.plcinterface.dao.RobotdeviceDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="localRobotdevice102DAO" class="com.changan.plcinterface.dao.Robotdevice102DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteRobotdevice102DAO" class="com.changan.plcinterface.dao.Robotdevice102DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localRobotdevice103DAO" class="com.changan.plcinterface.dao.Robotdevice103DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteRobotdevice103DAO" class="com.changan.plcinterface.dao.Robotdevice103DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localShocksanddeviceDAO" class="com.changan.plcinterface.dao.ShocksanddeviceDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="localShocksanddevice102DAO" class="com.changan.plcinterface.dao.Shocksanddevice102DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteShocksanddevice102DAO" class="com.changan.plcinterface.dao.Shocksanddevice102DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localShocksanddevice103DAO" class="com.changan.plcinterface.dao.Shocksanddevice103DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteShocksanddevice103DAO" class="com.changan.plcinterface.dao.Shocksanddevice103DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localWprecordinformationDAO" class="com.changan.plcinterface.dao.WprecordinformationDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteWprecordinformationDAO" class="com.changan.plcinterface.dao.WprecordinformationDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localCgcdeviceDAO" class="com.changan.plcinterface.dao.CgcdeviceDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="localCgcdevice104DAO" class="com.changan.plcinterface.dao.Cgcdevice104DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteCgcdevice104DAO" class="com.changan.plcinterface.dao.Cgcdevice104DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localCgcdevice105DAO" class="com.changan.plcinterface.dao.Cgcdevice105DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteCgcdevice105DAO" class="com.changan.plcinterface.dao.Cgcdevice105DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localCgcdevice106DAO" class="com.changan.plcinterface.dao.Cgcdevice106DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteCgcdevice106DAO" class="com.changan.plcinterface.dao.Cgcdevice106DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localCgcdevice107DAO" class="com.changan.plcinterface.dao.Cgcdevice107DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteCgcdevice107DAO" class="com.changan.plcinterface.dao.Cgcdevice107DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+	<bean id="localTransferdeviceDAO" class="com.changan.plcinterface.dao.TransferdeviceDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="localTransferdevice101DAO" class="com.changan.plcinterface.dao.Transferdevice101DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClient" />
+    </bean>
+    
+	<bean id="remoteTransferdevice101DAO" class="com.changan.plcinterface.dao.Transferdevice101DAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemotePLC" />
+    </bean>
+    
+    <bean id="plcSyncService" scope="prototype" class="com.changan.plcinterface.service.PlcSyncServiceImpl">
+    	<property name="localMachinedeviceDAO" ref="localMachinedeviceDAO" />
+    	<property name="localMachinedevice102DAO" ref="localMachinedevice102DAO" />
+    	<property name="remoteMachinedevice102DAO" ref="remoteMachinedevice102DAO" />
+    	<property name="localMachinedevice103DAO" ref="localMachinedevice103DAO" />
+    	<property name="remoteMachinedevice103DAO" ref="remoteMachinedevice103DAO" />
+    	<property name="localRobotdeviceDAO" ref="localRobotdeviceDAO" />
+    	<property name="localRobotdevice102DAO" ref="localRobotdevice102DAO" />
+    	<property name="remoteRobotdevice102DAO" ref="remoteRobotdevice102DAO" />
+    	<property name="localRobotdevice103DAO" ref="localRobotdevice103DAO" />
+    	<property name="remoteRobotdevice103DAO" ref="remoteRobotdevice103DAO" />
+    	<property name="localShocksanddeviceDAO" ref="localShocksanddeviceDAO" />
+    	<property name="localShocksanddevice102DAO" ref="localShocksanddevice102DAO" />
+    	<property name="remoteShocksanddevice102DAO" ref="remoteShocksanddevice102DAO" />
+    	<property name="localShocksanddevice103DAO" ref="localShocksanddevice103DAO" />
+    	<property name="remoteShocksanddevice103DAO" ref="remoteShocksanddevice103DAO" />
+    	<property name="localWprecordinformationDAO" ref="localWprecordinformationDAO" />
+    	<property name="remoteWprecordinformationDAO" ref="remoteWprecordinformationDAO" />
+    	<property name="localCgcdeviceDAO" ref="localCgcdeviceDAO" />
+    	<property name="localCgcdevice104DAO" ref="localCgcdevice104DAO" />
+    	<property name="remoteCgcdevice104DAO" ref="remoteCgcdevice104DAO" />
+    	<property name="localCgcdevice105DAO" ref="localCgcdevice105DAO" />
+    	<property name="remoteCgcdevice105DAO" ref="remoteCgcdevice105DAO" />
+    	<property name="localCgcdevice106DAO" ref="localCgcdevice106DAO" />
+    	<property name="remoteCgcdevice106DAO" ref="remoteCgcdevice106DAO" />
+    	<property name="localCgcdevice107DAO" ref="localCgcdevice107DAO" />
+    	<property name="remoteCgcdevice107DAO" ref="remoteCgcdevice107DAO" />
+    	<property name="localTransferdeviceDAO" ref="localTransferdeviceDAO" />
+    	<property name="localTransferdevice101DAO" ref="localTransferdevice101DAO" />
+    	<property name="remoteTransferdevice101DAO" ref="remoteTransferdevice101DAO" />
+    	<property name="entityService" ref="entityService" />
+  	</bean>
+
+	    
+</beans>

@@ -461,7 +461,8 @@ public class MetaServiceImpl
         RMetaCharaCriteria rMetaCharaCriteria = new RMetaCharaCriteria();
         RMetaCharaCriteria.Criteria c = rMetaCharaCriteria.createCriteria();
         c.andMetaIdEqualTo(metaId);
-        c.andCharaIdIn(charaIdL);
+        if ((charaIdL != null) && (charaIdL.size() > 0)) 
+        	c.andCharaIdIn(charaIdL);
         List<RMetaChara> l = this.rmetaCharaDAO.selectByExample(rMetaCharaCriteria);
         for (RMetaChara r : l) {
           this.dynEntityDAO.dropColumn("t_his_entity_" + r.getMetaId(), "c_" + r.getCharaId());

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+	<sqlMap resource="com/changan/plcinterface/sqlmap/machinedevice_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/machinedevice102_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/machinedevice103_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/robotdevice_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/robotdevice102_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/robotdevice103_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/shocksanddevice_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/shocksanddevice102_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/shocksanddevice103_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/cgcdevice_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/cgcdevice104_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/cgcdevice105_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/cgcdevice106_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/cgcdevice107_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/transferdevice_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/transferdevice101_SqlMap.xml"/>
+	<sqlMap resource="com/changan/plcinterface/sqlmap/wprecordinformation_SqlMap.xml"/>
+	<sqlMap resource="com/changan/app/report/sqlmap/t_spareparts_alarm_SqlMap.xml"/>
+</sqlMapConfig>

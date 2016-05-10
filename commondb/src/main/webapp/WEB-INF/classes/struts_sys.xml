@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="admin" namespace="/admin" extends="struts-default">
+
+		<action name="listMeta" method="listMeta" class="adminAction">
+			<result type="velocity">/admin/menu.vm</result>
+		</action>
+
+		<action name="findMeta" method="findMeta" class="adminAction">
+			<result type="velocity">/front/home.vm</result>
+		</action>
+
+		<action name="preCreateEntity" method="preCreatePage" class="preCreateEntityAction">
+			<result type="velocity">/entity/newEntity.vm</result>
+		</action>
+
+		<action name="preCreateEntityJs" method="preCreateJsPage" class="preCreateEntityAction">
+			<result type="velocity">/entity/createForm.vm</result>
+		</action>
+		<action name="preInfoMangeJs" method="preCreateJsPage" class="preCreateEntityAction">
+			<result type="velocity">/entity/infoManageJS.vm</result>
+		</action>
+
+		<action name="preInfoSearchJs" method="preCreateJsPage" class="preCreateEntityAction">
+			<result type="velocity">/entity/infoSearchDetailForm.vm</result>
+		</action>
+
+		<action name="preManageEntity" method="preManageEntity" class="adminEntityAction">
+			<result type="velocity">/entity/manageEntity.vm</result>
+		</action>
+		<action name="preManageEntityJS" method="preManageEntityJS" class="adminEntityAction">
+			<result type="velocity">/entity/manageEntityJS.vm</result>
+		</action>
+		<action name="createEntity" method="createEntity" class="adminEntityAction">
+
+			<result>/entity/createEntity.jsp</result>
+		</action>
+
+		<action name="updateEntity" method="updateEntity" class="adminEntityAction">
+			<result>/entity/createEntity.jsp</result>
+		</action>
+
+		<action name="preNewRelation" method="preNewRelation" class="adminEntityAction">
+			<result type="velocity">/entity/newRelation.vm</result>
+		</action>
+
+
+		<action name="preSearchEntityJS" method="preManageEntityJS" class="adminEntityAction">
+			<result type="velocity">/entity/manageEntityJSAndFilter.vm</result>
+		</action>
+
+		<action name="preNewEntityFront" method="preNewEntityFront" class="adminAction">
+			<result type="velocity">/front/newEntityFront.vm</result>
+		</action>
+
+		<action name="preInfoSearch" method="preNewEntityFront" class="adminAction">
+			<result type="velocity">/front/infoSearch.vm</result>
+		</action>
+
+		<action name="preInfoManage" method="preNewEntityFront" class="adminAction">
+			<result type="velocity">/front/infoManage.vm</result>
+		</action>
+
+		<action name="preNewRelationFront" method="findMeta" class="adminAction">
+			<result type="velocity">/front/newRelationFront.vm</result>
+		</action>
+
+		<action name="preManageRelationFront" method="findMeta" class="adminAction">
+			<result type="velocity">/front/manageRelationFront.vm</result>
+		</action>
+
+		<action name="preManageRelation" method="preManageRelation" class="adminEntityAction">
+			<result type="velocity">/entity/manageRelation.vm</result>
+		</action>
+
+		<action name="preManageRelationJS" method="preManageRelation" class="adminEntityAction">
+			<result type="velocity">/entity/manageRelationJS.vm</result>
+		</action>
+	</package>
+
+	<package name="admin-jason" namespace="/admin" extends="json-default">
+
+
+		<action name="listPicAttrs" method="listPicAttrs" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+
+		<action name="createPicAttr" method="createPicAttr" class="picAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="delPicAttr" method="delPicAttr" class="picAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updatePicAttr" method="updatePicAttr" class="picAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+
+		<action name="listPics" method="listPics" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="createEntity2" method="createEntity" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="listDescAttrData" method="listDescAttrData" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="delEntity" method="delEntity" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="jsonEntity" method="jsonEntity" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="jsonEntityByChara" method="jsonEntityByChara" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="jsonEntityByHierarchy" method="jsonEntityByHierarchy" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="jsonHierarchyByEntity" method="jsonHierarchyByEntity" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="fetchMetaAttrData" method="fetchMetaAttrData" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="createMeta" method="createMeta" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="importMeta" method="importMeta" class="adminAction">
+<!-- 			<result type="json">
+				<param name="root">result</param>
+			</result>
+ -->		</action>
+		<action name="fetchMetaAttrs" method="fetchMetaAttrs" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="saveNode" method="saveNode" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="delNode" method="delNode" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="editNode" method="editNode" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="delMeta" method="delMeta" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="updateMeta" method="updateMeta" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="listDb" method="getAllMeta" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="getAllMetaForAdmin" method="getAllMetaForAdmin" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="listHieraAttrs" method="listHierAttrs" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="listCharaAttrs" method="listCharaAttrs" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="listDescAttrs" method="listDescAttrs" class="adminAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+
+		<action name="createDescAttr" method="createDescAttr" class="descAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="delDescAttr" method="delDescAttr" class="descAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateDescAttr" method="updateDescAttr" class="descAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+
+		<action name="createHieraAttr" method="createHieraAttr" class="hieraAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="delHieraAttr" method="delHieraAttr" class="hieraAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateHieraAttr" method="updateHieraAttr" class="hieraAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="createCharacterAttr" method="createCharacterAttr" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="delCharacterAttr" method="delCharacterAttr" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateCharacterAttr" method="updateCharacterAttr" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+	</package>
+
+	<package name="admin-chara-jason" namespace="/admin" extends="json-default">
+
+	<!-- def management -->
+		<action name="createCharaDef" method="createCharaDef" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="createCharaDefWithMeta" method="createCharaDefWithMeta" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="dropCharaDef" method="dropCharaDef" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateCharaDef" method="updateCharaDef" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="listCharaDef" method="listCharaDef" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="listCharaDefByMeta" method="listCharaDefByMeta" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	<!-- Property management -->
+		<action name="createMetaProperty" method="createMetaProperty" class="metaPropertyAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="dropMetaProperty" method="dropMetaProperty" class="metaPropertyAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateMetaProperty" method="updateMetaProperty" class="metaPropertyAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="listMetaProperty" method="listMetaProperty" class="metaPropertyAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	<!-- RMetaCharaDef management -->
+
+		<action name="createRMetaChara" method="createRMetaChara" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+
+		<action name="dropRMetaChara" method="dropRMetaChara" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateRMetaChara" method="updateRMetaChara" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+	<!-- data management -->
+
+		<action name="createCharaData" method="createCharaData" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="createCharaDataWithEntity" method="createCharaDataWithEntity" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="dropCharaData" method="dropCharaData" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateCharaData" method="updateCharaData" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="listCharaData" method="listCharaData" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="listCharaDataByCharaId" method="listCharaDataByCharaId" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="listCharaDataByEntity" method="listCharaDataByEntity" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	<!-- REntityCharaData management -->
+
+		<action name="createREntityCharaData" method="createREntityCharaData" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="dropREntityCharaData" method="dropREntityCharaData" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateREntityCharaData" method="updateREntityCharaData" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+		<action name="updateREntityCharaDataArr" method="updateREntityCharaDataArr" class="characterAttrAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+
+	</package>
+
+	<package name="security-json" namespace="/security" extends="json-default">
+		<action name="findRole" method="findRole" class="roleAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="createRole" method="createRole" class="roleAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="updateRole" method="updateRole" class="roleAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="delRole" method="delRole" class="roleAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="findUser" method="findUser" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="createUser" method="createUser" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="updateUser" method="updateUser" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="delUser" method="delUser" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="stopUser" method="stopUser" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="resetPassword" method="resetPassword" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="login" method="login" class="loginAction">
+			<result>/admin.jsp</result>
+		</action>
+	</package>
+
+	<package name="front" namespace="/front" extends="struts-default">
+		<action name="findMetaPerm" method="findMetaPerm" class="adminAction">
+			<result type="velocity">/front/home.vm</result>
+			<result name="noMeta" type="velocity">/front/noMeta.vm</result>
+
+		</action>
+		<action name="userSet" method="userSet" class="userAction">
+			<result type="velocity">/front/userSet.vm</result>
+		</action>
+	</package>
+
+	<package name="front-jason" namespace="/front" extends="json-default">
+		<action name="saveREntity" method="saveREntity" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="updateREntity" method="updateREntity" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="listREntity" method="listREntity" class="adminEntityAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="modifyUserInfo" method="modifyUserInfo" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+		<action name="changePassword" method="changePassword" class="userAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	</package>
+</struts>

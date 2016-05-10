@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>查看取件机器人</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+	<link type="text/css" href="/app/css/ui-lightness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+<!-- 	<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script> -->
+	<script src="../_lib/jquery-1.7.1.js" type="text/javascript"> </script>
+	<script src="../_lib/jquery-ui-1.8.16.custom.min.js" type="text/javascript"> </script> 
+	<script type="text/javascript" src='../_lib/timepicker.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.bgiframe.min.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.ajaxQueue.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.autocomplete.js'></script>
+	<script type='text/javascript' src='../_lib/common.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.cookie.js'></script>
+	<link rel="stylesheet" type="text/css" href="../_lib/jquery.autocomplete.css" />
+	
+	<script type='text/javascript' >
+	$(document).ready(function(){
+		$("#取件机器人").addClass("active");
+	    
+		$("#tabs").tabs({
+			ajaxOptions:{
+				cache:false
+			},
+			cookie: {
+				// store cookie for a day, without, it would be a session cookie
+				expires: 1
+			}			
+		})
+  	});
+  
+	</script>
+	
+	
+		
+</head>
+
+<body>
+  	#if(!$masterRMetaId) 
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+		<div id="center-column">
+			<div id="top-bar" class="top-bar">
+				<!-- 菜单 -->
+				#parse("/app/newmenu.vm")
+			</div>
+			<div class="break-bar"></div>
+	#end
+
+		<form name="newEntity" id="newEntity" action="/app/robotDevice/saveEntity.ac" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="metaId" value="${metaId}"/>
+		<input type="hidden" name="masterRMetaId" value="$!masterRMetaId"/>
+		<div class="table">
+				<img width="8" height="7" class="left" alt="" src="../img/bg-th-left.gif"/>
+				<img width="7" height="7" class="right" alt="" src="../img/bg-th-right.gif"/>
+				<table cellspacing="0" cellpadding="0" class="listing form">
+					<tbody>
+					
+						
+					<tr>
+						<th colspan="2" class="full">查看取件机器人</th>
+					</tr>
+				#foreach(${f} in ${picFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+				#foreach(${f} in ${descFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+				#foreach(${f} in ${hierFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+				#foreach(${f} in ${charaFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+						
+					<tr>
+						<td width="172" class="first"><strong>关联属性</strong></td>
+						<td class="last">
+						#foreach(${f} in ${rEntityList})
+						<a href="/app/tool/viewEntity.ac?metaId=$f.meta2Id&entityId=$f.entity2Id" > $!f.label </a> <br/> 	
+						#end
+						</td>
+					</tr>
+					
+					<tr class="bg">
+						<td class="first"><strong></strong></td>
+					  <td>
+					  	#if(!$masterRMetaId) 
+					  		<input type="button" onclick="javascript:history.go(-1);" value="返回"/>
+					  	#else
+					  		<input type="button" onclick="window.close();" value="关闭"/>
+					  	#end
+					  <input type="button" value="提醒" onclick= "remind('$metaId','$entityId');" /></td>
+					</tr>
+					
+				</tbody></table>
+			<div id="tabs" class="ui-tabs">  
+				<ul>  
+					<li ref="1"><a href="/app/deviceRunData/trackEntity.ac?entityName=取件机器人&rEntityNames=运行信息&entityId=$entityId&updateFlag=0&toRLabel=$toRLabel"><span>运行信息</span></a></li>  
+					<li ref="2"><a href="/app/robotReport/singleRunReport.ac?entityName=取件机器人&entityId=$entityId"><span>运行时间统计</span></a></li>  
+					<li ref="3"><a href="/app/deviceStandbyData/trackEntity.ac?entityName=取件机器人&rEntityNames=待机信息&entityId=$entityId&updateFlag=0&toRLabel=$toRLabel"><span>待机信息</span></a></li>  
+					<li ref="4"><a href="/app/robotReport/singleStandbyReport.ac?entityName=取件机器人&entityId=$entityId"><span>待机时间统计</span></a></li>  
+					<li ref="5"><a href="/app/deviceErrorData/trackEntity.ac?entityName=取件机器人&rEntityNames=故障信息&entityId=$entityId&updateFlag=0&toRLabel=$toRLabel"><span>故障信息</span></a></li>  
+					<li ref="6"><a href="/app/deviceSpareParts/trackEntity.ac?entityName=取件机器人&rEntityNames=备件信息&entityId=$entityId&updateFlag=0&toRLabel=$toRLabel"><span>备件信息</span></a></li>  
+					<li ref="7"><a href="/app/robotReport/singleSparePartsLifeReport.ac?entityName=取件机器人&entityId=$entityId"><span>备件检修提醒</span></a></li>  
+					<li ref="8"><a href="/app/robotReport/singlePLCDataReport.ac?entityName=取件机器人&entityId=$entityId"><span>PLC采集数据</span></a></li>  
+				</ul>  
+			</div>
+			</form>	
+	        <p>&nbsp;</p>
+		  </div>
+		  
+		</div>
+		#if(!$masterRMetaId) 
+		<div id="right-column-tip">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面用来查看取件机器人</div>
+			#parse("/app/tool/right.vm")
+	  </div>
+	</div>
+	<!-- 页脚 -->
+	<div id="footer">#parse("/app/footer.vm")</div>
+</div>
+	    #end
+
+</body>
+
+</html>

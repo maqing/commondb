@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+    <bean id="standByTrackEntityAction" class="com.changan.app.deviceworkdata.StandByTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="runTrackEntityAction" class="com.changan.app.deviceworkdata.RunTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="errorTrackEntityAction" class="com.changan.app.deviceworkdata.ErrorTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="sparePartsTrackEntityAction" class="com.changan.app.deviceworkdata.SparePartsTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="robotRunReportAction" class="com.changan.app.report.action.RobotRunReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="robotStandbyReportAction" class="com.changan.app.report.action.RobotStandbyReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="robotSparePartsLifeReportAction" class="com.changan.app.report.action.RobotSparePartsLifeReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="robotPLCDataReportAction" class="com.changan.app.report.action.RobotPLCDataReportAction"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="localRobotdeviceDAO" ref="localRobotdeviceDAO" />
+	</bean>
+	
+    <bean id="machineRunReportAction" class="com.changan.app.report.action.MachineRunReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="machineStandbyReportAction" class="com.changan.app.report.action.MachineStandbyReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="machineSparePartsLifeReportAction" class="com.changan.app.report.action.MachineSparePartsLifeReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="machinePLCDataReportAction" class="com.changan.app.report.action.MachinePLCDataReportAction"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="localMachinedeviceDAO" ref="localMachinedeviceDAO" />
+	</bean>
+	
+
+    <bean id="shockSandRunReportAction" class="com.changan.app.report.action.ShockSandRunReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="shockSandStandbyReportAction" class="com.changan.app.report.action.ShockSandStandbyReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="shockSandSparePartsLifeReportAction" class="com.changan.app.report.action.ShockSandSparePartsLifeReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="shockSandPLCDataReportAction" class="com.changan.app.report.action.ShockSandPLCDataReportAction"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="localShockSanddeviceDAO" ref="localShocksanddeviceDAO" />
+	</bean>
+	
+    <bean id="cgcRunReportAction" class="com.changan.app.report.action.CGCRunReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="cgcStandbyReportAction" class="com.changan.app.report.action.CGCStandbyReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="cgcSparePartsLifeReportAction" class="com.changan.app.report.action.CGCSparePartsLifeReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="cgcPLCDataReportAction" class="com.changan.app.report.action.CGCPLCDataReportAction"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="localCgcdeviceDAO" ref="localCgcdeviceDAO" />
+	</bean>
+	
+    <bean id="transferRunReportAction" class="com.changan.app.report.action.TransferRunReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="transferStandbyReportAction" class="com.changan.app.report.action.TransferStandbyReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="transferSparePartsLifeReportAction" class="com.changan.app.report.action.TransferSparePartsLifeReportAction"> 
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="transferPLCDataReportAction" class="com.changan.app.report.action.TransferPLCDataReportAction"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="localTransferdeviceDAO" ref="localTransferdeviceDAO" />
+	</bean>
+	
+    <bean id="wpCleanTrackEntityAction" class="com.changan.app.deviceworkdata.WPCleanTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="cutterTrackEntityAction" class="com.changan.app.deviceworkdata.CutterTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="cutterHisTrackEntityAction" class="com.changan.app.deviceworkdata.CutterHistoryTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+</beans>

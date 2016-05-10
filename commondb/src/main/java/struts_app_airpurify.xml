@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 画图 -->
+	<package name="app_echarts" namespace="/app/echarts" extends="json-default">
+		<action name="queryEchartsData" method="queryEchartsData" class="echartsDataAction">
+			<result type="json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 旋转除气库 -->
+	<package name="app_airpurify1" namespace="/app/rotatePurify" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/rotatePurify/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/rotatePurify/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/rotatePurify/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rotatePurify/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rotatePurify/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/rotatePurify/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/rotatePurify/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/rotatePurify/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/rotatePurify/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/rotatePurify/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/rotatePurify/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rotatePurify/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/rotatePurify/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/rotatePurify/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 旋转除气PLC原始数据 -->
+	<package name="app_airpurify2" namespace="/app/rotatePurifyPLCData" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/rotatePurifyPLCData/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/rotatePurifyPLCData/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rotatePurifyPLCData/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rotatePurifyPLCData/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rotatePurifyPLCData/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/rotatePurifyPLCData/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/rotatePurifyPLCData/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- RFID读卡记录库 -->
+	<package name="app_airpurify3" namespace="/app/rfidReadRec" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/rfidReadRec/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/rfidReadRec/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/rfidReadRec/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rfidReadRec/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rfidReadRec/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/rfidReadRec/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/rfidReadRec/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/rfidReadRec/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/rfidReadRec/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/rfidReadRec/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/rfidReadRec/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/rfidReadRec/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/rfidReadRec/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/rfidReadRec/relationlist.html</result>
+		</action>
+	</package>
+	
+	<!-- 温度测量 -->
+	<package name="app_airpurify4" namespace="/app/temperatureMeasurement" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/temperatureMeasurement/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/temperatureMeasurement/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/temperatureMeasurement/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/temperatureMeasurement/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/temperatureMeasurement/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/temperatureMeasurement/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/temperatureMeasurement/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/temperatureMeasurement/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/temperatureMeasurement/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/temperatureMeasurement/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/temperatureMeasurement/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/temperatureMeasurement/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/temperatureMeasurement/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/temperatureMeasurement/relationlist.html</result>
+		</action>
+		<action name="importTemperatureEntity1" method="importTemperatureEntity1" class="temperatureImportAction">
+			<result type="velocity">/app/temperatureMeasurement/importTemperature.html</result>
+		</action>
+		<action name="importTemperatureEntity2" method="importTemperatureEntity2" class="temperatureImportAction">
+			<result type="velocity">/app/temperatureMeasurement/info.html</result>
+		</action>
+	</package>
+</struts>

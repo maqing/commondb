@@ -8,7 +8,9 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close"> 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/commondb_mesclean?useUnicode=true&amp;characterEncoding=UTF-8" />
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3307/changan_cleaningline?useUnicode=true&amp;characterEncoding=UTF-8" /> -->
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3306/commondb5?useUnicode=true&amp;characterEncoding=UTF-8" /> -->
+		<property name="url" value="jdbc:mysql://localhost:3307/changan_cleaningline_install?useUnicode=true&amp;characterEncoding=UTF-8" />
 		<property name="username" value="root" />
 		<property name="password" value="123456" />
 
@@ -32,6 +34,7 @@
 				<prop key="update*">PROPAGATION_REQUIRED</prop>
 				<prop key="deletePermission">PROPAGATION_REQUIRED</prop>
 				<prop key="addPermission">PROPAGATION_REQUIRED</prop>
+				<prop key="syncData">PROPAGATION_REQUIRED</prop>
 			</props>
 		</property>
 	</bean>
@@ -57,8 +60,13 @@
 	
 	<!-- iBatis的SqlMap配置-->
 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<!--<property name="configLocation" value="E:\Workspaces\commondb (1)\WebRoot\WEB-INF\sql-map-config.xml" />-->
-	    <property name="configLocation" value="WEB-INF\sql-map-config.xml" />
+<!-- 	    <property name="configLocation" value="WEB-INF\sql-map-config.xml" /> -->
+	    <property name="configLocations"> 
+			<list>  
+				<value>WEB-INF\sql-map-config.xml</value>  
+				<value>WEB-INF\sql-map-config-changanplc.xml</value>  
+            </list>   	    	
+	    </property>
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
@@ -67,5 +75,8 @@
 	<import resource="applicationContext_app.xml"/> 
 	<import resource="applicationContext_sync.xml"/> 
 	<import resource="applicationContext_solr.xml"/> 
+<!-- 	<import resource="applicationContext_airpurify.xml"/>  -->
+	<import resource="applicationContext_syncplc.xml"/> 
+	<import resource="applicationContext_cleanline.xml"/> 
 	
 </beans>

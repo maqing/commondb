@@ -37,7 +37,7 @@ public class BasicAction
   {
     User user = (User)SecurityContextHolder.getContext()
       .getAuthentication().getPrincipal();
-    this.remindList = this.entityService.getUserRemind(user.getUserId());
+    this.remindList = this.getEntityService().getUserRemind(user.getUserId());
     
     return this.remindList;
   }
@@ -51,7 +51,7 @@ public class BasicAction
   {
     User user = (User)SecurityContextHolder.getContext()
       .getAuthentication().getPrincipal();
-    this.operationRecList = this.entityService.getUserOperationRec(user.getUserId());
+    this.operationRecList = this.getEntityService().getUserOperationRec(user.getUserId());
     return this.operationRecList;
   }
   

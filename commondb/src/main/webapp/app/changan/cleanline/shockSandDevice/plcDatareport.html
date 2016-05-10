@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+	<script src="../_lib/jquery-1.7.1.js" type="text/javascript"> </script>
+
+	<link rel="stylesheet" type="text/css" href="../css/ui-lightness/jquery-ui-1.7.2.custom.css" />
+	<script src="../_lib/jquery-ui-1.8.16.custom.min.js" type="text/javascript"> </script> 
+
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/jqgrid4.5/ui.jqgrid.css" />
+	<script src="../_lib/jqgrid4.5/grid.locale-cn.js" type="text/javascript"></script>
+	<script src="../_lib/jqgrid4.5/jquery.jqGrid.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/timepicker/jquery-ui-timepicker-addon.css" />
+	<script src="../_lib/timepicker/jquery-ui.js" type="text/javascript"> </script> 
+	<script src="../_lib/timepicker/jquery-ui-slide.min.js" type="text/javascript"></script>
+ 	<script src='../_lib/timepicker/jquery-ui-timepicker-addon.js' type="text/javascript" ></script> 
+    <title>采集数据</title>
+</head>
+<body>
+	<div id="plcDataSingleReport">
+		<input type="hidden" name="entityName" id="entityName" value="${entityName}"/>
+		<input type="hidden" name="entityId" id="entityId" value="${entityId}"/>
+		<strong>时间从:</strong> <input type="text" name="timePLCDataReportBegin" id="timePLCDataReportBegin" value="$!timePLCDataReportBegin" >
+		<strong>到：</strong> <input type="text" name="timePLCDataReportEnd" id="timePLCDataReportEnd" value="$!timePLCDataReportEnd" > 
+		<input type="button" onclick="queryDevicePLCDataReport();" value="查询"/>
+		<input type="button" onclick="clearQueryCondition();" value="重置"/>
+		<input type="button" onclick="exportToExcel();" disabled="disabled" value="导出" id="btnPLCDataExport"/>
+	
+		<table id="plcDataGridTable"></table> 
+		<div id="plcDataGridPager"></div>
+	</form>
+</body>
+<script type="text/javascript">
+	var appUrl = "";
+	if ($("#entityName", "#plcDataSingleReport").val()=="取件机器人") {
+		appUrl = '/app/robotReport';
+	} else if ($("#entityName", "#plcDataSingleReport").val()=="加工中心") {
+		appUrl = '/app/machineReport';
+	} else if ($("#entityName", "#plcDataSingleReport").val()=="震动落砂机") {
+		appUrl = '/app/shockSandReport';
+	} else if ($("#entityName", "#plcDataSingleReport").val()=="CGC单元") {
+		appUrl = '/app/cgcReport';
+	} else if ($("#entityName", "#plcDataSingleReport").val()=="中央物流") {
+		appUrl = '/app/transferReport';
+	}
+
+	function queryDevicePLCDataReport() {
+		var sdata = {   // 构建查询需要的参数  
+				timePLCDataReportBegin: $("#timePLCDataReportBegin", "#plcDataSingleReport").val(),  
+				timePLCDataReportEnd: $("#timePLCDataReportEnd", "#plcDataSingleReport").val(), 
+				entityName: $("#entityName", "#plcDataSingleReport").val(),
+				entityId: $("#entityId", "#plcDataSingleReport").val()
+		    };  
+		      
+	    // 获得当前postData选项的值  
+	    var postData = $("#plcDataGridTable").jqGrid("getGridParam", "postData");  
+	      
+	    // 将查询参数融入postData选项对象  
+	    $.extend(postData, sdata);  
+	      
+	    $("#plcDataGridTable").jqGrid("setGridParam", {  
+	        search: true,    // 将jqGrid的search选项设为true
+	        datatype: "json"
+	    }).trigger("reloadGrid", [{page:1}]);   // 重新载入Grid表格，以使上述设置生效  
+	    
+	    $("#btnPLCDataExport").attr("disabled",false); 
+	}
+
+	function clearQueryCondition() {
+		$("#timePLCDataReportBegin", "#plcDataSingleReport").val("");
+		$("#timePLCDataReportEnd", "#plcDataSingleReport").val("");
+	}
+	
+	function exportToExcel() {
+		window.location.href= appUrl + '/plcDataExportToExcel.ac';
+	}
+	
+	$(document).ready(function() { 
+		//$('#timePLCDataReportBegin').datepicker({});	
+		//$('#timePLCDataReportEnd').datepicker({});	
+		
+		$('#timePLCDataReportBegin').datetimepicker(
+				{ 
+				     showSecond: true, 
+				     timeFormat: 'hh:mm:ss' 
+				});	
+		$('#timePLCDataReportEnd').datetimepicker(
+				{ 
+				     showSecond: true, 
+				     timeFormat: 'hh:mm:ss' 
+				});		
+	
+		$("#plcDataGridTable").jqGrid({  
+		    url: appUrl + "/plcDataReport.ac",  
+		    datatype: "local",  
+		    mtype: "GET",  
+		    height: "auto",  
+		    autowidth: true,  
+		    colModel: [  
+		          {name:"deviceid",index:"deviceid",label:"设备编码",width:30,sortable:false,align: "center"},    
+		          {name:"devicename",index:"devicename",label:"设备名称",width:50,sortable:false,align: "center"},    
+			      {name:"plctime",index:"plctime",label:"PLC时间",width:60,sortable:false,align: "center",
+		        	  formatter:'date',formatoptions:{srcformat: 'Y-m-d H:i:s', newformat: 'Y-m-d H:i:s'}
+		         	},    
+		         // {name:"devicestatus",index:"devicestatus",label:"状态编码",width:20,sortable:false,align: "center"},
+		          {name:"devicestatusName",index:"devicestatusName",label:"状态",width:20,sortable:false,align: "center"},
+		          {name:"hammerpressure",index:"hammerpressure",label:"锤击压力",width:20,sortable:false,align: "center"},
+		          {name:"hammertime",index:"hammertime",label:"锤击时间",width:20,sortable:false,align: "center"},
+		          {name:"shocktime",index:"shocktime",label:"震动时间",width:20,sortable:false,align: "center"},
+		          //{name:"processcode",index:"processcode",label:"工序代码",width:30,sortable:false,align: "center"},
+		          {name:"processName",index:"processName",label:"工序",width:40,sortable:false,align: "center"},
+		          {name:"workpiecename",index:"workpiecename",label:"加工工件编码",width:50,sortable:false,align: "center"},
+			      {name:"faultcode",index:"faultcode",label:"故障代码",width:30,sortable:false,align: "center"}
+		    ],  
+		    viewrecords: true,  
+		    rowNum: 15,  
+		    rowList: [15,50,100],  
+		    prmNames: {search: "search"},   //(1)  
+		    jsonReader: {  
+		    	userdata: "userdata",
+		    	root:"gridModel",       // (2)  
+		        records: "record",      // (3)  
+		        repeatitems : false     // (4)  
+		    },  
+			footerrow:false,
+			userDataOnFooter : true,
+		    pager: "#plcDataGridPager",  
+		    caption: "",  
+		    hidegrid: false  
+		});  
+		var beginTime = $("#timePLCDataReportBegin", "#plcDataSingleReport").val();
+		var endTime = $("#timePLCDataReportEnd", "#plcDataSingleReport").val();
+		if ((beginTime !== null && beginTime !== '') || (endTime !== null && endTime !== '') ) {
+			//查询条件日期有值,自动查询一次
+			queryDevicePLCDataReport();
+		}
+	});
+	
+</script>

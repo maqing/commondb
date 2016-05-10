@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+	<script src="../_lib/jquery-1.7.1.js" type="text/javascript"> </script>
+
+	<link rel="stylesheet" type="text/css" href="../css/ui-lightness/jquery-ui-1.7.2.custom.css" />
+	<script src="../_lib/jquery-ui-1.8.16.custom.min.js" type="text/javascript"> </script> 
+
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/jqgrid4.5/ui.jqgrid.css" />
+	<script src="../_lib/jqgrid4.5/grid.locale-cn.js" type="text/javascript"></script>
+	<script src="../_lib/jqgrid4.5/jquery.jqGrid.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/timepicker/jquery-ui-timepicker-addon.css" />
+	<script src="../_lib/timepicker/jquery-ui.js" type="text/javascript"> </script> 
+	<script src="../_lib/timepicker/jquery-ui-slide.min.js" type="text/javascript"></script>
+ 	<script src='../_lib/timepicker/jquery-ui-timepicker-addon.js' type="text/javascript" ></script> 
+    <title>设备检修提醒</title>
+    <style type="text/css">
+	    .layerTwoBackground
+	     {
+	         background-image:none;
+	         background-color:#FA8072;
+	     } 
+    </style>
+    
+</head>
+<body>
+	<div id="sparePartsLifeSingleReport">
+		<input type="hidden" name="entityName" id="entityName" value="${entityName}"/>
+		<input type="hidden" name="entityId" id="entityId" value="${entityId}"/>
+		<strong>备件名称:</strong> <input type="text" name="sparePartsName" id="sparePartsName" value="$!sparePartsName" >
+		&nbsp;&nbsp;<strong>型号：</strong> <input type="text" name="sparePartsStyle" id="sparePartsStyle" value="$!sparePartsStyle" > 
+		<input type="button" onclick="querySparePartsLifeReport();" value="查询"/>
+		<input type="button" onclick="clearQueryCondition();" value="重置"/>
+		<input type="button" onclick="exportToExcel();" disabled="disabled" value="导出" id="btnSparePartsLifeExport"/>
+	
+		<table id="sparePartsLifeGridTable"></table> 
+		<div id="sparePartsLifeGridPager"></div>
+	</form>
+</body>
+<script type="text/javascript">
+	var appUrl = "";
+	if ($("#entityName", "#sparePartsLifeSingleReport").val()=="取件机器人") {
+		appUrl = '/app/robotReport';
+	} else if ($("#entityName", "#sparePartsLifeSingleReport").val()=="加工中心") {
+		appUrl = '/app/machineReport';
+	} else if ($("#entityName", "#sparePartsLifeSingleReport").val()=="震动落砂机") {
+		appUrl = '/app/shockSandReport';
+	} else if ($("#entityName", "#sparePartsLifeSingleReport").val()=="CGC单元") {
+		appUrl = '/app/cgcReport';
+	} else if ($("#entityName", "#sparePartsLifeSingleReport").val()=="中央物流") {
+		appUrl = '/app/transferReport';
+	}
+
+	function querySparePartsLifeReport() {
+		var sdata = {   // 构建查询需要的参数  
+				sparePartsName: $("#sparePartsName", "#sparePartsLifeSingleReport").val(),  
+				sparePartsStyle: $("#sparePartsStyle", "#sparePartsLifeSingleReport").val(), 
+				entityName: $("#entityName", "#sparePartsLifeSingleReport").val(),
+				entityId: $("#entityId", "#sparePartsLifeSingleReport").val()
+		    };  
+		      
+	    // 获得当前postData选项的值  
+	    var postData = $("#sparePartsLifeGridTable").jqGrid("getGridParam", "postData");  
+	      
+	    // 将查询参数融入postData选项对象  
+	    $.extend(postData, sdata);  
+	      
+	    $("#sparePartsLifeGridTable").jqGrid("setGridParam", {  
+	        search: true,    // 将jqGrid的search选项设为true
+	        datatype: "json"
+	    }).trigger("reloadGrid", [{page:1}]);   // 重新载入Grid表格，以使上述设置生效  
+	    
+	    $("#btnSparePartsLifeExport").attr("disabled",false); 
+	}
+
+	function clearQueryCondition() {
+		$("#sparePartsStyle", "#sparePartsLifeSingleReport").val("");
+		$("#sparePartsStyle", "#sparePartsLifeSingleReport").val("");
+	}
+	
+	function exportToExcel() {
+		window.location.href= appUrl + '/sparePartsLifeExportToExcel.ac';
+	}
+	
+	$(document).ready(function() { 
+	
+		$("#sparePartsLifeGridTable").jqGrid({  
+		    url: appUrl + "/sparePartsLifeReport.ac",  
+		    datatype: "local",  
+		    mtype: "GET",  
+		    height: "auto",  
+		    autowidth: true,  
+		    colModel: [  
+		          {name:"sparePartsName",index:"sparePartsName",label:"名称",width:80,sortable:false,align: "center"},    
+		          {name:"sparePartsStyle",index:"sparePartsStyle",label:"型号",width:80,sortable:false,align: "center"},    
+		          {name:"designLife",index:"designLife",label:"设计寿命",width:60,sortable:false,align: "center"},
+		          {name:"alarmPercent",index:"alarmPercent",label:"报警阈值",width:40,sortable:false,align: "center"},
+		          {name:"workLife",index:"workLife",label:"实际使用",width:60,sortable:false,align: "center"},
+		          {name:"workPercent",index:"workPercent",label:"使用比例",width:40,sortable:false,align: "center"}
+		          
+		    ],  
+		    viewrecords: true,  
+		    rowNum: 15,  
+		    rowList: [15,50,100],  
+		    prmNames: {search: "search"},   //(1)  
+		    jsonReader: {  
+		    	userdata: "userdata",
+		    	root:"gridModel",       // (2)  
+		        records: "record",      // (3)  
+		        repeatitems : false     // (4)  
+		    },  
+			footerrow:true,
+			userDataOnFooter : true,
+		    pager: "#sparePartsLifeGridPager",  
+		    caption: "",  
+		    hidegrid: false,
+		    gridComplete: function() {
+		    	var jGrid = $(this);
+		    	for(var i=this.rows.length-1;i>0;i--){
+                    var rowItem = jGrid.getRowData(i);
+                     if( parseFloat(rowItem.workPercent)>=  parseFloat(rowItem.alarmPercent)){
+                       this.rows[i].className = this.rows[i].className+' layerTwoBackground'; //设置背景颜色
+                    }     
+                }
+		    }
+		});  
+		var sparePartsName = $("#sparePartsName", "#sparePartsLifeSingleReport").val();
+		var sparePartsStyle = $("#sparePartsStyle", "#sparePartsLifeSingleReport").val();
+		if ((sparePartsName !== null && sparePartsName !== '') || (sparePartsStyle !== null && sparePartsStyle !== '') ) {
+			//查询条件有值,自动查询一次
+			querySparePartsLifeReport();
+		}
+	});
+	
+</script>

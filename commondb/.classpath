@@ -6,5 +6,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="D:/通用信息管理系统/服务器备份/App/apache-tomcat-6.0.18/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="D:/dev/git/repositoty/commondb/src/main/webapp/WEB-INF/lib/JNative.jar"/>
+	<classpathentry kind="lib" path="D:/dev/git/repositoty/commondb/src/main/webapp/WEB-INF/lib/jna-3.5.1.jar"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

@@ -2,6 +2,7 @@ package com.commondb.db.service;
 
 import com.commondb.db.bo.CharacterData;
 import com.commondb.db.bo.OperationBox;
+
 import java.util.List;
 import java.util.Map;
 
@@ -78,4 +79,5 @@ public abstract interface EntityService
   public abstract List getUserOperationRec(Integer paramInteger);
   
   public abstract List listRAttachment(Integer paramInteger, String paramString);
+
 }

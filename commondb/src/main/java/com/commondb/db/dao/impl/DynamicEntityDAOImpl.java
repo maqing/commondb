@@ -88,23 +88,6 @@ public class DynamicEntityDAOImpl
     parameter.put("tableName", "t_entity_" + metaId);
     
     List<HashMap> list = getSqlMapClientTemplate().queryForList("dyn_entity.dynamicSelectAll", parameter);
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     return list;
   }
   

@@ -1,0 +1,747 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<!-- 中央物流 -->
+	<package name="app_cleanline_transfer" namespace="/app/transferDevice" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/changan/cleanline/transferDevice/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/relationlist.html</result>
+		</action>
+	</package>
+	
+	<!-- 取件机器人 -->
+	<package name="app_cleanline_robot" namespace="/app/robotDevice" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/changan/cleanline/robotdevice/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/robotdevice/relationlist.html</result>
+		</action>
+	</package>
+	
+	<!-- 加工中心 -->
+	<package name="app_cleanline_machine" namespace="/app/machineDevice" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/changan/cleanline/machinedevice/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/machinedevice/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 震动落砂机 -->
+	<package name="app_cleanline_shocksand" namespace="/app/shockSandDevice" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/changan/cleanline/shockSandDevice/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- CGC单元 -->
+	<package name="app_cleanline_cgc" namespace="/app/cgcDevice" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/new.html</result>
+		</action>
+		<action name="genSearchPage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/search.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/edit.html</result>
+		</action>
+		<action name="genManagePage" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/manage.html</result>
+		</action>
+		<action name="preExport" method="genSearchPage" class="searchPageGenAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/export.html</result>
+		</action>
+		<action name="export" method="genSearchPage" class="searchPageGenAction">
+			<result >/app/changan/cleanline/cgcDevice/excel.jsp</result>
+		</action>
+		<action name="import1" method="step1" class="importAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/import1.html</result>
+		</action>
+		<action name="import2" method="step2" class="importAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/import2.html</result>
+		</action>
+		<action name="import3" method="step3" class="importAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/info.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 设备运行数据 -->
+	<package name="app_cleanline_run" namespace="/app/deviceRunData" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="runTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/relationlist.html</result>
+		</action>
+	</package>
+	
+	<!-- 设备待机数据 -->
+	<package name="app_cleanline_standby" namespace="/app/deviceStandbyData" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="standByTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/relationlist.html</result>
+		</action>
+	</package>
+	
+	<!-- 设备故障数据 -->
+	<package name="app_cleanline_error" namespace="/app/deviceErrorData" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/deviceerrordata/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceerrordata/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceerrordata/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceerrordata/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceerrordata/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceerrordata/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="errorTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceerrordata/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 设备备件 -->
+	<package name="app_cleanline_spareparts" namespace="/app/deviceSpareParts" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="sparePartsTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/relationlist.html</result>
+		</action>
+	</package>
+
+	<package name="app_cleanline_robotreport" namespace="/app/robotReport" extends="json-default">
+		<action name="runReport"  class="robotRunReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleRunReport" method="singleReport" class="robotRunReportAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+        <action name="runExportToExcel"  method="ExportToExcel" class="robotRunReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+		<action name="standbyReport"  class="robotStandbyReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleStandbyReport" method="singleReport" class="robotStandbyReportAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+        <action name="standbyExportToExcel"  method="ExportToExcel" class="robotStandbyReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+		<action name="sparePartsLifeReport"  class="robotSparePartsLifeReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleSparePartsLifeReport" method="singleReport" class="robotSparePartsLifeReportAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+        <action name="sparePartsLifeExportToExcel"  method="ExportToExcel" class="robotSparePartsLifeReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+		<action name="plcDataReport"  class="robotPLCDataReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singlePLCDataReport" method="singleReport" class="robotPLCDataReportAction">
+			<result type="velocity">/app/changan/cleanline/robotDevice/plcDatareport.html</result>
+		</action>
+        <action name="plcDataExportToExcel"  method="ExportToExcel" class="robotPLCDataReportAction">
+ 			<result type="velocity">/app/changan/cleanline/robotDevice/plcDatareport.html</result>
+		</action>
+	</package>
+
+	<package name="app_cleanline_machinereport" namespace="/app/machineReport" extends="json-default">
+		<action name="runReport"  class="machineRunReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleRunReport" method="singleReport" class="machineRunReportAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+        <action name="runExportToExcel"  method="ExportToExcel" class="machineRunReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+		<action name="standbyReport"  class="machineStandbyReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleStandbyReport" method="singleReport" class="machineStandbyReportAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+        <action name="standbyExportToExcel"  method="ExportToExcel" class="machineStandbyReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+		<action name="sparePartsLifeReport"  class="machineSparePartsLifeReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleSparePartsLifeReport" method="singleReport" class="machineSparePartsLifeReportAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+        <action name="sparePartsLifeExportToExcel"  method="ExportToExcel" class="machineSparePartsLifeReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+		<action name="plcDataReport"  class="machinePLCDataReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singlePLCDataReport" method="singleReport" class="machinePLCDataReportAction">
+			<result type="velocity">/app/changan/cleanline/machineDevice/plcDatareport.html</result>
+		</action>
+        <action name="plcDataExportToExcel"  method="ExportToExcel" class="machinePLCDataReportAction">
+ 			<result type="velocity">/app/changan/cleanline/machineDevice/plcDatareport.html</result>
+		</action>
+	</package>
+
+	<package name="app_cleanline_shocksandreport" namespace="/app/shockSandReport" extends="json-default">
+		<action name="runReport"  class="shockSandRunReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleRunReport" method="singleReport" class="shockSandRunReportAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+        <action name="runExportToExcel"  method="ExportToExcel" class="shockSandRunReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+		<action name="standbyReport"  class="shockSandStandbyReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleStandbyReport" method="singleReport" class="shockSandStandbyReportAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+        <action name="standbyExportToExcel"  method="ExportToExcel" class="shockSandStandbyReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+		<action name="sparePartsLifeReport"  class="shockSandSparePartsLifeReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleSparePartsLifeReport" method="singleReport" class="shockSandSparePartsLifeReportAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+        <action name="sparePartsLifeExportToExcel"  method="ExportToExcel" class="shockSandSparePartsLifeReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+		<action name="plcDataReport"  class="shockSandPLCDataReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singlePLCDataReport" method="singleReport" class="shockSandPLCDataReportAction">
+			<result type="velocity">/app/changan/cleanline/shockSandDevice/plcDatareport.html</result>
+		</action>
+        <action name="plcDataExportToExcel"  method="ExportToExcel" class="shockSandPLCDataReportAction">
+ 			<result type="velocity">/app/changan/cleanline/shockSandDevice/plcDatareport.html</result>
+		</action>
+	</package>
+
+	<package name="app_cleanline_cgcreport" namespace="/app/cgcReport" extends="json-default">
+		<action name="runReport"  class="cgcRunReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleRunReport" method="singleReport" class="cgcRunReportAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+        <action name="runExportToExcel"  method="ExportToExcel" class="cgcRunReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+		<action name="standbyReport"  class="cgcStandbyReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleStandbyReport" method="singleReport" class="cgcStandbyReportAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+        <action name="standbyExportToExcel"  method="ExportToExcel" class="cgcStandbyReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+		<action name="sparePartsLifeReport"  class="cgcSparePartsLifeReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleSparePartsLifeReport" method="singleReport" class="cgcSparePartsLifeReportAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+        <action name="sparePartsLifeExportToExcel"  method="ExportToExcel" class="cgcSparePartsLifeReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+		<action name="plcDataReport"  class="cgcPLCDataReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singlePLCDataReport" method="singleReport" class="cgcPLCDataReportAction">
+			<result type="velocity">/app/changan/cleanline/cgcDevice/plcDatareport.html</result>
+		</action>
+        <action name="plcDataExportToExcel"  method="ExportToExcel" class="cgcPLCDataReportAction">
+ 			<result type="velocity">/app/changan/cleanline/cgcDevice/plcDatareport.html</result>
+		</action>
+	</package>
+
+	<package name="app_cleanline_transferreport" namespace="/app/transferReport" extends="json-default">
+		<action name="runReport"  class="transferRunReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleRunReport" method="singleReport" class="transferRunReportAction">
+			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+        <action name="runExportToExcel"  method="ExportToExcel" class="transferRunReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicerundata/singlereport.html</result>
+		</action>
+		<action name="standbyReport"  class="transferStandbyReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleStandbyReport" method="singleReport" class="transferStandbyReportAction">
+			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+        <action name="standbyExportToExcel"  method="ExportToExcel" class="transferStandbyReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicestandbydata/singlereport.html</result>
+		</action>
+		<action name="sparePartsLifeReport"  class="transferSparePartsLifeReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singleSparePartsLifeReport" method="singleReport" class="transferSparePartsLifeReportAction">
+			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+        <action name="sparePartsLifeExportToExcel"  method="ExportToExcel" class="transferSparePartsLifeReportAction">
+ 			<result type="velocity">/app/changan/cleanline/devicespareparts/singlereport.html</result>
+		</action>
+		<action name="plcDataReport"  class="transferPLCDataReportAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		            rows, page, total, record, userdata.*  
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="singlePLCDataReport" method="singleReport" class="transferPLCDataReportAction">
+			<result type="velocity">/app/changan/cleanline/transferDevice/plcDatareport.html</result>
+		</action>
+        <action name="plcDataExportToExcel"  method="ExportToExcel" class="transferPLCDataReportAction">
+ 			<result type="velocity">/app/changan/cleanline/transferDevice/plcDatareport.html</result>
+		</action>
+	</package>
+
+	<!-- 工件清理数据 -->
+	<package name="app_cleanline_wpclean" namespace="/app/workpiececlean" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/workpiececlean/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/workpiececlean/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/workpiececlean/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/workpiececlean/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/workpiececlean/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/workpiececlean/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="wpCleanTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/workpiececlean/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 刀具信息 -->
+	<package name="app_cleanline_cutter" namespace="/app/cutter" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/cutter/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutter/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutter/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutter/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutter/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutter/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="cutterTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutter/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 刀具历史信息 -->
+	<package name="app_cleanline_cutterhis" namespace="/app/cutterChangeHistory" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/cutterChangeHistory/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutterChangeHistory/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutterChangeHistory/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutterChangeHistory/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutterChangeHistory/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutterChangeHistory/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="cutterHisTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/cutterChangeHistory/relationlist.html</result>
+		</action>
+	</package>
+
+</struts>

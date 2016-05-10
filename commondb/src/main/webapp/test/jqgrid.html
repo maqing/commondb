@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+<!-- 	<script src="../app/_lib/jqgrid/jquery-1.11.0.min.js" type="text/javascript"> </script> -->
+	<script src="../app/_lib/jquery-1.7.1.js" type="text/javascript"> </script>
+
+<!-- 	<link rel="stylesheet" type="text/css" media="screen" href="../app/_lib/jqgrid/jquery-ui.css" /> -->
+	<link rel="stylesheet" type="text/css" href="../app/css/ui-lightness/jquery-ui-1.7.2.custom.css" />
+	<script src="../app/_lib/jquery-ui-1.8.16.custom.min.js" type="text/javascript"> </script> 
+	<script src="../app/_lib/jqgrid/jquery-ui.js" type="text/javascript"> </script> 
+	
+<!-- 	<link rel="stylesheet" type="text/css" media="screen" href="../app/_lib/jqgrid/ui.jqgrid.css" />
+	<script src="../app/_lib/jqgrid/grid.locale-cn.js" type="text/javascript"></script>
+	<script src="../app/_lib/jqgrid/jquery.jqGrid.min.js" type="text/javascript"></script>
+ -->
+	<link rel="stylesheet" type="text/css" media="screen" href="../app/_lib/jqgrid4.5/ui.jqgrid.css" />
+	<script src="../app/_lib/jqgrid4.5/grid.locale-cn.js" type="text/javascript"></script>
+	<script src="../app/_lib/jqgrid4.5/jquery.jqGrid.js" type="text/javascript"></script>
+
+<!-- 	<script type="text/javascript" src='../app/_lib/timepicker.js'></script> -->
+
+	<link rel="stylesheet" type="text/css" media="screen" href="../app/_lib/timepicker/jquery-ui-timepicker-addon.css" />
+	<script src="../app/_lib/timepicker/jquery-ui-slide.min.js" type="text/javascript"></script>
+ 	<script type="text/javascript" src='../app/_lib/timepicker/jquery-ui-timepicker-addon.js'></script> 
+    <title>jqgriddemo</title>
+</head>
+<body>
+			<strong>运行开始时间从:</strong> <input type="text" name="timeRunBegin" id="timeRunBegin" value="" >
+			<strong>到：</strong> <input type="text" name="timeRunEnd" id="timeRunEnd" value="" > 
+			<input type="button" onclick="queryDeviceWorkData();" value="查询"/>
+			<input type="button" onclick="queryDeviceWorkData();" value="重置"/>
+
+<table id="gridTable"></table> 
+<div id="gridPager"></div>
+</body>
+    <script type="text/javascript">
+	$(document).ready(function() { 
+		$('#timeRunBegin').datetimepicker(
+				{ 
+				     showSecond: true, 
+				     timeFormat: 'hh:mm:ss' 
+				});	
+		$('#timeRunEnd').datetimepicker(
+				{ 
+		     showSecond: true, 
+		     timeFormat: 'hh:mm:ss' 
+			});	
+	
+	});
+	
+    var mydata = [ {id:"1",invdate:"2010-05-24",name:"test",note:"note",tax:"10.00",total:"2111.00"} , 
+					{id:"2",invdate:"2010-05-25",name:"test2",note:"note2",tax:"20.00",total:"320.00"}, 
+					{id:"3",invdate:"2007-09-01",name:"test3",note:"note3",tax:"30.00",total:"430.00"}, 
+					{id:"4",invdate:"2007-10-04",name:"test",note:"note",tax:"10.00",total:"210.00"}, 
+					{id:"5",invdate:"2007-10-05",name:"test2",note:"note2",tax:"20.00",total:"320.00"}, 
+					{id:"6",invdate:"2007-09-06",name:"test3",note:"note3",tax:"30.00",total:"430.00"}, 
+					{id:"7",invdate:"2007-10-04",name:"test",note:"note",tax:"10.00",total:"210.00"}, 
+					{id:"8",invdate:"2007-10-03",name:"test2",note:"note2",amount:"300.00",tax:"21.00",total:"320.00"}, 
+					{id:"9",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"}, 
+					{id:"11",invdate:"2007-10-01",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"}, 
+					{id:"12",invdate:"2007-10-02",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"}, 
+					{id:"13",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"}, 
+					{id:"14",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"}, 
+					{id:"15",invdate:"2007-10-05",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"}, 
+					{id:"16",invdate:"2007-09-06",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"}, 
+					{id:"17",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"}, 
+					{id:"18",invdate:"2007-10-03",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+					{id:"19",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"}, 
+					{id:"21",invdate:"2007-10-01",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"}, 
+					{id:"22",invdate:"2007-10-02",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+					{id:"23",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"}, 
+					{id:"24",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"},
+					{id:"25",invdate:"2007-10-05",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"},
+					{id:"26",invdate:"2007-09-06",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"},
+					{id:"27",invdate:"2007-10-04",name:"test",note:"note",amount:"200.00",tax:"10.00",total:"210.00"}, 
+					{id:"28",invdate:"2007-10-03",name:"test2",note:"note2",amount:"300.00",tax:"20.00",total:"320.00"}, 
+					{id:"29",invdate:"2007-09-01",name:"test3",note:"note3",amount:"400.00",tax:"30.00",total:"430.00"} 
+					 ];
+
+	/*
+ jQuery("#list486").jqGrid({ 
+	data: mydata, 
+	datatype: "local", 
+	height: 'auto', 
+	rowNum: 30, 
+	rowList: [10,20,30], 
+	colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'], 
+	colModel:[ 
+			{name:'id',index:'id', width:60, sorttype:"int"}, 
+			{name:'invdate',index:'invdate', width:90, sorttype:"date", formatter:"date"}, 
+			{name:'name',index:'name', width:100, editable:true}, 
+			{name:'amount',index:'amount', width:80, align:"right",sorttype:"float", formatter:"number", editable:true, summaryType:'min', summaryTpl:'<b>Min: {0}</b>'}, 
+			{name:'tax',index:'tax', width:80, align:"right",sorttype:"float",formatter:"number", editable:true, summaryType:'max', summaryTpl:'<b>Max: {0}</b>'}, 
+			{name:'total',index:'total', width:80,align:"right",sorttype:"float", formatter:"number", summaryType:'sum'},
+			{name:'note',index:'note', width:150, sortable:false, summaryType:'count', summaryTpl:'<b>{0} Item(s)</b>'} 
+	], 
+	pager: "#plist486", 
+	viewrecords: true, 
+	sortname: 'name', 
+	footerrow:true,
+	userDataOnFooter : true,
+	//gridComplete: completeMethod, 
+	grouping:true, 
+	//groupingView : { 
+	//		groupField : ['name'], 
+	//		groupSummary : [true], 
+	//		groupColumnShow : [true], 
+	//		groupText : ['<b>{0}</b>'], 
+	//		groupCollapse : false, 
+	//		groupOrder: ['asc'] 
+	//}, 
+	caption: "Summary footers" 
+});   */
+ 
+ 	function completeMethod() 
+ 	{
+ 		var sum_total = $("#list486").getCol('total','false','sum');
+ 		$("#list486").footerData('set',{name:'合计:',total:sum_total});
+ 	}
+ 	
+ 	
+	$("#gridTable").jqGrid({  
+	    url: "/app/deviceReport/jqGrid01.ac",  
+	    datatype: "json",  
+	    mtype: "GET",  
+	    height: "auto",  
+	    autowidth: true,  
+	    colModel: [  
+	          {name:"s_date",index:"s_date",label:"日期",width:40,align: "center",
+	        	  formatter:'date',formatoptions:{srcformat: 'Y-m-d'}
+	         	},    
+	          {name:"runSecond",index:"runSecond",label:"运行秒数",width:80,sortable:false,align: "center"}
+	    ],  
+	    viewrecords: true,  
+	    rowNum: 15,  
+	    rowList: [15,50,100],  
+	    prmNames: {search: "search"},   //(1)  
+	    jsonReader: {  
+	    	userdata: "userdata",
+	    	root:"gridModel",       // (2)  
+	        records: "record",      // (3)  
+	        repeatitems : false     // (4)  
+	    },  
+		footerrow:true,
+		userDataOnFooter : true,
+	    pager: "#gridPager",  
+	    caption: "测试列表",  
+	    hidegrid: false  
+	});  
+ 	
+	</script>
