@@ -744,4 +744,236 @@
 		</action>
 	</package>
 
+	<!-- 设备运行状态统计 -->
+	<package name="app_cleanline_statusstat" namespace="/app/deviceStatusStat" extends="json-default">
+		<action name="genEquiMalfunctionForm" method="genEquiMalfunctionForm" class="deviceStatusStatPagesAction">
+		   <result type="velocity">/app/changan/cleanline/deviceStatusStat/equiMalfunction.html</result>
+		</action>
+		<action name="genCutterForm" method="genCutterForm" class="deviceStatusStatPagesAction">
+		   <result type="velocity">/app/changan/cleanline/deviceStatusStat/cutter.html</result>
+		</action>
+		<action name="genCastingForm" method="genCastingForm" class="deviceStatusStatPagesAction">
+		   <result type="velocity">/app/changan/cleanline/deviceStatusStat/casting.html</result>
+		</action>
+		<action name="genEquiMataintanceForm" method="genEquiMataintanceForm" class="deviceStatusStatPagesAction">
+		   <result type="velocity">/app/changan/cleanline/deviceStatusStat/equiMataintance.html</result>
+		</action>
+		<action name="genForm" method="genForm" class="deviceStatusStatAction">
+			<result type="velocity">/app/changan/cleanline/deviceStatusStat/statusStat.html</result>
+		</action>
+		<action name="querySum" class="deviceStatusStatAction">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		           <!-- totalRunTime, normalRunTime, standbyTime, totalErrorTime, deviceOEE,-->
+		            deviceWorkTimeItem.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="queryDeviceTypeStat" class="deviceStatusStatAction" method="queryDeviceTypeStat">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            deviceWorkTimeList.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+        <action name="queryDeviceTypeStatExport"  method="queryDeviceTypeStatExport" class="deviceStatusStatAction">
+ 			<result type="velocity">/app/changan/cleanline/deviceStatusStat/statusStat.html</result>
+		</action>
+		<action name="queryDevice" class="deviceStatusStatAction" method="queryDevice">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            deviceItemList.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="queryDeviceErrorStat" class="deviceStatusStatAction" method="queryDeviceErrorStat">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            deviceWorkTimeItem.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="queryDeviceTopTenError" class="deviceStatusStatAction" method="queryDeviceTopTenError">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            deviceWorkTimeList.*,deviceName
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+        <action name="queryDeviceTopTenErrorExport"  method="queryDeviceTopTenErrorExport" class="deviceStatusStatAction">
+ 			<result type="velocity">/app/changan/cleanline/deviceStatusStat/equiMalfunction.html</result>
+		</action>
+		<action name="queryDeviceTypeErrorStat" class="deviceStatusStatAction" method="queryDeviceTypeErrorStat">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            deviceWorkTimeList.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+        <action name="queryDeviceTypeErrorStatExport"  method="queryDeviceTypeErrorStatExport" class="deviceStatusStatAction">
+ 			<result type="velocity">/app/changan/cleanline/deviceStatusStat/equiMalfunction.html</result>
+		</action>
+	</package>
+
+	<!-- 刀具运行状态统计 -->
+	<package name="app_cleanline_cutterstatusstat" namespace="/app/cutterStat" extends="json-default">
+		<action name="queryCutterList" class="cutterStatAction" method="queryCutterList">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            cutterItemList.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="getSingleCutterStat" class="cutterStatAction" method="getSingleCutterStat">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            cutterStatItem.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="getCutterCompareStat" class="cutterStatAction" method="getCutterCompareStat">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            cutterStatItemList.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="queryCutterDetailExport"  method="queryCutterDetailExport" class="cutterStatAction">
+ 			<result type="velocity">/app/changan/cleanline/deviceStatusStat/cutter.html</result>
+		</action>
+		<action name="queryCutterStatusCompExport"  method="queryCutterStatusCompExport" class="cutterStatAction">
+ 			<result type="velocity">/app/changan/cleanline/deviceStatusStat/cutter.html</result>
+		</action>
+		
+	</package>
+
+	<!-- 铸件加工查询 -->
+	<package name="app_cleanline_manufacturestat" namespace="/app/manufactureStat" extends="json-default">
+		<action name="queryManufactureInfo" class="manufactureStatAction" method="queryManufactureInfo">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		             rows, page, total, record, userdata.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		
+		
+		<action name="queryCastingExport"  method="queryCastingExport" class="manufactureStatAction">
+ 			<result type="velocity">/app/changan/cleanline/deviceStatusStat/casting.html</result>
+		</action>
+		
+		
+	</package>
+	
+	<!-- 设备维护保养标准 -->
+	<package name="app_cleanline_maintainstd" namespace="/app/deviceMaintSTD" extends="struts-default">
+		<action name="genForm" method="genForm" class="inputPageGenAction">
+			<result type="velocity">/app/changan/cleanline/deviceMaintSTD/new.html</result>
+		</action>
+		<action name="saveEntity" method="saveEntity" class="saveEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceMaintSTD/info.html</result>
+		</action>
+		<action name="viewEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceMaintSTD/view.html</result>
+		</action>
+		<action name="preEditEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceMaintSTD/edit.html</result>
+		</action>
+		<action name="preCopyEntity" method="viewEntity" class="viewEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceMaintSTD/copy.html</result>
+		</action>
+		<action name="getRelationEntity" method="relationEntity" class="trackEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceMaintSTD/relationlist.html</result>
+		</action>
+		<action name="trackEntity" method="trackEntity" class="maintSTDTrackEntityAction">
+			<result type="velocity">/app/changan/cleanline/deviceMaintSTD/relationlist.html</result>
+		</action>
+	</package>
+
+	<!-- 设备维护保养提醒维护 -->
+	<package name="app_cleanline_maintenanceReminder" namespace="/app/maintenanceReminder" extends="json-default">
+		<action name="queryNeedMaint" class="maintenanceReminderAction" method="queryNeedMaint">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		             rows, page, total, record, userdata.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+	</package>
+	
+	<!-- 设备维护保养记录 -->
+	<package name="app_cleanline_maintenanceRecord" namespace="/app/maintenanceRecord" extends="json-default">
+		<action name="queryMaintRec" class="maintenanceRecordAction" method="queryMaintRec">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            ^gridModel\[\d+\]\.\w+,  
+		             rows, page, total, record, userdata.*
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		<action name="addMaintRec" class="maintenanceRecordAction" method="addMaintRec">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            maintResult,maintMsg
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		    <result name="error" type="json">  
+		        <param name="includeProperties">  
+		            maintResult,maintMsg
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		
+		<action name="verifyMaintUser" class="maintenanceRecordAction" method="verifyMaintUser">
+		    <result name="success" type="json">  
+		        <param name="includeProperties">  
+		            maintResult,maintMsg,userName,userDesc
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		    <result name="error" type="json">  
+		        <param name="includeProperties">  
+		            maintResult,maintMsg,userName,userDesc
+		        </param>  
+		        <param name="noCache">true</param>  
+		        <param name="ignoreHierarchy">false</param>  
+		    </result>  
+		</action>
+		
+		<action name="queryManitExport"  method="queryManitExport" class="maintenanceRecordAction">
+ 			<result type="velocity">/app/changan/cleanline/deviceStatusStat/equiMataintance.html</result>
+		</action>
+		
+	</package>
 </struts>

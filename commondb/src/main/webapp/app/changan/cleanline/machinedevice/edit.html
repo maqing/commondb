@@ -38,13 +38,13 @@
 <div id="main">
 	<div id="header">
 		<!-- 头部 -->
-		#parse("/app/header.vm")
+		#parse("/app/headerOld.vm")
 	</div>
 	<div id="middle">
 		<div id="center-column">
 			<div id="top-bar" class="top-bar">
 				<!-- 菜单 -->
-				#parse("/app/newmenu.vm")
+				#parse("/app/newmenu1.vm")
 			</div>
 			<div class="break-bar"></div>
 	#end
@@ -145,6 +145,7 @@
 					<li ref="8"><a href="/app/cutter/trackEntity.ac?entityName=加工中心&rEntityNames=刀具信息&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel"><span>刀具信息</span></a></li>  
 					<li ref="9"><a href="/app/machineReport/singleSparePartsLifeReport.ac?entityName=加工中心&entityId=$entityId"><span>备件检修提醒</span></a></li>  
 					<li ref="10"><a href="/app/machineReport/singlePLCDataReport.ac?entityName=加工中心&entityId=$entityId"><span>PLC采集数据</span></a></li>  
+					<li ref="11"><a href="/app/deviceMaintSTD/trackEntity.ac?entityName=加工中心&rEntityNames=设备维护保养标准&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel"><span>设备维护保养标准</span></a></li>  
 				</ul>  
 			</div>
 

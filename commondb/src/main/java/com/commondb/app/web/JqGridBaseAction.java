@@ -34,7 +34,9 @@ public abstract class JqGridBaseAction extends ActionSupport {
             int length = rows;  
             results = this.listResults(from, length);  
             this.setGridModel(results);  
-            total = (int) Math.ceil((double) record / (double) rows);  
+            if (rows>0) {
+            	total = (int) Math.ceil((double) record / (double) rows);  
+            }
             return SUCCESS;  
         } catch (Exception e) {  
             e.printStackTrace();  

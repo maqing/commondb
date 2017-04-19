@@ -92,5 +92,16 @@ public class EntityDefine {
 	public final static String ChangeCutter_ChangeTime_CN = "d_41";
 	public final static String ChangeCutter_DesignLife_CN = "d_42";
 	public final static String ChangeCutter_ProcessCount_CN = "d_43";
+
+	public final static int MaintSTDMetaId = 14;
+	public final static String MaintSTD_Content_CN = "d_48";
+	public final static String MaintSTD_Desc_CN = "d_49";
+	public final static String MaintSTD_Period_CN = "d_50";
+	public final static String MaintSTD_BeginTime_CN = "d_55";
+
+	public final static int MaintRecMetaId = 15;
+	public final static String MaintRec_WorkTime_CN = "d_52";
+	public final static String MaintRec_WorkerName_CN = "d_53";
+	public final static String MaintRec_Note_CN = "d_54";
 	
 }

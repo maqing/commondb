@@ -5,125 +5,177 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
     
-    <bean id="standByTrackEntityAction" class="com.changan.app.deviceworkdata.StandByTrackEntityAction"> 
+    <bean id="manufactureService" scope="prototype" class="com.changan.app.report.service.ManufactureServiceImpl">
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    
+    <bean id="maintenanceService" scope="prototype" class="com.changan.app.report.service.MaintenanceServiceImpl">
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    
+    <bean id="cutterStatService" scope="prototype" class="com.changan.app.report.service.CutterStatServiceImpl">
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    
+    <bean id="deviceStatusStatService" scope="prototype" class="com.changan.app.report.service.DeviceStatusStatServiceImpl">
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    
+    <bean id="deviceService" scope="prototype" class="com.changan.app.report.service.DeviceServiceImpl">
+    	<property name="entityService" ref="entityService" />
+    </bean>
+
+    <bean id="standByTrackEntityAction" scope="prototype" class="com.changan.app.deviceworkdata.StandByTrackEntityAction"> 
     	<property name="metaService" ref="metaService" />
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="runTrackEntityAction" class="com.changan.app.deviceworkdata.RunTrackEntityAction"> 
+    <bean id="runTrackEntityAction" scope="prototype" class="com.changan.app.deviceworkdata.RunTrackEntityAction"> 
     	<property name="metaService" ref="metaService" />
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="errorTrackEntityAction" class="com.changan.app.deviceworkdata.ErrorTrackEntityAction"> 
+    <bean id="errorTrackEntityAction" scope="prototype" class="com.changan.app.deviceworkdata.ErrorTrackEntityAction"> 
     	<property name="metaService" ref="metaService" />
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="sparePartsTrackEntityAction" class="com.changan.app.deviceworkdata.SparePartsTrackEntityAction"> 
+    <bean id="sparePartsTrackEntityAction" scope="prototype"  class="com.changan.app.deviceworkdata.SparePartsTrackEntityAction"> 
     	<property name="metaService" ref="metaService" />
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="robotRunReportAction" class="com.changan.app.report.action.RobotRunReportAction"> 
+    <bean id="robotRunReportAction" scope="prototype"  class="com.changan.app.report.action.RobotRunReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="robotStandbyReportAction" class="com.changan.app.report.action.RobotStandbyReportAction"> 
+    <bean id="robotStandbyReportAction" scope="prototype" class="com.changan.app.report.action.RobotStandbyReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="robotSparePartsLifeReportAction" class="com.changan.app.report.action.RobotSparePartsLifeReportAction"> 
+    <bean id="robotSparePartsLifeReportAction" scope="prototype" class="com.changan.app.report.action.RobotSparePartsLifeReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="robotPLCDataReportAction" class="com.changan.app.report.action.RobotPLCDataReportAction"> 
+    <bean id="robotPLCDataReportAction" scope="prototype" class="com.changan.app.report.action.RobotPLCDataReportAction"> 
     	<property name="entityService" ref="entityService" />
     	<property name="localRobotdeviceDAO" ref="localRobotdeviceDAO" />
 	</bean>
 	
-    <bean id="machineRunReportAction" class="com.changan.app.report.action.MachineRunReportAction"> 
+    <bean id="machineRunReportAction" scope="prototype" class="com.changan.app.report.action.MachineRunReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="machineStandbyReportAction" class="com.changan.app.report.action.MachineStandbyReportAction"> 
+    <bean id="machineStandbyReportAction" scope="prototype" class="com.changan.app.report.action.MachineStandbyReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="machineSparePartsLifeReportAction" class="com.changan.app.report.action.MachineSparePartsLifeReportAction"> 
+    <bean id="machineSparePartsLifeReportAction" scope="prototype" class="com.changan.app.report.action.MachineSparePartsLifeReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="machinePLCDataReportAction" class="com.changan.app.report.action.MachinePLCDataReportAction"> 
+    <bean id="machinePLCDataReportAction" scope="prototype" class="com.changan.app.report.action.MachinePLCDataReportAction"> 
     	<property name="entityService" ref="entityService" />
     	<property name="localMachinedeviceDAO" ref="localMachinedeviceDAO" />
 	</bean>
 	
 
-    <bean id="shockSandRunReportAction" class="com.changan.app.report.action.ShockSandRunReportAction"> 
+    <bean id="shockSandRunReportAction" scope="prototype" class="com.changan.app.report.action.ShockSandRunReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="shockSandStandbyReportAction" class="com.changan.app.report.action.ShockSandStandbyReportAction"> 
+    <bean id="shockSandStandbyReportAction" scope="prototype" class="com.changan.app.report.action.ShockSandStandbyReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="shockSandSparePartsLifeReportAction" class="com.changan.app.report.action.ShockSandSparePartsLifeReportAction"> 
+    <bean id="shockSandSparePartsLifeReportAction" scope="prototype" class="com.changan.app.report.action.ShockSandSparePartsLifeReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="shockSandPLCDataReportAction" class="com.changan.app.report.action.ShockSandPLCDataReportAction"> 
+    <bean id="shockSandPLCDataReportAction" scope="prototype" class="com.changan.app.report.action.ShockSandPLCDataReportAction"> 
     	<property name="entityService" ref="entityService" />
     	<property name="localShockSanddeviceDAO" ref="localShocksanddeviceDAO" />
 	</bean>
 	
-    <bean id="cgcRunReportAction" class="com.changan.app.report.action.CGCRunReportAction"> 
+    <bean id="cgcRunReportAction" scope="prototype" class="com.changan.app.report.action.CGCRunReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="cgcStandbyReportAction" class="com.changan.app.report.action.CGCStandbyReportAction"> 
+    <bean id="cgcStandbyReportAction" scope="prototype" class="com.changan.app.report.action.CGCStandbyReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="cgcSparePartsLifeReportAction" class="com.changan.app.report.action.CGCSparePartsLifeReportAction"> 
+    <bean id="cgcSparePartsLifeReportAction" scope="prototype" class="com.changan.app.report.action.CGCSparePartsLifeReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="cgcPLCDataReportAction" class="com.changan.app.report.action.CGCPLCDataReportAction"> 
+    <bean id="cgcPLCDataReportAction" scope="prototype" class="com.changan.app.report.action.CGCPLCDataReportAction"> 
     	<property name="entityService" ref="entityService" />
     	<property name="localCgcdeviceDAO" ref="localCgcdeviceDAO" />
 	</bean>
 	
-    <bean id="transferRunReportAction" class="com.changan.app.report.action.TransferRunReportAction"> 
+    <bean id="transferRunReportAction" scope="prototype" class="com.changan.app.report.action.TransferRunReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="transferStandbyReportAction" class="com.changan.app.report.action.TransferStandbyReportAction"> 
+    <bean id="transferStandbyReportAction" scope="prototype" class="com.changan.app.report.action.TransferStandbyReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 
-    <bean id="transferSparePartsLifeReportAction" class="com.changan.app.report.action.TransferSparePartsLifeReportAction"> 
+    <bean id="transferSparePartsLifeReportAction" scope="prototype" class="com.changan.app.report.action.TransferSparePartsLifeReportAction"> 
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="transferPLCDataReportAction" class="com.changan.app.report.action.TransferPLCDataReportAction"> 
+    <bean id="transferPLCDataReportAction" scope="prototype" class="com.changan.app.report.action.TransferPLCDataReportAction"> 
     	<property name="entityService" ref="entityService" />
     	<property name="localTransferdeviceDAO" ref="localTransferdeviceDAO" />
 	</bean>
 	
-    <bean id="wpCleanTrackEntityAction" class="com.changan.app.deviceworkdata.WPCleanTrackEntityAction"> 
+    <bean id="wpCleanTrackEntityAction" scope="prototype" class="com.changan.app.deviceworkdata.WPCleanTrackEntityAction"> 
     	<property name="metaService" ref="metaService" />
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="cutterTrackEntityAction" class="com.changan.app.deviceworkdata.CutterTrackEntityAction"> 
+    <bean id="cutterTrackEntityAction" scope="prototype" class="com.changan.app.deviceworkdata.CutterTrackEntityAction"> 
     	<property name="metaService" ref="metaService" />
     	<property name="entityService" ref="entityService" />
 	</bean>
 	
-    <bean id="cutterHisTrackEntityAction" class="com.changan.app.deviceworkdata.CutterHistoryTrackEntityAction"> 
+    <bean id="cutterHisTrackEntityAction" scope="prototype" class="com.changan.app.deviceworkdata.CutterHistoryTrackEntityAction"> 
     	<property name="metaService" ref="metaService" />
     	<property name="entityService" ref="entityService" />
 	</bean>
+	
+    <bean id="deviceStatusStatAction" scope="prototype" class="com.changan.app.report.action.DeviceStatusStatAction"> 
+    	<property name="deviceStatusStatService" ref="deviceStatusStatService" />
+    	<property name="deviceService" ref="deviceService" />
+	</bean>
+	
+	<bean id="deviceStatusStatPagesAction" scope="prototype" class="com.changan.app.report.action.DeviceStatusStatPagesAction"/>
+	
+    <bean id="cutterStatAction" scope="prototype" class="com.changan.app.report.action.CutterStatAction"> 
+    	<property name="cutterStatService" ref="cutterStatService" />
+    	<property name="deviceService" ref="deviceService" />
+	</bean>
+	
+    <bean id="manufactureStatAction" scope="prototype" class="com.changan.app.report.action.ManufactureStatAction"> 
+    	<property name="manufactureService" ref="manufactureService" />
+	</bean>
+	
+    <bean id="maintSTDTrackEntityAction" scope="prototype"  class="com.changan.app.deviceworkdata.MaintSTDTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="maintenanceReminderAction" scope="prototype" class="com.changan.app.report.action.MaintenanceReminderAction"> 
+    	<property name="maintenanceService" ref="maintenanceService" />
+	</bean>
+	
+    <bean id="maintenanceRecordAction" scope="prototype" class="com.changan.app.report.action.MaintenanceRecordAction"> 
+    	<property name="maintenanceService" ref="maintenanceService" />
+    	<property name="userService" ref="userService" />
+    	<property name="deviceService" ref="deviceService" />
+	</bean>
+	
 	
 </beans>

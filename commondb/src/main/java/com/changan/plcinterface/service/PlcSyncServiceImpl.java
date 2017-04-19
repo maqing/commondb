@@ -378,7 +378,6 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 			WprecordinformationExample.Criteria wprecordCriteria = wprecordinformationExample.createCriteria();
 			wprecordCriteria.andRecordstatusEqualTo(true);
 			wprecordinformationExample.setOrderByClause("wpdataname, datatime limit 100");
-			
 		    List<Wprecordinformation> remoteWprecordinformationList = this.remoteWprecordinformationDAO.selectByExample(wprecordinformationExample);
 		    if (remoteWprecordinformationList.size()>0) {
 				logger.info("begin sync data.");
@@ -392,8 +391,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		machinedevice102Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Machinedevice102> remoteMachinedevice102List = this.remoteMachinedevice102DAO.selectByExample(machinedevice102Example);
 		    	    for (Machinedevice102 remoteMachinedevice102 : remoteMachinedevice102List) {
-		    	      this.localMachinedevice102DAO.insert(remoteMachinedevice102);
-		    	      localMachinedeviceDAO.insert(remoteMachinedevice102);
+		    	      try {
+		    	    	  this.localMachinedevice102DAO.insert(remoteMachinedevice102);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
+		    	      try {
+		    	    	  localMachinedeviceDAO.insert(remoteMachinedevice102);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processMachineDeviceData(remoteMachinedevice102);
 		    	    }
 		    	    processFlag = true;
@@ -405,8 +412,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		machinedevice103Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Machinedevice103> remoteMachinedevice103List = this.remoteMachinedevice103DAO.selectByExample(machinedevice103Example);
 		    	    for (Machinedevice103 remoteMachinedevice103 : remoteMachinedevice103List) {
-		    	      this.localMachinedevice103DAO.insert(remoteMachinedevice103);
-		    	      localMachinedeviceDAO.insert(remoteMachinedevice103);
+			    	  try {
+			    	   	  this.localMachinedevice103DAO.insert(remoteMachinedevice103);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
+		    	      try {
+		    	    	  localMachinedeviceDAO.insert(remoteMachinedevice103);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processMachineDeviceData(remoteMachinedevice103);
 		    	    }
 		    	    processFlag = true;
@@ -418,8 +433,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		robotdevice102Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Robotdevice102> remoteRobotdevice102List = this.remoteRobotdevice102DAO.selectByExample(robotdevice102Example);
 		    	    for (Robotdevice102 remoteRobotdevice102 : remoteRobotdevice102List) {
-		    	      this.localRobotdevice102DAO.insert(remoteRobotdevice102);
-		    	      localRobotdeviceDAO.insert(remoteRobotdevice102);
+				    	  try {
+				    	   	  this.localRobotdevice102DAO.insert(remoteRobotdevice102);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  localRobotdeviceDAO.insert(remoteRobotdevice102);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processRobotDeviceData(remoteRobotdevice102);
 		    	    }
 		    	    processFlag = true;
@@ -431,8 +454,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		robotdevice103Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Robotdevice103> remoteRobotdevice103List = this.remoteRobotdevice103DAO.selectByExample(robotdevice103Example);
 		    	    for (Robotdevice103 remoteRobotdevice103 : remoteRobotdevice103List) {
-		    	      this.localRobotdevice103DAO.insert(remoteRobotdevice103);
-		    	      localRobotdeviceDAO.insert(remoteRobotdevice103);
+				    	  try {
+				    	   	  this.localRobotdevice103DAO.insert(remoteRobotdevice103);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  localRobotdeviceDAO.insert(remoteRobotdevice103);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processRobotDeviceData(remoteRobotdevice103);
 		    	    }
 		    	    processFlag = true;
@@ -444,8 +475,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		Shocksanddevice102Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Shocksanddevice102> remoteShocksanddevice102List = this.remoteShocksanddevice102DAO.selectByExample(Shocksanddevice102Example);
 		    	    for (Shocksanddevice102 remoteShocksanddevice102 : remoteShocksanddevice102List) {
-		    	      this.localShocksanddevice102DAO.insert(remoteShocksanddevice102);
-		    	      localShocksanddeviceDAO.insert(remoteShocksanddevice102);
+				    	  try {
+				    	   	  this.localShocksanddevice102DAO.insert(remoteShocksanddevice102);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  localShocksanddeviceDAO.insert(remoteShocksanddevice102);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processShockSandDeviceData(remoteShocksanddevice102);
 		    	    }
 		    	    processFlag = true;
@@ -457,8 +496,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		Shocksanddevice103Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Shocksanddevice103> remoteShocksanddevice103List = this.remoteShocksanddevice103DAO.selectByExample(Shocksanddevice103Example);
 		    	    for (Shocksanddevice103 remoteShocksanddevice103 : remoteShocksanddevice103List) {
-		    	      this.localShocksanddevice103DAO.insert(remoteShocksanddevice103);
-		    	      localShocksanddeviceDAO.insert(remoteShocksanddevice103);
+				    	  try {
+				    	   	  this.localShocksanddevice103DAO.insert(remoteShocksanddevice103);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  localShocksanddeviceDAO.insert(remoteShocksanddevice103);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processShockSandDeviceData(remoteShocksanddevice103);
 		    	    }
 		    	    processFlag = true;
@@ -470,8 +517,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		cgcdevice104Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Cgcdevice104> remoteCgcdevice104List = this.remoteCgcdevice104DAO.selectByExample(cgcdevice104Example);
 		    	    for (Cgcdevice104 remoteCgcdevice104 : remoteCgcdevice104List) {
-		    	      this.localCgcdevice104DAO.insert(remoteCgcdevice104);
-		    	      this.localCgcdeviceDAO.insert(remoteCgcdevice104);
+				    	  try {
+				    	   	  this.localCgcdevice104DAO.insert(remoteCgcdevice104);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  this.localCgcdeviceDAO.insert(remoteCgcdevice104);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processCGCDeviceData(remoteCgcdevice104);
 		    	    }
 		    	    processFlag = true;
@@ -483,8 +538,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		cgcdevice105Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Cgcdevice105> remoteCgcdevice105List = this.remoteCgcdevice105DAO.selectByExample(cgcdevice105Example);
 		    	    for (Cgcdevice105 remoteCgcdevice105 : remoteCgcdevice105List) {
-		    	      this.localCgcdevice105DAO.insert(remoteCgcdevice105);
-		    	      this.localCgcdeviceDAO.insert(remoteCgcdevice105);
+				    	  try {
+				    	   	  this.localCgcdevice105DAO.insert(remoteCgcdevice105);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  this.localCgcdeviceDAO.insert(remoteCgcdevice105);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processCGCDeviceData(remoteCgcdevice105);
 		    	    }
 		    	    processFlag = true;
@@ -496,8 +559,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		cgcdevice106Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Cgcdevice106> remoteCgcdevice106List = this.remoteCgcdevice106DAO.selectByExample(cgcdevice106Example);
 		    	    for (Cgcdevice106 remoteCgcdevice106 : remoteCgcdevice106List) {
-		    	      this.localCgcdevice106DAO.insert(remoteCgcdevice106);
-		    	      this.localCgcdeviceDAO.insert(remoteCgcdevice106);
+				    	  try {
+				    	   	  this.localCgcdevice106DAO.insert(remoteCgcdevice106);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  this.localCgcdeviceDAO.insert(remoteCgcdevice106);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processCGCDeviceData(remoteCgcdevice106);
 		    	    }
 		    	    processFlag = true;
@@ -509,8 +580,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		cgcdevice107Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Cgcdevice107> remoteCgcdevice107List = this.remoteCgcdevice107DAO.selectByExample(cgcdevice107Example);
 		    	    for (Cgcdevice107 remoteCgcdevice107 : remoteCgcdevice107List) {
-		    	      this.localCgcdevice107DAO.insert(remoteCgcdevice107);
-		    	      this.localCgcdeviceDAO.insert(remoteCgcdevice107);
+				    	  try {
+				    	   	  this.localCgcdevice107DAO.insert(remoteCgcdevice107);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  this.localCgcdeviceDAO.insert(remoteCgcdevice107);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processCGCDeviceData(remoteCgcdevice107);
 		    	    }
 		    	    processFlag = true;
@@ -522,8 +601,16 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		    		transferdevice101Criteria.andWprecordvalueEqualTo(remoteWprecordinformation.getWprecordcode().longValue());
 		    	    List<Transferdevice101> remoteTransferdevice101List = this.remoteTransferdevice101DAO.selectByExample(transferdevice101Example);
 		    	    for (Transferdevice101 remoteTransferdevice101 : remoteTransferdevice101List) {
-		    	      this.localTransferdevice101DAO.insert(remoteTransferdevice101);
-		    	      localTransferdeviceDAO.insert(remoteTransferdevice101);
+				    	  try {
+				    	   	  this.localTransferdevice101DAO.insert(remoteTransferdevice101);
+			    	      } catch (Exception e) {
+			    	    	  logger.error("insert device data error:" + e.toString());
+			    	      }
+		    	      try {
+		    	    	  localTransferdeviceDAO.insert(remoteTransferdevice101);
+		    	      } catch (Exception e) {
+		    	    	  logger.error("insert device data error:" + e.toString());
+		    	      }
 		    	      processTransferDeviceData(remoteTransferdevice101);
 		    	    }
 		    	    processFlag = true;
@@ -677,12 +764,13 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 				entityService.createEntity(EntityDefine.WorkpieceCleanMetaId, workpieceValuesMap);
 				
 				//判断是否有工具信息 
-				if ((basicdevice.getToolcode()!=null) && (basicdevice.getToolcode().intValue()>0)) {
+				//if ((basicdevice.getToolcode()!=null) && (basicdevice.getToolcode().intValue()>0)) {
+				if (basicdevice.getToolcode()!=null)  {
 					//记录刀具寿命
 					List toolRecList =  entityService.dynSelect(" id, " + EntityDefine.Cutter_Code_CN + ", " + EntityDefine.Cutter_BeginTime_CN 
 							+ ", " + EntityDefine.Cutter_DesignLife_CN + ", " + EntityDefine.Cutter_ProcessCount_CN, 
 							" t_entity_" + String.valueOf(EntityDefine.CutterMetaId) ,
-							String.valueOf(EntityDefine.Cutter_Code_CN) + "='" + basicdevice.getToolcode().intValue() + "' ");
+							String.valueOf(EntityDefine.Cutter_Code_CN) + "='" + basicdevice.getToolcode() + "' ");
 					Map<String, Object> toolValuesMap = new HashMap<String, Object>();
 					Map<String, Object> toolHistoryValuesMap = new HashMap<String, Object>();
 					if  ((toolRecList!=null) && (toolRecList.size()==0)) {
@@ -713,7 +801,7 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 							
 							toolHistoryValuesMap.put(EntityDefine.ChangeCutter_BeginTime_CN, toolValuesMap.get(EntityDefine.Cutter_BeginTime_CN));
 							toolHistoryValuesMap.put(EntityDefine.ChangeCutter_ChangeTime_CN, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(basicdevice.getPlctime()));
-							toolHistoryValuesMap.put(EntityDefine.ChangeCutter_Code_CN, basicdevice.getToolcode().intValue());
+							toolHistoryValuesMap.put(EntityDefine.ChangeCutter_Code_CN, basicdevice.getToolcode());
 							toolHistoryValuesMap.put(EntityDefine.ChangeCutter_ProcessCount_CN, toolValuesMap.get(EntityDefine.Cutter_ProcessCount_CN));
 							toolHistoryValuesMap.put(EntityDefine.ChangeCutter_DesignLife_CN, toolValuesMap.get(EntityDefine.Cutter_DesignLife_CN));
 							//构造关联属性，关联到刀具主记录上
@@ -998,7 +1086,7 @@ public class PlcSyncServiceImpl implements PlcSyncService {
 		Map<String, Object> toolValuesMap = new HashMap<String, Object>();
 		toolValuesMap.put(EntityDefine.Cutter_BeginTime_CN, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(basicdevice.getPlctime()));
 		toolValuesMap.put(EntityDefine.Cutter_DesignLife_CN, "");
-		toolValuesMap.put(EntityDefine.Cutter_Code_CN, basicdevice.getToolcode().intValue());
+		toolValuesMap.put(EntityDefine.Cutter_Code_CN, basicdevice.getToolcode());
 		toolValuesMap.put(EntityDefine.Cutter_ProcessCount_CN, 1);
 		//构造关联属性，关联到设备主记录上
 		String[][] toolEntityArr = {{String.valueOf(deviceMetaId),deviceBasicId}};

@@ -715,32 +715,32 @@ public class Cgcdevice106Example {
             return this;
         }
 
-        public Criteria andToolcodeEqualTo(Integer value) {
+        public Criteria andToolcodeEqualTo(String value) {
             addCriterion("Toolcode =", value, "toolcode");
             return this;
         }
 
-        public Criteria andToolcodeNotEqualTo(Integer value) {
+        public Criteria andToolcodeNotEqualTo(String value) {
             addCriterion("Toolcode <>", value, "toolcode");
             return this;
         }
 
-        public Criteria andToolcodeGreaterThan(Integer value) {
+        public Criteria andToolcodeGreaterThan(String value) {
             addCriterion("Toolcode >", value, "toolcode");
             return this;
         }
 
-        public Criteria andToolcodeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andToolcodeGreaterThanOrEqualTo(String value) {
             addCriterion("Toolcode >=", value, "toolcode");
             return this;
         }
 
-        public Criteria andToolcodeLessThan(Integer value) {
+        public Criteria andToolcodeLessThan(String value) {
             addCriterion("Toolcode <", value, "toolcode");
             return this;
         }
 
-        public Criteria andToolcodeLessThanOrEqualTo(Integer value) {
+        public Criteria andToolcodeLessThanOrEqualTo(String value) {
             addCriterion("Toolcode <=", value, "toolcode");
             return this;
         }
@@ -755,14 +755,5 @@ public class Cgcdevice106Example {
             return this;
         }
 
-        public Criteria andToolcodeBetween(Integer value1, Integer value2) {
-            addCriterion("Toolcode between", value1, value2, "toolcode");
-            return this;
-        }
-
-        public Criteria andToolcodeNotBetween(Integer value1, Integer value2) {
-            addCriterion("Toolcode not between", value1, value2, "toolcode");
-            return this;
-        }
     }
 }

@@ -38,13 +38,13 @@
 <div id="main">
 	<div id="header">
 		<!-- 头部 -->
-		#parse("/app/header.vm")
+		#parse("/app/headerOld.vm")
 	</div>
 	<div id="middle">
 		<div id="center-column">
 			<div id="top-bar" class="top-bar">
 				<!-- 菜单 -->
-				#parse("/app/newmenu.vm")
+				#parse("/app/newmenu1.vm")
 			</div>
 			<div class="break-bar"></div>
 	#end
@@ -143,6 +143,7 @@
 					<li ref="6"><a href="/app/deviceSpareParts/trackEntity.ac?entityName=中央物流&rEntityNames=备件信息&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel"><span>备件信息</span></a></li>  
 					<li ref="7"><a href="/app/transferReport/singleSparePartsLifeReport.ac?entityName=中央物流&entityId=$entityId"><span>备件检修提醒</span></a></li>  
 					<li ref="8"><a href="/app/transferReport/singlePLCDataReport.ac?entityName=中央物流&entityId=$entityId"><span>PLC采集数据</span></a></li>  
+					<li ref="9"><a href="/app/deviceMaintSTD/trackEntity.ac?entityName=中央物流&rEntityNames=设备维护保养标准&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel"><span>设备维护保养标准</span></a></li>  
 				</ul>  
 			</div>
 

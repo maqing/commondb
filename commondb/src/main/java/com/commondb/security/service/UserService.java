@@ -1,11 +1,14 @@
 package com.commondb.security.service;
 
 import com.commondb.db.bo.User;
+
 import java.util.List;
 
 public abstract interface UserService
 {
   public abstract List findUsers(Integer paramInteger);
+  
+  public abstract List findUsersByName(String userName);
   
   public abstract Integer createUser(String paramString1, String paramString2, String paramString3, Boolean paramBoolean, Integer[] paramArrayOfInteger);
   

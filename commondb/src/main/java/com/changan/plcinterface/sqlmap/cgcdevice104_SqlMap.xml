@@ -14,7 +14,7 @@
     <result column="Faultcode" property="faultcode" jdbcType="BIGINT" />
     <result column="Processcode" property="processcode" jdbcType="INTEGER" />
     <result column="Wprecordvalue" property="wprecordvalue" jdbcType="BIGINT" />
-    <result column="Toolcode" property="toolcode" jdbcType="INTEGER" />
+    <result column="Toolcode" property="toolcode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="abatorgenerated_Example_Where_Clause" >
     <!--
@@ -78,7 +78,7 @@
       Processcode, Wprecordvalue, Toolcode)
     values (#plctime:TIMESTAMP#, #deviceid:INTEGER#, #devicename:VARCHAR#, #devicestatus:BIGINT#,
       #workpiecename:VARCHAR#, #faultcode:BIGINT#, #processcode:INTEGER#, #wprecordvalue:BIGINT#,
-      #toolcode:INTEGER#)
+      #toolcode:VARCHAR#)
   </insert>
   <select id="abatorgenerated_countByExample" parameterClass="com.changan.plcinterface.model.Cgcdevice104Example" resultClass="java.lang.Integer" >
     <!--
@@ -120,7 +120,7 @@
         Wprecordvalue = #record.wprecordvalue:BIGINT#
       </isNotNull>
       <isNotNull prepend="," property="record.toolcode" >
-        Toolcode = #record.toolcode:INTEGER#
+        Toolcode = #record.toolcode:VARCHAR#
       </isNotNull>
     </dynamic>
     <isParameterPresent >
@@ -141,7 +141,7 @@
       Faultcode = #record.faultcode:BIGINT#,
       Processcode = #record.processcode:INTEGER#,
       Wprecordvalue = #record.wprecordvalue:BIGINT#,
-      Toolcode = #record.toolcode:INTEGER#
+      Toolcode = #record.toolcode:VARCHAR#
     <isParameterPresent >
       <include refid="cgcdevice104.abatorgenerated_Example_Where_Clause" />
     </isParameterPresent>

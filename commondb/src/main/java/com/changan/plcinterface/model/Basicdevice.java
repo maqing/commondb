@@ -42,7 +42,7 @@ public class Basicdevice extends BasicdeviceKey {
 	private String workpiecename;
 
 	/* 刀具编码  */
-    private Integer toolcode;
+    private String toolcode;
 
     /* 工序代码 */
     private Integer processcode;
@@ -186,14 +186,14 @@ public class Basicdevice extends BasicdeviceKey {
 	/**
 	 * @return the toolcode
 	 */
-	public Integer getToolcode() {
+	public String getToolcode() {
 		return toolcode;
 	}
 
 	/**
 	 * @param toolcode the toolcode to set
 	 */
-	public void setToolcode(Integer toolcode) {
+	public void setToolcode(String toolcode) {
 		this.toolcode = toolcode;
 	}
 

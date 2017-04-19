@@ -29,6 +29,8 @@
 			<strong>到：</strong> <input type="text" name="timeRunEnd" id="timeRunEnd" value="" > 
 			<input type="button" onclick="queryDeviceWorkData();" value="查询"/>
 			<input type="button" onclick="queryDeviceWorkData();" value="重置"/>
+                          <div  id="equip">
+                          </div>
 
 <table id="gridTable"></table> 
 <div id="gridPager"></div>
@@ -147,5 +149,38 @@
 	    caption: "测试列表",  
 	    hidegrid: false  
 	});  
+	
+	function queryDeviceWorkData() {
+   	 $.ajax({
+// 			url: '/app/maintenanceRecord/queryMaintRec.ac',
+// 			type: 'post',
+// 			data: {"lineId":"1","timeBegin":"2016-12-15 00:00:00",
+// 				"deviceId":"b5ebb13b-7d28-4d8f-a3d7-5268d2122bba","rows":10,"page":1},
+				
+//  			url: '/app/maintenanceReminder/queryNeedMaint.ac',
+// 			type: 'post',
+// 			data: {"lineId":"1","rows":10,"page":1},
+			
+//  			url: '/app/maintenanceRecord/addMaintRec.ac',
+// 			type: 'post',
+// 			data: {"remindId":"86954b54-8228-4232-ab05-f8a3191974e4",
+// 				"workTime":"2016-12-18 16:00:00","note":"测试维护保养添加","workerName":"李飞"},
+			
+ 			dataType: 'json',
+			error: function(){alert('error');},
+			success:function(data){
+				if(null != data && null != data.gridModel){
+					var device = data.gridModel;
+					var option = "";
+					for(var i = 0 ;i < device.length;i++){
+						option +=  "<span id="+device[i].wpname+">"+ device[i].wpname;
+						option +=  "</span>";
+					}
+					$("#equip").html(option);
+				}
+			}
+		});
+		
+	}
  	
 	</script>

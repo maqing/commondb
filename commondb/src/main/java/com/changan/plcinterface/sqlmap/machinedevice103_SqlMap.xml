@@ -12,7 +12,7 @@
     <result column="Devicename" property="devicename" jdbcType="VARCHAR" />
     <result column="Devicestatus" property="devicestatus" jdbcType="BIGINT" />
     <result column="Workpiecename" property="workpiecename" jdbcType="VARCHAR" />
-    <result column="Toolcode" property="toolcode" jdbcType="INTEGER" />
+    <result column="Toolcode" property="toolcode" jdbcType="VARCHAR" />
     <result column="Faultcode" property="faultcode" jdbcType="BIGINT" />
     <result column="Processcode" property="processcode" jdbcType="INTEGER" />
   </resultMap>
@@ -95,7 +95,7 @@
     insert into machinedevice103 (Wprecordvalue, PLCtime, Deviceid, Devicename, Devicestatus,
       Workpiecename, Toolcode, Faultcode, Processcode)
     values (#wprecordvalue:BIGINT#, #plctime:TIMESTAMP#, #deviceid:INTEGER#, #devicename:VARCHAR#,
-      #devicestatus:BIGINT#, #workpiecename:VARCHAR#, #toolcode:INTEGER#, #faultcode:BIGINT#,
+      #devicestatus:BIGINT#, #workpiecename:VARCHAR#, #toolcode:VARCHAR#, #faultcode:BIGINT#,
       #processcode:INTEGER#)
   </insert>
   <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.changan.plcinterface.model.Machinedevice103" >
@@ -109,7 +109,7 @@
       Devicename = #devicename:VARCHAR#,
       Devicestatus = #devicestatus:BIGINT#,
       Workpiecename = #workpiecename:VARCHAR#,
-      Toolcode = #toolcode:INTEGER#,
+      Toolcode = #toolcode:VARCHAR#,
       Faultcode = #faultcode:BIGINT#,
       Processcode = #processcode:INTEGER#
     where Wprecordvalue = #wprecordvalue:BIGINT#
@@ -137,7 +137,7 @@
         Workpiecename = #workpiecename:VARCHAR#
       </isNotNull>
       <isNotNull prepend="," property="toolcode" >
-        Toolcode = #toolcode:INTEGER#
+        Toolcode = #toolcode:VARCHAR#
       </isNotNull>
       <isNotNull prepend="," property="faultcode" >
         Faultcode = #faultcode:BIGINT#
@@ -182,7 +182,7 @@
         Workpiecename = #record.workpiecename:VARCHAR#
       </isNotNull>
       <isNotNull prepend="," property="record.toolcode" >
-        Toolcode = #record.toolcode:INTEGER#
+        Toolcode = #record.toolcode:VARCHAR#
       </isNotNull>
       <isNotNull prepend="," property="record.faultcode" >
         Faultcode = #record.faultcode:BIGINT#
@@ -207,7 +207,7 @@
       Devicename = #record.devicename:VARCHAR#,
       Devicestatus = #record.devicestatus:BIGINT#,
       Workpiecename = #record.workpiecename:VARCHAR#,
-      Toolcode = #record.toolcode:INTEGER#,
+      Toolcode = #record.toolcode:VARCHAR#,
       Faultcode = #record.faultcode:BIGINT#,
       Processcode = #record.processcode:INTEGER#
     <isParameterPresent >

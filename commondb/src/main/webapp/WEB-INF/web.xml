@@ -21,7 +21,7 @@
 		/WEB-INF/applicationContext-security.xml
 		/WEB-INF/applicationContext-common-business.xml
 		/WEB-INF/applicationContext-common-authorization.xml
-<!-- 		/WEB-INF/applicationContext_changan_schedule.xml -->
+		/WEB-INF/applicationContext_changan_schedule.xml
 	</param-value>
   </context-param>
   <listener>

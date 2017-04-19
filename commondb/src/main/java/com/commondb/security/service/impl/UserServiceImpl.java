@@ -64,6 +64,11 @@ public class UserServiceImpl
     return this.userDAO.getUserByIdWithCashRole(userId);
   }
 
+  public List findUsersByName(String userName)
+  {
+    return this.userDAO.getUserByNameWithCashRole(userName);
+  }
+  
   public Integer createUser(String userName, String pwd, String userDesc, Boolean disabled, Integer[] roleIdArr)
   {
     String pwdMD5 = MD5.getMD5(pwd.getBytes());
