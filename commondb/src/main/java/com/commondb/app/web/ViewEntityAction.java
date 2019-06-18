@@ -43,7 +43,7 @@ public class ViewEntityAction
   List hierFields = new ArrayList();
   List charaFields = new ArrayList();
   List picFields = new ArrayList();
-  List descFields = new ArrayList();
+  public List descFields = new ArrayList();
   List rEntityList = new ArrayList();
   String entityId;
   Integer metaId;

@@ -35,6 +35,9 @@
     	<!-- maqing 2013-01-15 add -->
     	<property name="httpSolrService" ref="httpSolrService" />
     	
+    	<!-- maqing 2019-01-24 add -->
+    	<property name="mesSyncService" ref="mesSyncService" />
+    	
     </bean>
     
     

@@ -28,6 +28,8 @@ public class TrackEntityAction
   String updateFlag;
   private PageInfo trackPageInfo = new PageInfo();
   private String appendQuery;
+  //如果为1，不需要关联r_entity，通过自定义关联条件，省略维护r_entity表;
+  private String noNeedREntity;
 
   public List getFavorMetaList()
   {
@@ -71,6 +73,20 @@ public String getAppendQuery() {
  */
 public void setAppendQuery(String appendQuery) {
 	this.appendQuery = appendQuery;
+}
+
+/**
+ * @return the noNeedREntity
+ */
+public String getNoNeedREntity() {
+	return noNeedREntity;
+}
+
+/**
+ * @param noNeedREntity the noNeedREntity to set
+ */
+public void setNoNeedREntity(String noNeedREntity) {
+	this.noNeedREntity = noNeedREntity;
 }
 
 public String trackEntity()
@@ -160,12 +176,20 @@ public void getRelationTrackRecord(List rMetaNameList, String queryType)
       StringBuffer whereStr = new StringBuffer("");
       if (queryType.equals("1"))
       {
-        fromStr =
-          " t_entity_" + rMetaId + " left join r_entity_hierarchy_data h on (t_entity_" + rMetaId + ".id = h.entity_id) " + "left join r_entity_chara_data c on ( t_entity_" + rMetaId + ".id=c.entity_id) " + "left join r_entity d on (t_entity_" + rMetaId + ".id = d.entity1_id) ";
-
-        whereStr.append(" d.meta2_id=" + this.metaId +
-          " and d.entity2_id='" + this.entityId + "'");
-        
+    	if ((noNeedREntity!=null) && (noNeedREntity.equals("1"))) {
+    		//不关联 r_entity
+	        fromStr =
+	  	          " t_entity_" + rMetaId + " ";
+	        whereStr.append(" 1=1 ");
+    	} else {
+    	  
+	        fromStr =
+	          " t_entity_" + rMetaId + " left join r_entity_hierarchy_data h on (t_entity_" + rMetaId + ".id = h.entity_id) " + "left join r_entity_chara_data c on ( t_entity_" + rMetaId + ".id=c.entity_id) " + "left join r_entity d on (t_entity_" + rMetaId + ".id = d.entity1_id) ";
+	
+	        
+	        whereStr.append(" d.meta2_id=" + this.metaId +
+	          " and d.entity2_id='" + this.entityId + "'");
+    	}
         //留下各功能自定义接口
         customizeAppendQuery();
         if ((appendQuery!=null) &&(appendQuery.length()>0)) {

@@ -18,8 +18,42 @@
     	<property name="entityService" ref="entityService" />
     </bean>
     
+    <bean id="diconbaseImportAction" scope="prototype" class="com.changan.app.rotatedegassing.datacollect.diconbase.DiconbaseImportAction">
+    	<property name="entityService" ref="entityService" />
+    </bean>
+    
     <bean id="echartsDataAction" scope="prototype" class="com.commondb.app.echarts.EchartsDataAction">
     	<property name="plcDataService" ref="plcDataService" />
     </bean>
+
+    <bean id="rPViewEntityAction" scope="prototype" class="com.changan.app.airpurify.RPViewEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="rPPLCDataTrackEntityAction" scope="prototype" class="com.changan.app.airpurify.RPPLCDataTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="rPDeviceAlarmTrackEntityAction" scope="prototype" class="com.changan.app.airpurify.RPDeviceAlarmTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="rPRFIDTrackEntityAction" scope="prototype" class="com.changan.app.airpurify.RPRFIDTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+	
+    <bean id="rPTempTrackEntityAction" scope="prototype" class="com.changan.app.airpurify.RPTempTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
+
+    <bean id="rPDiconbaseTrackEntityAction" scope="prototype" class="com.changan.app.airpurify.RPDiconbaseTrackEntityAction"> 
+    	<property name="metaService" ref="metaService" />
+    	<property name="entityService" ref="entityService" />
+	</bean>
 
 </beans>

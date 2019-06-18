@@ -63,6 +63,10 @@
 		<input type="hidden" name="masterRMetaId" value="$!masterRMetaId"/>
 		<input type="hidden" name="masterRMetaName" value="$!masterRMetaName"/>
 		<input type="hidden" name="masterREntityId" value="$!masterREntityId"/>
+		<input type="hidden"  name=rpBeginTime id="rpBeginTime" value="$!rpBeginTime" >
+		<input type="hidden"  name="rpEndTime" id="rpEndTime" value="$!rpEndTime" > 
+		<input type="hidden"  name="rpDeviceID" id="rpDeviceID" value="$!rpDeviceID" > 
+		<input type="hidden"  name="rpRFIDNO" id="rpRFIDNO" value="$!rpRFIDNO" > 
 		<div class="table">
 				<table cellspacing="0" cellpadding="0" class="listing form">
 					<tbody>
@@ -142,98 +146,15 @@
 				</tbody></table>
 			<div id="tabs" class="ui-tabs">  
 				<ul>  
-					<li><a href="/app/rotatePurifyPLCData/trackEntity.ac?entityName=旋转净化加工记录&rEntityNames=旋转净化库PLC数据&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel"><span>旋转净化PLC数据</span></a></li>  
+					<li><a href="/app/rotatePurifyPLCData/trackEntity.ac?entityName=旋转净化加工记录&rEntityNames=旋转净化工艺&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel&rpBeginTime=$rpBeginTime&rpEndTime=$rpEndTime&rpDeviceID=$rpDeviceID&noNeedREntity=1"><span>旋转净化工艺记录</span></a></li>  
+					<li><a href="/app/deviceAlarm/trackEntity.ac?entityName=旋转净化加工记录&rEntityNames=报警记录&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel&rpBeginTime=$rpBeginTime&rpEndTime=$rpEndTime&rpDeviceID=$rpDeviceID&noNeedREntity=1"><span>报警记录</span></a></li>  
+					<li><a href="/app/temperatureMeasurement/trackEntity.ac?entityName=旋转净化加工记录&rEntityNames=测温记录&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel&rpBeginTime=$rpBeginTime&rpEndTime=$rpEndTime&rpDeviceID=$rpDeviceID&noNeedREntity=1"><span>测温记录</span></a></li>  
+					<li><a href="/app/rfidReadRec/trackEntity.ac?entityName=旋转净化加工记录&rEntityNames=RFID读卡记录&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel&rpRFIDNO=$rpRFIDNO&noNeedREntity=1"><span>RFID读卡记录</span></a></li>  
+					<li><a href="/app/diconbase/trackEntity.ac?entityName=旋转净化加工记录&rEntityNames=密度当量记录&entityId=$entityId&updateFlag=1&toRLabel=$toRLabel&rpRFIDNO=$rpRFIDNO&noNeedREntity=1"><span>密度当量记录</span></a></li>  
 				</ul>  
 			</div>
 
-    		<div id="mycharts" style="height:400px"></div>
-		    <!-- ECharts单文件引入 -->
-		    <script src="../../lib/echarts/echarts-all.js"></script>
-		    <script type="text/javascript">
-		        // 基于准备好的dom，初始化echarts图表
-		        var myChart = echarts.init(document.getElementById('mycharts')); 
-		        option = {
-		        	    title : {
-		        	        text: '加工参数变化',
-		        	        subtext: ''
-		        	    },
-		        	    tooltip : {
-		        	        trigger: 'axis'
-		        	    },
-		        	    legend: {
-		        	        data:['电机速度','铝液温度']
-		        	    },
-		        	    toolbox: {
-		        	        show : true,
-		        	        feature : {
-		        	            mark : {show: true},
-		        	            dataView : {show: true, readOnly: false},
-		        	            magicType : {show: true, type: ['line', 'bar']},
-		        	            restore : {show: true},
-		        	            saveAsImage : {show: true}
-		        	        }
-		        	    },
-		        	    calculable : true,
-		        	    xAxis : [
-		        	        {
-		        	            type : 'category',
-		        	            boundaryGap : false,
-		        	            data : ['2015/08/28 14:53:19','2015/08/28 14:53:22','2015/08/28 14:53:25','2015/08/28 14:53:28','2015/08/28 14:53:31','2015/08/28 14:53:34']
-		        	        }
-		        	    ],
-		        	    yAxis : [
-		        	        {
-		        	            type : 'value',
-		        	            axisLabel : {
-		        	                formatter: '{value}'
-		        	            }
-		        	        }
-		        	    ],
-		        	    series : [
-		        	        {
-		        	            name:'电机速度',
-		        	            type:'line',
-		        	            data:[29, 32, 35, 38, 41, 44],
-		        	            markPoint : {
-		        	                data : [
-		        	                    {type : 'max', name: '最大值'},
-		        	                    {type : 'min', name: '最小值'}
-		        	                ]
-		        	            },
-		        	            markLine : {
-		        	                data : [
-		        	                    {type : 'average', name: '平均值'}
-		        	                ]
-		        	            }
-		        	        },
-		        	        {
-		        	            name:'铝液温度',
-		        	            type:'line',
-		        	            data:[20, 23, 26, 29, 32, 25],
-		        	            markPoint : {
-		        	                data : [
-			        	                    {type : 'max', name: '最大值'},
-			        	                    {type : 'min', name: '最小值'}
-		        	                ]
-		        	            },
-		        	            markLine : {
-		        	                data : [
-		        	                    {type : 'average', name : '平均值'}
-		        	                ]
-		        	            }
-		        	        }
-		        	    ]
-		        	};		        
-		        
-		        // 为echarts对象加载数据 
-		        myChart.setOption(option); 
-		    </script>
-
-				
-			</form>	
-	        <p>&nbsp;</p>
 		  </div>
-		  
 		</div>
 		#if(!$masterRMetaId) 
 		<div id="right-column-tip">
@@ -246,7 +167,7 @@
 	<div id="footer">#parse("/app/footer.vm")</div>
 </div>
 	    #end
-
+	</form>
 </body>
 
 </html>

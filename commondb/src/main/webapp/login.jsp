@@ -24,7 +24,7 @@
   </head>
   <body>
   <div class="wrap">
-      <div class="wrap_t">后处理设备管理平台登录</div>
+      <div class="wrap_t">数据采集平台登录</div>
       <form name="theForm" id="theForm" 
        action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
 	      <div class="wrap_c">

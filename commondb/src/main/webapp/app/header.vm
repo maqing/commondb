@@ -1,24 +1,24 @@
-<div class="top">
-   <div class="logo fl"><img style="height:50px;" src="/images/logo.jpg"/></div>
-      <div class="top_r fr">
-          <span>#set($myuser = ${applyService.headerUser()})
-          $myuser.userDesc,您好！您的权限为<strong>$myuser.userRole</strong></span>
-          <em> | </em>
-          <a class="cancel" href="j_spring_security_logout">注销</a>
-      </div>
-</div>
+<a class="logo" href="#">
+<!--	<img width="101" height="50" src="/images/logo.jpg"> -->
+		#set($myuser = ${applyService.headerUser()})
+		$myuser.userDesc 您好！您的权限为  $myuser.userRole
 
-<!--nav start-->
-  <div class="nav">
-      <ul class="nav_list">
-          <li><a id="home" href="/app/sys/home.ac">Home</a> </li>
-          #set($tList = ${applyService.headerTop()})
-          #foreach($apply in $tList)
-             <li><a id="apply$apply.applyId" href="$apply.applyUrl&applyId=$apply.applyId">$apply.applyName</a></li>
-          #end
-          <li><a href="/app/sys/searchUserMetaList.ac">设置</a> </li>
-      </ul>
+</a>
 
-  </div>
+<a class="logout" href="j_spring_security_logout">注销</a>
 
-  <!--nav end-->
+		<ul id="top-navigation">
+			<li id="home"><span><span><a href="/app/sys/home.ac" >Home</a></span></span></li>
+##			<li id="电话记录" class=""><span><span><a href="/app/phone/genForm.ac?appName=电话记录">电话记录</a></span></span></li>
+
+			#set($tList = ${applyService.headerTop()})
+			#foreach($apply in $tList)
+				<li id="$apply.applyName" class=""><span><span><a href="$apply.applyUrl&applyId=$apply.applyId">$apply.applyName</a></span></span></li>
+			#end
+			<li id="设置" class=""><span><span><a href="/app/sys/searchUserMetaList.ac">设置</a></span></span></li>
+
+		</ul>
+
+<script type="text/javascript">
+    //
+</script>

@@ -1,5 +1,6 @@
 package com.commondb.db.service.impl;
 
+import com.changan.mesinterface.service.MESSyncService;
 import com.commondb.app.common.FileTool;
 import com.commondb.db.bo.CharacterAttrData;
 import com.commondb.db.bo.CharacterAttrDataCriteria;
@@ -60,7 +61,9 @@ import com.commondb.db.dao.RMetaCharaDAO;
 import com.commondb.db.dao.ReminderDAO;
 import com.commondb.db.service.EntityService;
 import com.commondb.search.service.HttpSolrService;
+
 import edu.emory.mathcs.backport.java.util.Arrays;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -73,7 +76,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
 import javax.servlet.ServletContext;
+
 import org.apache.struts2.ServletActionContext;
 import org.springframework.security.Authentication;
 import org.springframework.security.context.SecurityContext;
@@ -106,6 +111,7 @@ public class EntityServiceImpl
   private OperationBoxDAO operationBoxDAO;
   private REntityAttachmentDAO rentityAttachmentDAO;
   private HttpSolrService httpSolrService;
+  private MESSyncService mesSyncService;
 
   public ReminderDAO getReminderDAO()
   {
@@ -449,11 +455,12 @@ public class EntityServiceImpl
       }
     }
     this.rentityAttachmentDAO.deleteByExample(rattachementCriter);
-
-
-
-
     this.httpSolrService.deleteDoc(id);
+    //2019-01-24 增加向MES同步数据
+    try {
+    	mesSyncService.deleteData(metaId, id);
+    } catch (Exception e) 
+    {};
   }
 
   public String createEntity(Integer metaId, Map valuesMap)
@@ -481,11 +488,14 @@ public class EntityServiceImpl
       valuesMap.put("create_user", user.getUsername());
     }
     String entityId = this.dynEntityDAO.createEntity(metaId, valuesMap);
-
-
+    
+    //2019-01-24 增加向MES同步数据
+    try {
+    	mesSyncService.insertData(metaId, entityId, valuesMap);
+    } catch (Exception e) 
+    {};
 
     Map solrValuesMap = new HashMap();
-
 
     Set<String> keys = valuesMap.keySet();
     PicCriteria criteria;
@@ -799,7 +809,11 @@ public class EntityServiceImpl
     valuesMap.remove("update_time");
     this.dynEntityDAO.updateEntity(metaId, id, valuesMap);
 
-
+    //2019-01-24 增加向MES同步数据
+    try {
+    	mesSyncService.updateData(metaId, entityId, valuesMap);
+    } catch (Exception e) 
+    {};
 
     Map solrValuesMap = new HashMap();
 
@@ -1335,6 +1349,20 @@ public class EntityServiceImpl
   {
     this.httpSolrService = httpSolrService;
   }
+
+/**
+ * @return the mesSyncService
+ */
+public MESSyncService getMesSyncService() {
+	return mesSyncService;
+}
+
+/**
+ * @param mesSyncService the mesSyncService to set
+ */
+public void setMesSyncService(MESSyncService mesSyncService) {
+	this.mesSyncService = mesSyncService;
+}
   
 
 }

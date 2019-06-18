@@ -21,7 +21,7 @@
 		/WEB-INF/applicationContext-security.xml
 		/WEB-INF/applicationContext-common-business.xml
 		/WEB-INF/applicationContext-common-authorization.xml
-		/WEB-INF/applicationContext_changan_schedule.xml
+	<!--  	/WEB-INF/applicationContext_changan_schedule.xml -->
 	</param-value>
   </context-param>
   <listener>
@@ -80,6 +80,15 @@
     <filter-name>struts2</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <servlet>
+    <servlet-name>RDTempListener</servlet-name>
+    <servlet-class>com.changan.app.rotatedegassing.datacollect.RDTempServlet</servlet-class>
+    <load-on-startup>9</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RDTempListener</servlet-name>
+    <url-pattern>/RDTempListener</url-pattern>
+  </servlet-mapping>
 <!--   <servlet>
     <servlet-name>APListener</servlet-name>
     <servlet-class>com.commondb.app.DataCollect.AirPurify.APServlet</servlet-class>
@@ -96,7 +105,7 @@
 	<session-config>    
 	    <session-timeout>600</session-timeout>      
 	</session-config>     
-<!--   <servlet>
+   <servlet>
     <description></description>
     <display-name>UHFRead</display-name>
     <servlet-name>UHFRead</servlet-name>
@@ -107,5 +116,5 @@
     <servlet-name>UHFRead</servlet-name>
     <url-pattern>/UHFRead</url-pattern>
   </servlet-mapping>
- -->
+ 
  </web-app>

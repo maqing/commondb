@@ -99,6 +99,7 @@
 
 				<table cellspacing="0" cellpadding="0" class="listing" style="table-layout:fixed; border:1px solid #9097A9;">
 					<tbody><tr>
+					<th style="width:50px">操作</th>
 				#foreach(${f} in ${fieldsList})	
 				
 				<th style="
@@ -117,19 +118,23 @@
 									
 					</tr>
 					<tr>
-				#foreach(${f} in ${fieldsList})	
-				
-					<td>$f.searchHtml</td>
-				
-				#end
-				<td></td>
-				<td></td>
+						<td></td>
+						#foreach(${f} in ${fieldsList})	
+						
+							<td>$f.searchHtml</td>
+						
+						#end
+						<td></td>
+						<td></td>
 				
 					</tr>
 
 					<tr>
 					#foreach($row in $resList)
 					<tr>
+						<td>
+							<a href="/app/rotatePurify/viewEntity.ac?entityName=旋转净化加工记录&entityId=$row.get(2).getValue()" >查看</a> 
+						</td>
           			#foreach($cell in $row)
 						#if($velocityCount > 3) 
 		              	<td>$cell.value</td>

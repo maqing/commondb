@@ -6,4 +6,6 @@ public interface ICCardService {
 	
 	public abstract String getCurrentCardRecID();
 
+	public abstract String finishReadCard(String cardID);
+
 }

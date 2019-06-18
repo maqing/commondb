@@ -1,6 +1,8 @@
 package com.commondb.app.DataCollect.ICCard;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.xml.ws.Endpoint;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.changan.app.rotatedegassing.service.RDPLCDataService;
 import com.commondb.app.DataCollect.ICCard.service.ICCardService;
 
 /**
@@ -50,9 +53,21 @@ public class UHFReadServlet extends HttpServlet {
 		application = getServletContext();     
 		wac = WebApplicationContextUtils.getWebApplicationContext(application);//获取spring的context     
 		ICCardService iCCardService = (ICCardService) wac.getBean("iCCardService");
+		RDPLCDataService rDPLCDataService = (RDPLCDataService) wac.getBean("rDPLCDataService");
 		//读取最后一条读卡记录到内存
 		iCCardService.getCurrentCardRecID();
-		Endpoint.publish("http://localhost:8089/commondb/UHFReadWebService", new UHFReadWebService(iCCardService));
+		/*
+		InetAddress address = null;
+		try { 
+			address = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) { 
+			e.printStackTrace();
+		} 
+		String hostAddress = address.getHostAddress();
+		Endpoint.publish("http://"+hostAddress+":8089/commondb/UHFReadWebService", new UHFReadWebService(iCCardService));
+		*/
+//		Endpoint.publish("http://10.0.41.199:8089/commondb/UHFReadWebService", new UHFReadWebService(iCCardService));
+		Endpoint.publish("http://localhost:8089/commondb/UHFReadWebService", new UHFReadWebService(iCCardService,rDPLCDataService));
 		System.out.println("已成功启动WebService服务");
  }
 }

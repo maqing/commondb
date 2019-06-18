@@ -17,6 +17,6 @@
 		<include file="struts_app.xml" />
 		<include file="struts_app_sys.xml" />
 		<include file="struts_app_airpurify.xml" />
-		<include file="struts_app_cleanline.xml" />
+		<!--  <include file="struts_app_cleanline.xml" />  -->
 		
 </struts>

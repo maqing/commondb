@@ -1,17 +1,5 @@
-<!--<h3>菜单</h3>-->
-<div class="left_l fl">
-   <ul class="left_nav">
-      #foreach($menu in $session.getAttribute("currentMenuList"))
-         <li>
-            <a id="statMenu$menu.applyMenuId" href="$menu.menuUrl">$!menu.menuName</a>
-         </li>
-      #end
-   </ul>
-              <!--<ul class="left_nav">
-                  <li><a href="equipment_operation.html">设备运行状态统计</a> </li>
-                  <li><a href="equipment_trouble.html" target="_blank">设备故障统计</a> </li>
-                  <li><a class="left_nav_cur" href="knife.html">刀具统计</a> </li>
-                  <li><a href="casting_process.html">铸件加工信息查询</a> </li>
-                  <li><a href="equipment_protect.html">设备维护修养提醒</a> </li>
-              </ul>-->
-</div>
+
+	#foreach($menu in $session.getAttribute("currentMenuList"))
+		<a class="buttonl"  href="$menu.menuUrl">$!menu.menuName </a>
+	#end
+
