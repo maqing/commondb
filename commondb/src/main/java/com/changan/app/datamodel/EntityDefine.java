@@ -1,7 +1,7 @@
 package com.changan.app.datamodel;
 
 public class EntityDefine {
-	
+	/*
 	public final static String LineName="NE1缸盖铸造I线";
 	public final static String LineCode="FD02";
 	public final static String StepName="精炼";
@@ -10,6 +10,17 @@ public class EntityDefine {
 	public final static String RPDeviceCode="CB-RF-2.1-1";
 	public final static String DensityDeviceName="1#密度当量仪";
 	public final static String DensityDeviceCode="CB-RF-2.2-1";
+	*/
+
+	public final static String LineName = PropertyConstants.getPropertiesKey("LineName");
+	public final static String LineCode = PropertyConstants.getPropertiesKey("LineCode");
+	public final static String StepName = PropertyConstants.getPropertiesKey("StepName");
+	public final static String StepCode = PropertyConstants.getPropertiesKey("StepCode");
+	public final static String RPDeviceName = PropertyConstants.getPropertiesKey("RPDeviceName");
+	public final static String RPDeviceCode = PropertyConstants.getPropertiesKey("RPDeviceCode");
+	public final static String RPDeviceNumber = PropertyConstants.getPropertiesKey("RPDeviceNumber");
+	public final static String DensityDeviceName = PropertyConstants.getPropertiesKey("DensityDeviceName");
+	public final static String DensityDeviceCode = PropertyConstants.getPropertiesKey("DensityDeviceCode");
 
 	public final static int TransferDeviceMetaId =1;
 	public final static String TransferDevice_ID_CN = "d_1";
@@ -139,6 +150,9 @@ public class EntityDefine {
 	public final static String RP_BeginTime_CN = "d_10";
 	public final static String RP_EndTime_CN = "d_11";
 	public final static String RP_RFIDNO_CN = "d_12";
+	public final static String RP_PLCRiqi_CN = "d_61";
+	public final static String RP_LAmount_CN = "d_62";
+	public final static String RP_Position_CN = "d_63";
 	
 	public final static int RPDeviceAlarmMetaId = 3;
 	public final static String RPDeviceAlarm_DeviceID_CN = "d_13";

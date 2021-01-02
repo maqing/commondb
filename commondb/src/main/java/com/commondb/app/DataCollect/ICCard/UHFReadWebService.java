@@ -58,4 +58,14 @@ public class UHFReadWebService {
 			return "0";	
 		}
 	}
+	
+	
+	public String readRPPLCTimeAndLAmount(String dateTimeIn, String dateTimeout,String pressureDevice, 
+			String pLCRiqi, String lAmount, String position) {
+		try {
+			return rDPLCDataService.savePLCTimeAndLAmount(dateTimeIn, dateTimeout, pressureDevice, pLCRiqi, lAmount, position);
+		} catch (Exception e) {
+			return "0";	
+		}
+	}	
 }

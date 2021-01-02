@@ -27,9 +27,9 @@
 	<input type="hidden" name="rpDeviceID" value="${rpDeviceID}"/>						
 	<input type="hidden" name="rpBeginTime" value="${rpBeginTime}"/>						
 	<input type="hidden" name="rpEndTime" value="${rpEndTime}"/>						
-	<input type="hidden" name="rpRFIDNO" value="${rpRFIDNO}"/>						
-	<input type="hidden" name="noNeedREntity" value="${noNeedREntity}"/>	
-	
+	<input type="hidden" name="rpRFIDNO" value="${rpRFIDNO}"/>			
+	<input type="hidden" name="noNeedREntity" value="${noNeedREntity}"/>					
+
 	#foreach(${rr} in ${favorMetaList})	
 
 			#if($updateFlag == 1) 
@@ -58,7 +58,7 @@
 				#foreach(${f} in ${rr.fieldsList})	
 				
 					<th style="
-					#if($f.fieldId=='MSN号码')width:200px
+					#if($f.fieldId=='RFID代码')width:200px
 					#elseif($f.fieldId=='e-mail')width:200px
 					#elseif($f.fieldId=='地址')width:200px
 					#elseif($f.fieldId!='地址')width:90px

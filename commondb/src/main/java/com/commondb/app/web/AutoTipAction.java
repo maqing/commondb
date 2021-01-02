@@ -1,5 +1,6 @@
 package com.commondb.app.web;
 
+import com.commondb.app.common.SysConfig;
 import com.commondb.app.common.meta.DescField;
 import com.commondb.app.common.meta.FieldFactory;
 import com.commondb.db.bo.DescAttrDef;
@@ -11,10 +12,13 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import com.rits.cloning.Cloner;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 public class AutoTipAction
@@ -35,7 +39,7 @@ public class AutoTipAction
   {
     ActionContext context = ActionContext.getContext();
     Map request = (Map)context.get("request");
-    this.entityName = "通讯录";
+    this.entityName = SysConfig.DefaultEntityName;
     
     Meta meta = this.metaService.findMetaByName(this.entityName);
     Integer metaId = meta.getId();

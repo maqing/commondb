@@ -1,5 +1,6 @@
 package com.commondb.app.web;
 
+import com.commondb.app.common.SysConfig;
 import com.commondb.app.common.meta.FieldFactory;
 import com.commondb.app.common.meta.IField;
 import com.commondb.db.bo.CharacterDef;
@@ -11,9 +12,12 @@ import com.commondb.db.bo.RMetaChara;
 import com.commondb.db.service.EntityService;
 import com.commondb.db.service.MetaService;
 import com.opensymphony.xwork2.Preparable;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 public class ViewHisAction
@@ -47,7 +51,7 @@ public class ViewHisAction
   public String viewHis()
   {
     if ((this.entityName == null) || (this.entityName.equals(""))) {
-      this.entityName = "通讯录";
+      this.entityName = SysConfig.DefaultEntityName;
     }
     if ((this.entityName == null) || (this.entityName.equals(""))) {
       return "success";

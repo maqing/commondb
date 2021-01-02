@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+	default-lazy-init="false">
+	
+	<!-- 从diconbase备份文件路径同步数据 60s一次-->
+	<bean id="syncDiconbaseTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	   <property name="targetObject">
+	      <ref bean="diconbaseSyncService"/>
+	   </property>
+	   <property name="targetMethod">
+	      <value>syncData</value>
+	   </property>
+	   <property name="concurrent" value="false" />
+	</bean>
+<!-- 	<bean id="syncPlcTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="syncPlcTask"/>
+    	</property>
+    	<property name="cronExpression">
+    		<value>0/30 * * * * ?</value>
+    	</property>
+    </bean>
+ -->	
+ 	<bean id="syncDiconbaseTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="syncDiconbaseTask"/>
+    	</property>
+		<property name="startDelay" value="180000" />
+		<property name="repeatInterval" value="60000" />
+    </bean>
+	
+	<!-- 删除diconbase备份文件 每天1点钟-->
+	<bean id="deleteDiconbaseDataTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <property name="targetObject">
+	      <ref bean="diconbaseSyncService"/>
+	   </property>
+	   <property name="targetMethod">
+	      <value>deleteDiconbaseData</value>
+	   </property>
+	   <property name="concurrent" value="false" />
+	</bean>
+     <bean id="deleteDiconbaseDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="deleteDiconbaseDataTask"/>
+    	</property>
+    	<property name="cronExpression">
+    		<value>0 0 1 ? * *</value>
+    	</property>
+    </bean> 
+ 	<!--  
+    <bean id="processPlcDataTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+    	<property name="jobDetail">
+    		<ref bean="processPlcDataTask"/>
+    	</property>
+		<property name="startDelay" value="60000" />
+		<property name="repeatInterval" value="60000" />
+    </bean>
+	   -->
+    
+    <!-- 定时任务列表 -->
+    <bean id="triggersStarter" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    	<property name="triggers">
+    		<list>
+    		    <ref bean="syncDiconbaseTrigger"/>
+    			<ref bean="deleteDiconbaseDataTrigger"/>
+    		</list>
+    	</property>
+    	<property name="autoStartup">
+    		<value>true</value>
+    	</property>
+    </bean>   
+</beans>

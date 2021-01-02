@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+	
+    <bean id="tempDataService" class="com.changan.app.rotatedegassing.service.TempDataServiceImpl"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="deviceID" value="CB-RF-2.1-1"/>
+	</bean>
+
+    <bean id="rDPLCDataService" class="com.changan.app.rotatedegassing.service.RDPLCDataServiceImpl"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="deviceID" value="CB-RF-2.1-1"/>
+	</bean>
+
+    <bean id="diconbaseSyncService" class="com.changan.app.rotatedegassing.service.SyncDiconbaseDataServiceImpl"> 
+    	<property name="entityService" ref="entityService" />
+    	<property name="fileName" value="d:\dicon-base\bak\diconbasedb.csv"/>
+    	<property name="bakPath" value="d:\dev\diconbasebak\"/>
+	</bean>
+
+</beans>

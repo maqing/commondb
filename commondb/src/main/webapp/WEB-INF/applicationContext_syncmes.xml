@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.4.xsd">
+    
+    <bean id="dataSourceRemoteMES" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"> 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+<!-- 		<property name="url" value="jdbc:mysql://localhost:3307/changan_plc_interface?useUnicode=true&amp;characterEncoding=UTF-8" /> -->
+		<property name="url" value="jdbc:mysql://localhost:3307/changan_mesinterface?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+		
+<!-- 		<property name="url" value="jdbc:mysql://192.168.100.56:3306/changana?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="changanuser" />
+		<property name="password" value="changanroot" />
+ -->
+	</bean>
+	
+	
+	<!-- iBatis的SqlMap配置-->
+	<bean id="sqlMapClientRemoteMES" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+	    <property name="configLocation" value="WEB-INF\sql-map-config-changanmes.xml" />
+		<property name="dataSource" ref="dataSourceRemoteMES" />
+	</bean>
+	
+	<bean id="degasserprocdataDAO" class="com.changan.mesinterface.dao.DegasserprocdataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemoteMES" />
+    </bean>
+    
+	<bean id="degasserdensitydataDAO" class="com.changan.mesinterface.dao.DegasserdensitydataDAOImpl" >
+    	<property name="sqlMapClient" ref="sqlMapClientRemoteMES" />
+    </bean>
+    
+    
+    <bean id="mesSyncService" scope="prototype" class="com.changan.mesinterface.service.MESSyncServiceImpl">
+    	<property name="degasserprocdataDAO" ref="degasserprocdataDAO" />
+    	<property name="degasserdensitydataDAO" ref="degasserdensitydataDAO" />
+    	<property name="dynEntityDAO" ref="dynEntityDAO" />
+  	</bean>
+
+	    
+</beans>

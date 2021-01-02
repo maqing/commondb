@@ -37,6 +37,7 @@ public class ICCardServiceImpl implements ICCardService {
 	public String readCard(String cardNo) {
 		// TODO Auto-generated method stub
 		try {
+			if ((cardNo == null) || (cardNo.length() == 0)) return "empty";
 			
 			/*
 			//找到最后一条记录，判断是否重复卡号
@@ -69,7 +70,7 @@ public class ICCardServiceImpl implements ICCardService {
 							//更新离开时间
 							String oldEntityId = oldRecMap.get("id");
 							oldRecMap.remove("id");
-							oldRecMap.put(EntityDefine.RPRFID_LeaveTime_CN, (new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()));
+							oldRecMap.put(EntityDefine.RPRFID_LeaveTime_CN, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date()));
 							entityService.updateEntity(EntityDefine.RPRFIDMetaId, oldEntityId, oldRecMap );
 						}
 					}
@@ -77,7 +78,7 @@ public class ICCardServiceImpl implements ICCardService {
 			}
 			
 			Map<String, String> valuesMap = new HashMap<String, String>();
-			valuesMap.put(EntityDefine.RPRFID_EnterTime_CN, (new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()));
+			valuesMap.put(EntityDefine.RPRFID_EnterTime_CN, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date()));
 			valuesMap.put(EntityDefine.RPRFID_RFIDNO_CN, cardNo);
 			
 			valuesMap.put("update_user", "admin");
@@ -123,10 +124,15 @@ public class ICCardServiceImpl implements ICCardService {
 					" 1=1 and " + EntityDefine.RPRFID_RFIDNO_CN + "='" + cardID + "' order by create_time desc ");
 			if ((icCardList!=null)&& (icCardList.size()>0)) {
 				Map<String, String> oldRecMap = (Map<String, String>) icCardList.get(0);
-				String oldEntityId = oldRecMap.get("id");
-				oldRecMap.remove("id");
-				oldRecMap.put(EntityDefine.RPRFID_LeaveTime_CN, (new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date()));
-				entityService.updateEntity(EntityDefine.RPRFIDMetaId, oldEntityId, oldRecMap );
+				Object leaveTimeObj = oldRecMap.get(EntityDefine.RPRFID_LeaveTime_CN);
+				if ((leaveTimeObj==null) || (leaveTimeObj.toString().trim().length()==0))
+				{
+					//离开时间为空，更新	
+					String oldEntityId = oldRecMap.get("id");
+					oldRecMap.remove("id");
+					oldRecMap.put(EntityDefine.RPRFID_LeaveTime_CN, (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date()));
+					entityService.updateEntity(EntityDefine.RPRFIDMetaId, oldEntityId, oldRecMap );
+				}
 			}
 			
 			return "success";

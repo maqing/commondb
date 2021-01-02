@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8"/>
+      <title>后处理单元-设备维护保养提醒</title>
+      <link rel="stylesheet" href="/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/css/system.css">
+      <style>
+          body{
+              overflow-y: auto;
+          }
+      </style>
+      
+      <script type="text/javascript" src="../_lib/jquery-1.11.1.min.js"></script>
+      <script type="text/javascript" src="../_lib/system.js"></script>
+      <script type="text/javascript" src="../_lib/My97DatePicker/WdatePicker.js"></script>
+      <script type="text/javascript" src="../_lib/dateTool.js"></script>
+      <script type="text/javascript" src="/app/_lib/FormUtils.js"></script>
+      
+    <link rel="stylesheet" type="text/css" href="../css/ui-lightness/jquery-ui-1.7.2.custom.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/jqgrid4.5/ui.jqgrid.css" />
+	<script src="../_lib/jqgrid4.5/jquery.jqGrid.js" type="text/javascript"></script>
+	<script src="../_lib/jqgrid4.5/grid.locale-cn.js" type="text/javascript"></script>
+	
+      <script type="text/javascript">
+      function queryMatain() {
+			var sdata = {   // 构建查询需要的参数  
+					deviceId:  $("#equitId").val(),
+					timeBegin: $("#matainTimeBegin").val(),
+					timeEnd:   $("#matainTimeEnd").val()
+			    };
+		    // 获得当前postData选项的值  
+		    var postData = $("#matainGridTable").jqGrid("getGridParam", "postData");  
+		      
+		    // 将查询参数融入postData选项对象  
+		    $.extend(postData, sdata);  
+		      
+		    $("#matainGridTable").jqGrid("setGridParam", {  
+		        search: true,    // 将jqGrid的search选项设为true
+		        datatype: "json"
+		    }).trigger("reloadGrid", [{page:1}]);   // 重新载入Grid表格，以使上述设置生效  
+		}
+      
+      function jumpUserVerify(){
+    	  var ids = $("#matainNotifyGridTable").jqGrid('getGridParam', 'selarrrow');
+    	  if(ids ==  ""){
+    		  alert("请选择被维护设备！！！");
+    		  return;
+    	  }
+    	  oSystem.showUserPop();
+      }
+      
+      function viewData(){
+    	  alert("请到对应设备的管理页面去维护！！！");
+      }
+      
+         $(function(){
+        	 $("#apply6").addClass("nav_cur");
+        	 $("#statMenu30").addClass("left_nav_cur");
+        	 
+        	 
+        	 $("#matainTimeBegin").val(GetDateStr(-10));
+        	 $("#matainTimeEnd").val(GetDateStr(1));
+        	 
+        	 //init equipment drop list
+        	 $.ajax({
+     			url: '/app/deviceStatusStat/queryDevice.ac',
+     			type: 'post',
+     			dataType: 'json',
+     			error: function(){alert('error');},
+     			success:function(data){
+     				if(null != data && null != data.deviceItemList){
+     					var device = data.deviceItemList;
+     					var option = "";
+     					for(var i = 0 ;i < device.length;i++){
+     						option +=  "<span id="+device[i].deviceId+">"+ device[i].deviceName;
+     						option +=  "</span>";
+     					}
+     					$("#equip").html(option);
+     					oSystem.select_sub();
+     				}
+     			}
+     		});
+        	 
+        	 //notify grid
+        	 $("#matainNotifyGridTable").jqGrid({
+        		 autowidth:true,
+        		 url:"/app/maintenanceReminder/queryNeedMaint.ac",
+        		 datatype:"json",
+        		 mtype: "GET",
+        		 height:'100%',
+        		 colNames:['ID','设备名称','超期天数','应保养时间','保养内容'],
+        		 colModel:[
+        		   {name:'remindid',index:'remindid',hidden:true,key:true,align:'center'},
+        		   {name:'devicename',index:'devicename', width:12},
+        		   {name:'delayday',index:'delayday', width:8,align:'center'},
+        		   {name:'needmaintday',index:'needmaintday', width:18,align:'center'},
+        		   {name:'workdesc',index:'workdesc', width:25,align:'center'}
+        		 ],
+        		 rowNum:10,
+        		 rowList: [15,50,100],
+        		 prmNames: {search: "search"},
+        		 jsonReader: {
+        			userdata: "userdata",
+        			root:"gridModel",
+        			page:"page",
+        			total:"total",
+        			records:"record",
+        			id:"remindid",
+     		        repeatitems : false 
+     		     },
+    			 userDataOnFooter : true,
+    			 multiselect:true,
+    			 pager: "#matainGridPager", 
+     		     viewrecords: true, 
+     		     caption: "",
+     		     hidegrid: false
+        	 });
+        	 
+        	 //Verify user info
+        	 $("#btnVerify").click(function(){
+        		 var ids = $("#matainNotifyGridTable").jqGrid('getGridParam', 'selarrrow');
+        		 if(ids == ""){
+        			 alert("请选择被维护设备！！！");
+        			 return false;
+        		 }
+        		 $("#ids").val(ids);
+        		 var params = {
+        				 userName : $("#userName").val(),
+        				 userPwd  : $("#pwd").val()
+        		 };
+				 if(null == params.userName || "" == params.userName){
+					 alert("请输入用户名！！！");
+        			 return false;
+        		 }
+				 if(null == params.userPwd || "" == params.userPwd){
+					 alert("请输入用户密码！！！");
+        			 return false;
+        		 }
+        		 $.ajax({
+            			url:'/app/maintenanceRecord/verifyMaintUser.ac',
+            			type:'post',
+            			data:params,
+            			dataType: 'json',
+            			error: function(){
+            				alert(" error");
+	 	           			oSystem.hideUserPop();
+            			},
+            			success:function(data){
+            				if("success" == data.maintResult){
+            					 $("#workerName").val(params.userName);
+            					 oSystem.hideUserPop();
+            	           	     oSystem.show();
+            				}else{
+            					alert(data.maintMsg);
+            				}
+            			}
+            		}); 
+           	    
+        	 });
+        	 $("#exportMataintance").click(function(){
+        		 window.location.href= '/app/maintenanceRecord/queryManitExport.ac?deviceId='+$("#equitId").val()
+  				+'&timeBegin='+$("#matainTimeBegin").val() + '&timeEnd=' + $("#matainTimeEnd").val();
+        	 });
+        	 //save Mataintance Info
+        	 $("#saveMatainInfo").click(function(){
+        		 FormUtils.layerShow();
+        		 var params = {
+        				 remindId    : $("#ids").val(),
+        				 workTime    : $("#workTime").val(),
+        				 workerName  : $("#workerName").val(),
+        				 note        : $("#note").val()
+        		 };
+        		 if(null == params.workerName || "" == params.workerName){
+        			 alert("请填写保养人！！！");
+        			 FormUtils.layerHide();
+        			 return false;
+        		 }
+        		 if(null == params.workTime || "" == params.workTime){
+        			 alert("请填写保养时间！！！");
+        			 FormUtils.layerHide();
+        			 return false;
+        		 }
+        		 $.ajax({
+           			url: '/app/maintenanceRecord/addMaintRec.ac',
+           			type: 'post',
+           			data:params,
+           			dataType: 'json',
+           			error: function(){
+           				alert('保存错误！！！');
+           				$("#mataiForm")[0].reset();
+           				FormUtils.layerHide();
+	           			oSystem.hide();
+	           			$("#matainGridTable").trigger("reloadGrid", [{page:1}]);
+	           			$("#matainNotifyGridTable").trigger("reloadGrid", [{page:1}]); 
+           			},
+           			success:function(data){
+           			    if("error" == data.maintResult){
+           			    	alert(data.maintMsg);
+	       				}
+           			    $("#mataiForm")[0].reset();
+           			    FormUtils.layerHide();
+        				oSystem.hide();
+           				$("#matainGridTable").trigger("reloadGrid", [{page:1}]);
+	           			$("#matainNotifyGridTable").trigger("reloadGrid", [{page:1}]); 
+           			}
+           		}); 
+        	 });
+        	 //malfunction  grid
+        	 $("#matainGridTable").jqGrid({
+        		 autowidth:true,
+        		 url:"/app/maintenanceRecord/queryMaintRec.ac",
+        		 datatype:"json",
+        		 postData:{deviceId:  $("#equitId").val(),
+					timeBegin: $("#matainTimeBegin").val(),
+					timeEnd:   $("#matainTimeEnd").val()},
+        		 mtype: "GET",
+        		 height:'100%',
+        		 colNames:['ID','设备名称','维修时间','维修内容','维修人','备注'],
+        		 colModel:[
+        		   {name:'deviceid',index:'deviceid',hidden:true, width:23,key:true,align:'center'},
+        		   {name:'devicename',index:'devicename', width:12},
+        		   {name:'worktime',index:'worktime', width:20,align:'center'},
+        		   {name:'workdesc',index:'workdesc', width:20,align:'center'},
+        		   {name:'workername',index:'workername', width:10,align:'center'},
+        		   {name:'note',index:'note', width:20,align:'center'}
+        		 ],
+        		 rowNum:20,
+        		 rowList: [15,50,100],
+        		 prmNames: {search: "search"},
+        		 jsonReader: {
+        			userdata: "userdata",
+        			root:"gridModel",
+        			page:"page",
+        			total:"total",
+        			records:"record",
+        			id:"deviceid",
+     		        repeatitems : false 
+     		     },
+    			 userDataOnFooter : true,
+    			 pager: "#matainNotifyGridPager", 
+     		     viewrecords: true, 
+     		     caption: "",
+     		     hidegrid: false
+        	 });
+        	 
+         });
+      </script>
+
+  </head>
+  <body>
+  <!--top start-->
+     #parse("/app/header.vm")
+  <!--top end-->
+
+  <!--main start-->
+  <div class="main">
+      <div class="left fl">
+          <!-- left menu start -->
+          #parse("/app/newmenu.vm")
+          <!-- left menu end -->
+          <div class="left_r fr">
+              <div class="location">后处理单元 > <span>设备维护保养提醒</span></div>
+              <div class="basic_query clearfix">
+                  <h4 class="basic_t">当前需要维护内容</h4>
+
+                  <div class="casting_wrap clearfix">
+                      <div class="casting_l">
+                            <div class="preserve">
+                               <table id="matainNotifyGridTable"></table> 
+		                       <div id="matainNotifyGridPager" style="width: 100%"></div>
+                          </div>
+                          
+                      </div>
+                      <div class="casting_r">
+                          <span class="malfunction_btn preserve_btn" onclick="jumpUserVerify();">完成维护<br/>或保养</span>
+                      </div>
+                  </div>
+
+              </div>
+              <!--维护保养信息查询 start-->
+              <div class="basic_query clearfix">
+                  <h4 class="basic_t">基本故障查询</h4>
+                  <div class="basic_c" style="width: 700px;">
+                      <div class="basic_select">
+                          <span class="basic_val">生产线</span>
+                          <i class="fa fa-angle-down"></i>
+                          <div class="sub_pop">
+                              <span>生产线1</span>
+                              <span>生产线2</span>
+                              <span>生产线3</span>
+                          </div>
+                      </div>
+                      <div class="basic_select">
+                          <span class="basic_val">设备</span>
+                          <i class="fa fa-angle-down"></i>
+                          <input type="hidden" value="" id="equitId">
+                          <div class="sub_pop" id="equip">
+                          </div>
+                      </div>
+
+                      <div class="date">
+                          <span class="date_t">日期选择</span>
+                          <input type="text" class="date_wrap  tcalInput" onfocus="WdatePicker();" id="matainTimeBegin" name="MatainTimeBegin" />
+                          <!--<span>2016-08-15</span>
+                          <i class="fa fa-calendar"></i>-->
+                          <span class="zhi">到</span>
+                          <input type="text" class="date_wrap tcalInput" onfocus="WdatePicker();" id="matainTimeEnd" name="matainTimeEnd" />
+                          <!--<div class="date_wrap">
+                              <span>2016-08-15</span>
+                              <i class="fa fa-calendar"></i>
+                          </div>-->
+                      </div>
+                  </div>
+                  <div class="search"><span class="search_btn" onclick="queryMatain();">查询</span> </div>
+
+
+                  <!--表格 start-->
+                  <table id="matainGridTable"></table> 
+		          <div id="matainGridPager" style="width: 100%"></div>
+                  <!--表格 end-->
+                  <div class="preserve_b_btn clearfix">
+                      <span class="check_btn" onclick="viewData();">查看保养数据库</span>
+                      <span class="data_export" id="exportMataintance">数据导出</span>
+                  </div>
+              </div>
+              <!--维护保养信息查询 end-->
+
+          </div>
+      </div>
+      <div class="right fr">
+          <h4 class="help">帮助</h4>
+          <ul class="help_list">
+              <li><a href="#">该页面用来查询设备维护信息</a></li>
+          </ul>
+      </div>
+  </div>
+
+  <!--main end-->
+
+  <!--popUp 弹出层  录入页面 start-->
+  <div id="mask"></div>
+  <div class="popUp" style="width: 600px;height: 300px;margin-left: -240px;margin-top: -150px;">
+      <div class="popUp_t">新增维护保养记录<div class="close_t"><i class="fa fa-close"></i> </div> </div>
+      <div class="popUp_c">
+          <div class="popUp_c_t clearfix">
+              <div id="leftSide">
+			    <fieldset>
+			    <form action="" method="POST" class="form" id="mataiForm">
+			    <input type="hidden" id="ids" value=""> 
+			        <label for="name">保养时间</label>
+			        <div class="div_texbox">
+			            <input name="workTime" type="text" class="textbox tcalInput" 
+			            style="height: 30px;margin-top: -2px;" id="workTime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" value="" />
+			            <font color="red" style="margin-left: 2px;">*</font>
+			        </div>
+			        <label for="address">保养人姓名</label>
+			        <div class="div_texbox">
+			            <input name="workerName" type="text" class="textbox" id="workerName" readonly="readonly" value="" />
+			        </div>
+			        <label for="city">备注</label>
+			        <div class="div_texbox">
+			            <input name="note" type="text" class="textbox" id="note" value="" />
+			        </div>
+			    </form>
+			    </fieldset>
+              </div>
+              <div style="text-align: center;">
+                  <a class="export" style="cursor: pointer;"  id="saveMatainInfo">保存</a>
+              </div>
+          </div>
+          
+          
+      </div>
+  </div>
+  <!--popUp 弹出层  录入页面  end-->
+
+<!-- popUp 维护人员信息  start -->
+
+<div id="maskUser"></div>
+  <div class="popUpUser" style="width: 600px;height: 300px;margin-left: -240px;margin-top: -150px;">
+      <div class="popUp_t">用户验证<div class="close_t_user"><i class="fa fa-close"></i> </div> </div>
+      <div class="popUp_c">
+          <div class="popUp_c_t clearfix">
+              <div style="width:530px;padding-top:30px;float:left;">
+			    <fieldset>
+			    <form action="" method="POST" class="form">
+			        <label for="address">用户名</label>
+			        <div class="div_texbox">
+			            <input name="userName" type="text" class="textbox" id="userName" value="" />
+			            <font color="red" style="margin-left: 2px;">*</font>
+			        </div>
+			        <label for="city">密码</label>
+			        <div class="div_texbox">
+			            <input name="pwd" type="password" class="textbox" id="pwd" value="" />
+			            <font color="red" style="margin-left: 2px;">*</font>
+			        </div>
+			    </form>
+			    </fieldset>
+              </div>
+              <div style="text-align: center;">
+                  <a class="export" href="javascript:;" id="btnVerify">提交</a>
+              </div>
+          </div>
+          
+          
+      </div>
+  </div>
+
+<!-- popUp 维护人员信息  end -->
+
+  </body>
+</html>

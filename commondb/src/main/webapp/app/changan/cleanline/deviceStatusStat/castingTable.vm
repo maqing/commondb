@@ -1,0 +1,38 @@
+<div class="casting_table">
+                        <table class="table" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="2">工件<br/>代码</td>
+                                    <td rowspan="2">加工<br/>日期</td>
+                                    <td rowspan="2">工件<br/>状态</td>
+                                    <td colspan="2">震动落砂</td>
+                                    <td colspan="2">加工中心</td>
+                                    <td colspan="2">毛刺清理</td>
+                                    <td rowspan="2">是否<br/>人工<br/>上线</td>
+                                </tr>
+                                <tr>
+                                    <td>设备号</td>
+                                    <td>完成<br/>时间</td>
+                                    <td>设备号</td>
+                                    <td>完成<br/>时间</td>
+                                    <td>设备号</td>
+                                    <td>完成<br/>时间</td>
+                                </tr>
+                                #set($tList11 = ${manufactureService.queryManufactureInfo()})
+                                #foreach($ManufactureInfo in $tList11)
+                                <tr>
+                                    <td class="tab_height">$ManufactureInfo.burrCleaningCode</td>
+                                    <td class="tab_height">$ManufactureInfo.processDate</td>
+                                    <td class="tab_height">$ManufactureInfo.workpieceStatus</td>
+                                    <td class="tab_height">$ManufactureInfo.shockSandDeviceCode</td>
+                                    <td class="tab_height">$ManufactureInfo.machineFinishTime</td>
+                                    <td class="tab_height">$ManufactureInfo.shockSandDeviceCode</td>
+                                    <td class="tab_height">$ManufactureInfo.shockSandFinishTime</td>
+                                    <td class="tab_height">$ManufactureInfo.workpieceCode</td>
+                                    <td class="tab_height">$ManufactureInfo.burrCleaningFinishTime</td>
+                                    <td class="tab_height">$ManufactureInfo.isArtificialOnline</td>
+                                </tr>
+                                #end
+                            </tbody>
+                        </table>
+                    </div>

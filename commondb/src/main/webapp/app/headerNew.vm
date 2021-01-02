@@ -1,0 +1,24 @@
+<div class="top">
+   <div class="logo fl"><img style="height:50px;" src="/images/logo.jpg"/></div>
+      <div class="top_r fr">
+          <span>#set($myuser = ${applyService.headerUser()})
+          $myuser.userDesc,您好！您的权限为<strong>$myuser.userRole</strong></span>
+          <em> | </em>
+          <a class="cancel" href="j_spring_security_logout">注销</a>
+      </div>
+</div>
+
+<!--nav start-->
+  <div class="nav">
+      <ul class="nav_list">
+          <li><a id="home" href="/app/sys/home.ac">Home</a> </li>
+          #set($tList = ${applyService.headerTop()})
+          #foreach($apply in $tList)
+             <li><a id="apply$apply.applyId" href="$apply.applyUrl&applyId=$apply.applyId">$apply.applyName</a></li>
+          #end
+          <li><a href="/app/sys/searchUserMetaList.ac">设置</a> </li>
+      </ul>
+
+  </div>
+
+  <!--nav end-->

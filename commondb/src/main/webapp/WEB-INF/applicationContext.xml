@@ -79,6 +79,7 @@
 	<import resource="applicationContext_solr.xml"/> 
  	<import resource="applicationContext_rotatedegasser.xml"/>  
   	<import resource="applicationContext_airpurify.xml"/>   
+  	<import resource="applicationContext_diconbase_schedule.xml"/>   
 <!--	<import resource="applicationContext_syncplc.xml"/> -->
 <!-- 	<import resource="applicationContext_cleanline.xml"/> -->
 	

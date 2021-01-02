@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8"/>
+      <title>后处理单元-刀具统计</title>
+       <link rel="stylesheet" href="/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/css/system.css">
+      <style>
+          body{
+              overflow-y: auto;
+          }
+      </style>
+      <script type="text/javascript" src="../_lib/jquery-1.11.1.min.js"></script>
+      <script type="text/javascript" src="../_lib/system.js"></script>
+      <script type="text/javascript" src="../_lib/My97DatePicker/WdatePicker.js"></script>
+      <script type="text/javascript" src="../_lib/dateTool.js"></script>
+      <script type="text/javascript" src="/lib/echarts/echarts-all.js"></script>
+      <script type="text/javascript" src="../_lib/echart.js"></script>
+      <script type="text/javascript">
+      function setCutter(cutterId){
+    	  $("#cutterIdVal").val(cutterId);
+      }
+      function initCutter(selectedDeviceId){
+    	  $("#cutterVal").text("刀  具");
+    	  var params = {
+    			  deviceId : selectedDeviceId
+    	  };
+    	  $.ajax({
+   			url: '/app/cutterStat/queryCutterList.ac',
+   			data:params,
+   			type: 'post',
+   			dataType: 'json',
+   			error: function(){alert('error');},
+   			success:function(data){
+   				if(null != data && null != data.cutterItemList){
+   					var cutterItem = data.cutterItemList;
+   					var option = "";
+   					for(var i = 0 ;i < cutterItem.length;i++){
+   						option +=  "<span onclick=setCutter('"+cutterItem[i].cutterId+"') id="+cutterItem[i].cutterId+">"+ cutterItem[i].cutterId;
+   						option +=  "</span>";
+   					}
+   					$("#cutterId").html(option);
+   					oSystem.select_sub();
+   				}
+   			}
+   		});
+      }
+      $(function(){
+        	 $("#apply6").addClass("nav_cur");
+        	 $("#statMenu28").addClass("left_nav_cur");
+        	 
+        	 $("#cutterTimeBegin").val(GetDateStr(-10));
+        	 $("#cutterTimeEnd").val(GetDateStr(1));
+        	 
+        	 $("#equpTypeTimeBegin").val(GetDateStr(-10));
+        	 $("#equpTypeTimeEnd").val(GetDateStr(1));
+        	 
+        	 var checkedArray = new Array();
+        	 for(var i = 1;i <= 2;i++){
+        		 checkedArray.push(i);
+        	 }
+        	 
+        	 $("#exportCutterDetail").click(function(){
+        		 window.location.href= '/app/cutterStat/queryCutterDetailExport.ac?deviceId='+$("#equitId").val()
+ 				+'&cutterId='+$("#cutterIdVal").val()+'&timeBegin='+$("#cutterTimeBegin").val() + '&timeEnd=' + $("#cutterTimeEnd").val();
+        	 });
+        	 
+        	 
+        	 $("#exportStatusComp").click(function(){
+        		 window.location.href= '/app/cutterStat/queryCutterStatusCompExport.ac?deviceType='+$("#equipTypeId").val()
+  				+'&timeBegin='+$("#equpTypeTimeBegin").val() + '&timeEnd=' + $("#equpTypeTimeEnd").val()
+        	 });
+        	 
+        	//init equipment drop list
+        	 $.ajax({
+     			url: '/app/deviceStatusStat/queryDevice.ac',
+     			type: 'post',
+     			dataType: 'json',
+     			error: function(){alert('error');},
+     			success:function(data){
+     				if(null != data && null != data.deviceItemList){
+     					var device = data.deviceItemList;
+     					var option = "";
+     					for(var i = 0 ;i < device.length;i++){
+     						option +=  "<span onclick=initCutter('"+device[i].deviceId+"') id="+device[i].deviceId+">"+ device[i].deviceName;
+     						option +=  "</span>";
+     					}
+     					$("#equip").html(option);
+     					oSystem.select_sub();
+     				}
+     			}
+     		});
+        	
+        	 //cutter info
+        	$("#basicSearch").click(function(){
+        		$("#changeCounterId").text(0);
+    			$("#averageProcessNumId").text(0);
+    			$("#ownProcessNumId").text(0);
+        		var params = {
+        				deviceId  : $("#equitId").val(),
+        				cutterId  : $("#cutterIdVal").val(),
+        				timeBegin : $("#cutterTimeBegin").val(),
+        			    timeEnd   : $("#cutterTimeEnd").val()
+        		}
+        		$.post('/app/cutterStat/getSingleCutterStat.ac',params,function(data){
+        			$("#changeCounterId").text(data.cutterStatItem.changeCounter);
+    				$("#averageProcessNumId").text(data.cutterStatItem.averageProcessNum);
+    				$("#ownProcessNumId").text(data.cutterStatItem.ownProcessNum);
+        		});
+        	});
+        	 
+        	$(document).click(function(){
+            	var checkedId = event.srcElement.id;
+            	var checkStr = "#Chk";
+            	if(checkedId.indexOf("Chk") != -1){
+            		for(var i = 1 ; i <= 2 ; i++){
+                		if(checkedId == ("Chk"+i+"Y")){
+                			$(checkStr+i+"Y").hide();
+                			$(checkStr+i+"N").show();
+                      		checkedArray.splice($.inArray(i,checkedArray),1);
+                		}else if(checkedId == ("Chk"+i+"N")){
+                			$(checkStr+i+"N").hide();
+                			$(checkStr+i+"Y").show();
+                			checkedArray.push(i);
+                		}
+                		
+                	}
+                	
+            	}
+            	
+            	
+            });
+        	 
+        	 // init equipment type drop list from json file
+        	$.getJSON("../_lib/equpType.json",function(data){
+        		var option = "<span id='-1'>设备类型</span>";
+        		$.each(data,function(infoIndex,info){
+        			option += "<span id="+info["id"]+">" + info["name"];
+        			option += "</span>";
+        		});
+        		$(".sub_pop_EqupType").html(option);
+        		
+        	});
+        	 
+        	 
+        	 //展现图表
+             $("#cutterSearch").click(function(){
+            	 var equpParams = {
+         				deviceType : $("#equipTypeId").val(),
+         				timeBegin  : $("#equpTypeTimeBegin").val(),	
+         				timeEnd    : $("#equpTypeTimeEnd").val()
+         		};
+            	 $.getJSON("../_lib/equpType.json",function(data){
+              		$.each(data,function(infoIndex,info){
+              			if(info["id"] == equpParams.deviceType){
+              				$("#deviceNameId").text(info["name"]);
+              			}
+              		});
+
+              	});
+            	 
+                $("#pouBegin").text($("#equpTypeTimeBegin").val());
+                $("#pouEnd").text($("#equpTypeTimeEnd").val());
+                
+                
+         		var changeCounterChart = echarts.init(document.getElementById("changeCounterChart")); 
+         		var averageProcessNumChart = echarts.init(document.getElementById("averageProcessNumChart")); 
+         		$.post('/app/cutterStat/getCutterCompareStat.ac',equpParams,function(data){
+        			var arryX = new Array();
+        			var changeCounterArryY = new Array();
+        			var averageProcessNumArryY = new Array();
+        			$.each(data.cutterStatItemList,function(i,info){
+        				arryX.push(info.cutterCode);
+        				changeCounterArryY.push(info.changeCounter);
+        				averageProcessNumArryY.push(info.averageProcessNum);
+        			});
+        			if(checkedArray.length == 2){
+        				$("#changeCounterChart").show();
+        				$("#averageProcessNumChart").show();
+        				chartsTool(changeCounterChart,"更换刀具次数",arryX,changeCounterArryY);
+        				chartsTool(averageProcessNumChart,"平均加工次数",arryX,averageProcessNumArryY);
+        			}else{
+        				if(checkedArray.indexOf(1) != -1){
+        					$("#changeCounterChart").show();
+        					chartsTool(changeCounterChart,"更换刀具次数",arryX,changeCounterArryY);
+        				}else{
+        					$("#changeCounterChart").hide();
+        				}
+        				if(checkedArray.indexOf(2) != -1){
+        					chartsTool(averageProcessNumChart,"平均加工次数",arryX,averageProcessNumArryY);
+        				}else{
+        					$("#averageProcessNumChart").hide();
+        				}
+        				
+        			}
+        			
+        			
+        		});
+         		
+         		
+             });
+        	 
+        	 
+         });
+         
+         
+      </script>
+      
+
+  </head>
+  <body>
+  <!--top start-->
+     #parse("/app/header.vm")
+  <!--top end-->
+ 
+
+  <!--main start-->
+  <div class="main">
+      <div class="left fl">
+          <!-- left menu start -->
+          #parse("/app/newmenu.vm")
+          <!-- left menu end -->
+          <div class="left_r fr">
+              <div class="location">后处理单元 > <span>刀具统计</span></div>
+              <div class="basic_query clearfix">
+                  <h4 class="basic_t">刀具基本情况查询</h4>
+                  <div class="basic_c clearfix">
+                          <div class="basic_c_l">
+                              <div class="basic_select">
+                                  <span class="basic_val">生产线</span>
+                                  <i class="fa fa-angle-down"></i>
+                                  <div class="sub_pop">
+                                      <span>生产线1</span>
+                                      <span>生产线2</span>
+                                      <span>生产线3</span>
+                                  </div>
+                              </div>
+                              <div class="basic_select_cutter">
+                                  <span class="basic_val_cutter">设备</span>
+                                  <input type="hidden" value="" id="equitId">
+                                  <i class="fa fa-angle-down"></i>
+                                  <div class="sub_pop_cutter" id="equip">
+                                     
+                                  </div>
+                              </div>
+                              <div class="basic_select_device">
+                                  <span class="basic_val_device" id="cutterVal">刀具</span>
+                                  <input type="hidden" value="" id="cutterIdVal"/>
+                                  <i class="fa fa-angle-down"></i>
+                                  <div class="sub_pop_device" id="cutterId">
+                                  </div>
+                              </div>
+
+                              <div class="date date_mar">
+                                  <span class="date_t">日期选择</span>
+                                  <input type="text" class="date_wrap tcalInput" onfocus="WdatePicker();" id="cutterTimeBegin" />
+
+                                  <span class="zhi">到</span>
+                                  <input type="text" class="date_wrap tcalInput" onfocus="WdatePicker();" id="cutterTimeEnd" />
+
+                              </div>
+                      </div>
+                    <div class="search knife_inquire"><span class="search_btn" id="basicSearch">查询</span> </div>
+                  </div>
+                  <div class="search_result kinfe_l">
+                      <ul class="result_list kinfe_list">
+                          <li>
+                              <span><font id="changeCounterId">0</font><em>次</em></span>
+                              <strong>更换刀具次数</strong>
+                          </li>
+                          <li>
+                              <span><font id="averageProcessNumId">0</font><em>次</em></span>
+                              <strong>平均加工次数</strong>
+                          </li>
+                          <li>
+                              <span><font id="ownProcessNumId">0</font><em>个</em></span>
+                              <strong>本刀加工数量</strong>
+                          </li>
+                      </ul>
+                  </div>
+                  <div class="top10 knife_r">
+                      <span class="malfunction_btn" id="exportCutterDetail">详细数据<br/>导出</span>
+                  </div>
+
+              </div>
+              <!--设备状态对比 start-->
+              <div class="basic_query">
+                  <h4 class="basic_t">设备状态对比</h4>
+                  <div class="basic_c">
+                      <div class="basic_select_EqupType">
+                          <span class="basic_val_EqupType">设备类型</span>
+                          <input type="hidden" id="equipTypeId" value=""/>
+                          <i class="fa fa-angle-down"></i>
+                          <div class="sub_pop_EqupType">
+                          </div>
+                      </div>
+                      <!--  <div class="basic_select">
+                          <span class="basic_val">刀具种</span>
+                          <i class="fa fa-angle-down"></i>
+                          <div class="sub_pop">
+                              <span>刀具种类</span>
+                              <span>刀具种类</span>
+                              <span>刀具种类</span>
+                          </div>
+                      </div>-->
+
+                      <div class="date knife_date">
+                          <span class="date_t">日期选择</span>
+                          <input type="text" class="date_wrap tcalInput" onfocus="WdatePicker();" id="equpTypeTimeBegin" name="equpTypeTimeBegin" />
+
+                          <span class="zhi">到</span>
+                          <input type="text" class="date_wrap tcalInput" onfocus="WdatePicker();" id="equpTypeTimeEnd" name="equpTypeTimeEnd" />
+
+                      </div>
+                  </div>
+                  <div class="item clearfix">
+                      <div class="item_l">对比项</div>
+                      <div class="item_r">
+                      
+                          <div class="item_r_b">
+                              <i class="fa fa-check-square" id="Chk1Y"></i>
+                              <i class="fa fa-square-o"  id="Chk1N" style="display: none"></i>
+                              <span>更换刀具次数</span>
+                              <i class="fa fa-check-square" id="Chk2Y"></i>
+                              <i class="fa fa-square-o"  id="Chk2N" style="display: none"></i>
+                              <span>平均加工次数</span>
+                          </div>
+                          
+                      </div>
+                  </div>
+                  <div class="search"><span class="search_btn pop_btn" id="cutterSearch">查询</span> </div>
+              </div>
+              <!--设备状态对比 end-->
+
+          </div>
+      </div>
+      <div class="right fr">
+          <h4 class="help">帮助</h4>
+          <ul class="help_list">
+              <li>该页面用来统计设备对应刀具信息</li>
+          </ul>
+      </div>
+  </div>
+
+  <!--main end-->
+
+  <!--popUp 弹出层  刀具状态对比结果弹出层 start-->
+  <div id="mask"></div>
+  <div class="popUp">
+      <div class="popUp_t">刀具状态对比结果<div class="close_t"><i class="fa fa-close"></i> </div> </div>
+      <div class="popUp_c">
+          <div class="popUp_c_t clearfix">
+              <div class="popUp_c_l">
+                  <div class="category" style="width: 850px;">
+                      <label class="cate Top_10">设备种类</label>
+                      <span id="deviceNameId"></span>
+                      <!--  <label class="cate Top_10 Top_10_01">刀具种类</label>
+                      <span>锯片铣刀</span>-->
+                      <em>日期</em>
+                      <span id="pouBegin"> </span>
+                      <em>到</em>
+                      <span id="pouEnd"></span>
+                  </div>
+                  <div class="contrast">
+                      <label class="contrast_t contrast_t_01">对比项&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                      <i class="fa fa-check-square"></i>
+                      <span>更换刀具次数</span>
+                      <i class="fa fa-check-square"></i>
+                      <span>平均加工次数</span>
+                  </div>
+              </div>
+              <div class="popUp_c_t_r fr">
+                  <a class="export" href="javascript:;" id="exportStatusComp">数据导出</a>
+              </div>
+          </div>
+          <div class="line"></div>
+          <div class="popUp_c_c">
+            <div id="changeCounterChart" style="height: 300px;width: 475px;float: left"></div>
+            <div id="averageProcessNumChart" style="height: 300px;width: 475px;float: right;"></div>
+          </div>
+      </div>
+  </div>
+  <!--popUp 弹出层 刀具状态对比结果弹出层 end-->
+
+
+
+  </body>
+</html>

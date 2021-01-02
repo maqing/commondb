@@ -1,5 +1,6 @@
 package com.commondb.app.web;
 
+import com.commondb.app.common.SysConfig;
 import com.commondb.app.common.meta.CharacterField;
 import com.commondb.app.common.meta.Field;
 import com.commondb.app.common.meta.FieldFactory;
@@ -14,11 +15,14 @@ import com.commondb.db.bo.User;
 import com.commondb.db.service.EntityService;
 import com.commondb.db.service.MetaService;
 import com.opensymphony.xwork2.Preparable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 public class InputPageGenAction
@@ -47,7 +51,7 @@ public class InputPageGenAction
     if (this.metaId == null)
     {
       if ((this.entityName == null) || (this.entityName.equals(""))) {
-        this.entityName = "通讯录";
+        this.entityName = SysConfig.DefaultEntityName;
       }
       if ((this.entityName == null) || (this.entityName.equals(""))) {
         return "success";
@@ -191,9 +195,9 @@ public class InputPageGenAction
 			+ "','关联属性_display','relation')\" src=\"/app/img/del-icon.png\"></div>"
 			+ "<input value=\"" + this.toRMetaId + "_" + this.toREntityId + "_" + this.toRMetaName
 			+ "：" + this.toRLabel + "\" name=\"relation\" id=\"relation\" type=\"hidden\">"
-			+ "<img src=\"/app/img/add-icon.png\" alt=\"find\" onclick=\"selectEntity('通讯录','关联属性_display','relation')\" width=\"16\" height=\"16\">");
+			+ "<img src=\"/app/img/add-icon.png\" alt=\"find\" onclick=\"selectEntity('"+ SysConfig.DefaultEntityName+"','关联属性_display','relation')\" width=\"16\" height=\"16\">");
     } else {
-      this.rOutHtml = "<div id=\"关联属性_display\"> </div><input type=\"hidden\" value=\"\" name=\"relation\" id=\"relation\"/> <img width=\"16\" height=\"16\" src=\"/app/img/add-icon.png\" alt=\"find\" onclick=\"selectEntity('通讯录','关联属性_display','relation')\">";
+      this.rOutHtml = "<div id=\"关联属性_display\"> </div><input type=\"hidden\" value=\"\" name=\"relation\" id=\"relation\"/> <img width=\"16\" height=\"16\" src=\"/app/img/add-icon.png\" alt=\"find\" onclick=\"selectEntity('"+ SysConfig.DefaultEntityName+"','关联属性_display','relation')\">";
     }
     for (Object fieldObj : this.fieldsList)
     {

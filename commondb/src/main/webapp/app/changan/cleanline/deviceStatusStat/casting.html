@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8"/>
+      <title>后处理单元-铸件加工</title>
+      <link rel="stylesheet" href="/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/css/system.css">
+      <link rel="stylesheet" href="/css/tcal.css">
+      <style>
+          body{
+              overflow-y: auto;
+          }
+      </style>
+    <script type="text/javascript" src="../_lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../_lib/system.js"></script>
+   
+	<link rel="stylesheet" type="text/css" href="../css/ui-lightness/jquery-ui-1.7.2.custom.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="../_lib/jqgrid4.5/ui.jqgrid.css" />
+	<script src="../_lib/jqgrid4.5/jquery.jqGrid.js" type="text/javascript"></script>
+	<script src="../_lib/jqgrid4.5/grid.locale-cn.js" type="text/javascript"></script>
+	
+	<script type="text/javascript" src="../_lib/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="../_lib/dateTool.js"></script>
+	
+	
+    <script type="text/javascript">
+       function queryCasting(timeBegin,timeEnd) {
+			var sdata = {   // 构建查询需要的参数  
+					workpieceCode: $("#workpieceCode").val(),
+					timeBegin : timeBegin,
+					timeEnd : timeEnd
+			    };  
+			      
+		    // 获得当前postData选项的值  
+		    var postData = $("#castGridTable").jqGrid("getGridParam", "postData");  
+		      
+		    // 将查询参数融入postData选项对象  
+		    $.extend(postData, sdata);  
+		      
+		    $("#castGridTable").jqGrid("setGridParam", {  
+		        search: true,    // 将jqGrid的search选项设为true
+		        datatype: "json"
+		    }).trigger("reloadGrid", [{page:1}]);   // 重新载入Grid表格，以使上述设置生效  
+		    
+		   // $("#btnRunExport").attr("disabled",false); 
+		}
+    
+    
+         $(function(){
+        	 $("#apply6").addClass("nav_cur");
+        	 $("#statMenu29").addClass("left_nav_cur");
+        	 
+        	 $("#equpTypeTimeBegin").val(GetDateStr(-10));
+        	 $("#equpTypeTimeEnd").val(GetDateStr(1));
+        	 
+        	 $("#castGridTable").jqGrid({
+        		 autowidth:true,
+        		 url:"/app/manufactureStat/queryManufactureInfo.ac",
+        		 postData: {timeBegin:$("#equpTypeTimeBegin").val(),timeEnd:$("#equpTypeTimeEnd").val()},
+        		 datatype:"json",
+        		 mtype: "GET",
+        		 height:'100%',
+        		 colNames:['工件代码','加工日期','工件状态','设备号','完成时间','设备号','完成时间','设备号','完成时间','是否人工上线'],
+        		 colModel:[
+        		   {name:'wpname',index:'wpname', width:43,key:true,align:'center'},
+        		   {name:'wpdate',index:'wpdate', width:22},
+        		   {name:'wpstate',index:'wpstate', width:20,align:'center'},
+        		   {name:'shockname',index:'shockname', width:20,align:'center'},
+        		   {name:'shocktime',index:'shocktime', width:20,align:'center'},
+        		   {name:'machinename',index:'machinename', width:20,align:'center'},
+        		   {name:'machinetime',index:'machinetime', width:20,align:'center'},
+        		   {name:'cgcname',index:'cgcname', width:20,align:'center'},
+        		   {name:'cgctime',index:'cgctime', width:20,align:'center'},
+        		   {name:'isRemake',index:'isRemake', width:29,key:true,align:'center'}
+        		 ],
+        		 rowNum:15,
+        		 rowList: [15,50,100],
+        		 prmNames: {search: "search"},
+        		 jsonReader: {
+        			userdata: "userdata",
+        			root:"gridModel",
+        			page:"page",
+        			total:"total",
+        			records:"record",
+        			id:"wpname",
+     		        repeatitems : false 
+     		     },
+    			 userDataOnFooter : true,
+    			 pager: "#castGridPager", 
+     		     viewrecords: true, 
+     		     caption: "",
+     		     hidegrid: false
+        	 });
+        	 
+        	 $("#castGridTable").jqGrid('setGroupHeaders',{
+        		 useColSpanStyle:true,
+        		 groupHeaders:[
+        		    {startColumnName:'shockname', numberOfColumns:2, titleText: '<div align="center"><span>震动落砂</span></div>'},
+        		    {startColumnName:'machinename', numberOfColumns: 2, titleText: '<div align="center"><span>加工中心</span></div>'},
+        		    {startColumnName:'cgcname', numberOfColumns: 2, titleText: '<div align="center"><span>毛刺清理</span></div>'}
+        		 ]
+        	 });
+        	 
+        	 $("#exportCasting").click(function(){
+        		 window.location.href= '/app/manufactureStat/queryCastingExport.ac?workpieceCode='+$("#workpieceCode").val()
+   				+'&timeBegin='+$("#equpTypeTimeBegin").val() + '&timeEnd=' + $("#equpTypeTimeEnd").val();
+        	 });
+        	 
+        	 /*if($("#equpTypeTimeBegin").val() != "" || $("#equpTypeTimeEnd").val() != ""){
+        		 queryCasting($("#equpTypeTimeBegin").val(),$("#equpTypeTimeEnd").val());
+        	 }*/
+        	 
+         });
+      </script>
+
+  </head>
+  <body>
+  <!--top start-->
+     #parse("/app/header.vm")
+  <!--top end-->
+
+  <!--main start-->
+  <div class="main">
+      <div class="left fl">
+          <!-- left menu start -->
+          #parse("/app/newmenu.vm")
+          <!-- left menu end -->
+          <div class="left_r fr">
+              <div class="location">后处理单元 > <span>铸件加工信息查询</span></div>
+              <div class="basic_query clearfix">
+                  <h4 class="basic_t">铸件加工情况查询</h4>
+
+                  <div class="casting_wrap clearfix" style="margin-bottom: 10px;">
+                      <div class="casting_l">
+                          <form>
+                            <input class="casting_inpt" type="text" style="width: 110px;" name="workpieceCode" id="workpieceCode" placeholder="输入铸件代码"/>
+                            <div class="date">
+	                          <span class="date_t">日期选择</span>
+	                          <input type="text" class="date_wrap tcalInput" onfocus="WdatePicker();" id="equpTypeTimeBegin" />
+	                          <span class="zhi">到</span>
+	                          <input type="text" class="date_wrap tcalInput" onfocus="WdatePicker();" id="equpTypeTimeEnd" />
+                            </div>
+                          </form>
+                      </div>
+                      
+                      <div>
+                         <span class="casting_inquire" style="width:50px;margin-left: -20px;text-align: center; " id="searchId" onclick="queryCasting($('#equpTypeTimeBegin').val(),
+                        	 $('#equpTypeTimeEnd').val())">查询</span>
+                          <span id="exportCasting" class="casting_inquire" style="width:50px;margin-left: 15px;">导出</span>
+                      </div>
+                      
+                  </div>
+                  <!--表格 start-->
+                    <table id="castGridTable"></table> 
+		            <div id="castGridPager" style="width: 100%"></div>
+                  <!--表格 end-->
+
+              </div>
+
+          </div>
+      </div>
+      <div class="right fr">
+          <h4 class="help">帮助</h4>
+          <ul class="help_list">
+              <li><a href="#">该页面用来查询铸件加工信息</a></li>
+          </ul>
+      </div>
+  </div>
+
+  <!--main end-->
+
+  <!--popUp 弹出层  刀具状态对比结果弹出层 start-->
+  <div id="mask"></div>
+  <div class="popUp">
+      <div class="popUp_t">刀具状态对比结果<div class="close_t"><i class="fa fa-close"></i> </div> </div>
+      <div class="popUp_c">
+          <div class="popUp_c_t clearfix">
+              <div class="popUp_c_l">
+                  <div class="category">
+                      <label class="cate Top_10">设备种类</label>
+                      <span>加工中心</span>
+                      <label class="cate Top_10 Top_10_01">刀具种类</label>
+                      <span>锯片铣刀</span>
+                      <em>日期</em>
+                      <span>2015-03-01</span>
+                      <em>到</em>
+                      <span>2016-03-01</span>
+                  </div>
+                  <div class="contrast">
+                      <label class="contrast_t contrast_t_01">对比项&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                      <i class="fa fa-check-square"></i>
+                      <span>更换刀具次数</span>
+                      <i class="fa fa-check-square"></i>
+                      <span>平均加工次数</span>
+                  </div>
+              </div>
+              <div class="popUp_c_t_r fr">
+                  <a class="export" href="javascript:;">数据导出</a>
+              </div>
+          </div>
+          <div class="line"></div>
+          <div class="popUp_c_c">
+              <img src="images/knife.jpg" alt="img"/>
+          </div>
+      </div>
+  </div>
+  <!--popUp 弹出层 刀具状态对比结果弹出层 end-->
+
+
+
+  </body>
+</html>

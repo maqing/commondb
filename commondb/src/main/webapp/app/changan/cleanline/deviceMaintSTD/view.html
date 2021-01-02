@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>查看设备维护保养标准</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<style media="all" type="text/css">@import "../css/all.css";</style>
+	<script src="../_lib/jquery-1.4.2.min.js" type="text/javascript"> </script>
+
+	<script type='text/javascript' src='../_lib/jquery.bgiframe.min.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.ajaxQueue.js'></script>
+	<script type='text/javascript' src='../_lib/jquery.autocomplete.js'></script>
+	<script type='text/javascript' src='../_lib/common.js'></script>
+	
+	
+	<link rel="stylesheet" type="text/css" href="../_lib/jquery.autocomplete.css" />
+	
+	
+	<script type='text/javascript' >
+		$(document).ready(function(){
+			$("#设备维护保养标准").addClass("active");
+	    });
+
+  
+	</script>
+	
+	
+		
+</head>
+
+<body>
+  	#if(!$toRMetaId) 
+<div id="main">
+	<div id="header">
+		<!-- 头部 -->
+		#parse("/app/header.vm")
+	</div>
+	<div id="middle">
+		<div id="center-column">
+		<div id="top-bar" class="top-bar">
+			<!-- 菜单 -->
+			#parse("/app/newmenu.vm")
+		</div>
+
+		<div class="break-bar"></div>
+	#end
+
+		<form name="newEntity" id="newEntity" action="/app/deviceMaintSTD/saveEntity.ac" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="metaId" value="${metaId}"/>
+		<input type="hidden" name="toRMetaId" value="$!toRMetaId"/>
+		<div class="table">
+				<img width="8" height="7" class="left" alt="" src="img/bg-th-left.gif"/>
+				<img width="7" height="7" class="right" alt="" src="img/bg-th-right.gif"/>
+				<table cellspacing="0" cellpadding="0" class="listing form">
+					<tbody>
+					
+						
+					<tr>
+						<th colspan="2" class="full">查看设备维护保养标准</th>
+					</tr>
+				#foreach(${f} in ${picFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+				#foreach(${f} in ${descFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+				#foreach(${f} in ${hierFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+				#foreach(${f} in ${charaFields})	
+
+					<tr>
+						<td width="172" class="first"><strong>$f.fieldId</strong></td>
+						<td class="last">$!f.displayValue</td>
+					</tr>
+
+				#end	
+						
+					<tr>
+						<td width="172" class="first"><strong>关联属性</strong></td>
+						<td class="last">
+						#foreach(${f} in ${rEntityList})
+						<a href="/app/tool/viewEntity.ac?metaId=$f.meta2Id&entityId=$f.entity2Id" > $!f.label </a> <br/> 	
+						#end
+						</td>
+					</tr>
+					
+					
+					<tr class="bg">
+						<td class="first"><strong></strong></td>
+					  <td>
+					  	#if(!$toRMetaId) 
+					  		<input type="button" onclick="javascript:history.go(-1);" value="返回"/>
+					  	#else
+					  		<input type="button" onclick="window.close();" value="关闭"/>
+					  	#end
+					  <input type="button" value="提醒" onclick= "remind('$metaId','$entityId');" /></td>
+					</tr>
+					
+				</tbody></table>
+				
+			</form>	
+	        <p>&nbsp;</p>
+		  </div>
+		  
+		</div>
+		#if(!$toRMetaId) 
+		<div id="right-column-tip">
+			<strong class="h">帮助</strong>
+			<div class="box">该页面是用来查看设备维护保养标准</div>
+			#parse("/app/tool/right.vm")
+	  </div>
+	</div>
+	<!-- 页脚 -->
+	<div id="footer">#parse("/app/footer.vm")</div>
+</div>
+	    #end
+
+</body>
+
+</html>
